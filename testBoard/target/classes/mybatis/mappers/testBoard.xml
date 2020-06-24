@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TestBoardVO">
+	<select id="testBoardList" resultType="TestBoardVO">
+		SELECT seqno, title,
+		contents, regdate
+		FROM test_metami
+	</select>
+	<select id="testBoardView" parameterType="TestBoardVO" resultType="TestBoardVO">
+		SELECT seqno, title,
+		contents, regdate
+		FROM test_metami
+		where seqno = #{seqno}
+	</select>
+	<insert id="testBoardInsert" parameterType="TestBoardVO">
+		INSERT INTO
+		test_metami
+		(title, contents, regdate)
+		VALUES(#{title}, #{contents},
+		now())
+	</insert>
+	<update id="testBoardUpdate" parameterType="TestBoardVO">
+		UPDATE test_metami
+		SET title=#{title}, contents=#{contents}
+		WHERE seqno= #{seqno}
+	</update>
+	<delete id="testBoardDelete" parameterType="TestBoardVO">
+		DELETE FROM
+		test_metami
+		WHERE seqno=#{seqno}
+	</delete>
+		<insert id="MemberInsert" parameterType="TestBoardVO">
+		INSERT INTO
+		test_metami
+		(title, contents, regdate)
+		VALUES(#{title}, #{contents},
+		now())
+	</insert>
+</mapper>
