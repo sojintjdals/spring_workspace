@@ -10,7 +10,7 @@
 		response.sendRedirect("/test/list.do");
 	} else {
 		response.sendRedirect("/test/list.do");
-
 	}
 </script>
+</head>
 </html>

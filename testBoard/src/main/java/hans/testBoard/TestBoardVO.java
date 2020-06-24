@@ -3,7 +3,7 @@ package hans.testBoard;
 public class TestBoardVO {
 //	CREATE TABLE `test_metami` (
 //			  `seqno` int(11) NOT NULL AUTO_INCREMENT,
-//			  `title` varchar(100) DEFAULT NULL,
+//			  `title` varchar(100) NOT NULL,
 //			  `contents` varchar(1000) DEFAULT NULL,
 //			  `regdate` datetime DEFAULT NULL,
 //			  PRIMARY KEY (`seqno`)

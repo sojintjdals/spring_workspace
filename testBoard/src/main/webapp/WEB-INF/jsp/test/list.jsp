@@ -20,20 +20,29 @@
 			$("#frm").submit();
 		});
 		$("#insertMember").click(function() {
-			location.href("/test/insertMember.do")
+			$("#lfm").attr("action", "/test/mInsert.do");
+			$("#lfm").submit();
+		});
+		$("#loginmember").click(function() {
+			$("#lfm").attr("action", "/test/Login.do");
+			$("#lfm").submit();
 		});
 		var message = '${message}';
-		if(message){
+		if (message) {
 			alert(message);
 		}
 	});
-		
 </script>
 </head>
 <body>
 	<h1>리스트</h1>
-	<input type="button" value="로그인">
-	<input type="button" value="회원가입" id="insertMember">
+	<c:if test="${msg == 'success' }">
+	<h2> ${sessionScope.getName}(${sessionScope.getId})님 환영합니다.</h2>	
+	</c:if>
+	<form id="lfm" action='/test/view.do'>
+		<input type="button" name="loginmember" id="loginmember" value="로그인">
+		<input type="button" name="insertMember" id="insertMember" value="회원가입">
+	</form>
 	<form id="frm" action='/test/view.do'>
 		<input type="hidden" name="seqno" id="seqno">
 		<table>

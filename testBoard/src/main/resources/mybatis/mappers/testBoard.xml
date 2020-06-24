@@ -30,11 +30,4 @@
 		test_metami
 		WHERE seqno=#{seqno}
 	</delete>
-		<insert id="MemberInsert" parameterType="TestBoardVO">
-		INSERT INTO
-		test_metami
-		(title, contents, regdate)
-		VALUES(#{title}, #{contents},
-		now())
-	</insert>
 </mapper>

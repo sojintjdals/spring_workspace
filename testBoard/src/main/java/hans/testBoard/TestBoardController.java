@@ -22,6 +22,7 @@ public class TestBoardController {
 			model.addAttribute("resultList", service.testBoardList());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			System.out.println("hello");
 			e.printStackTrace();
 		}
 		return "test/list";
