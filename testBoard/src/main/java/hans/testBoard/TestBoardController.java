@@ -2,6 +2,7 @@ package hans.testBoard;
 
 import java.util.List;
 
+import org.apache.commons.validator.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ public class TestBoardController {
 	public String list(Model model) {
 		try {
 			model.addAttribute("resultList", service.testBoardList());
+			System.out.println(service.testBoardList());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("hello");

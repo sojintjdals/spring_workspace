@@ -6,6 +6,7 @@
 		SELECT seqno, title,
 		contents, regdate
 		FROM test_metami
+		<!-- date_format(regdate, '%Y-%m-%d') -->
 	</select>
 	<select id="testBoardView" parameterType="TestBoardVO" resultType="TestBoardVO">
 		SELECT seqno, title,

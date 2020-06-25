@@ -9,6 +9,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="<c:url value='/css/bulma-0.9.0/bulma.min.css' />">
 <script>
 	$(document).ready(function() {
 		$("tr").click(function() {
@@ -27,29 +29,42 @@
 			$("#lfm").attr("action", "/test/Login.do");
 			$("#lfm").submit();
 		});
+		$("#logout").click(function() {
+			$("#lfm").attr("action", "/test/logout.do");
+			$("#lfm").submit();
+		});
 		var message = '${message}';
 		if (message) {
 			alert(message);
 		}
 	});
 </script>
+<link href="<c:url value="/css/list.css" />" rel="stylesheet"
+	type="text/css">
 </head>
 <body>
-	<h1>리스트</h1>
-	<c:if test="${msg == 'success' }">
-	<h2> ${sessionScope.getName}(${sessionScope.getId})님 환영합니다.</h2>	
+	<h1 id="title">Simple Board</h1>
+	<c:if test="${not empty userId}">
+		<h2>${userName}(${userId})님환영합니다.</h2>
+		<form id="lfm" action='/test/view.do'>
+			<input type="button" name="logout" id="logout" value="로그아웃">
+		</form>
 	</c:if>
-	<form id="lfm" action='/test/view.do'>
-		<input type="button" name="loginmember" id="loginmember" value="로그인">
-		<input type="button" name="insertMember" id="insertMember" value="회원가입">
-	</form>
+	<c:if test="${empty userId}">
+		<form id="lfm" action='/test/view.do'>
+			<button class="button is-primary is-light" name="loginmember"
+				id="loginmember">로그인</button>
+			<button class="button is-primary is-light" name="insertMember"
+				id="insertMember">회원가입</button>
+		</form>
+	</c:if>
 	<form id="frm" action='/test/view.do'>
 		<input type="hidden" name="seqno" id="seqno">
-		<table>
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>등록일</th>
+		<table id="list" class="table">
+			<tr id="top_tr">
+				<th id="top_th">번호</th>
+				<th id="top_th">제목</th>
+				<th id="top_th">등록일</th>
 			</tr>
 			<!-- status.count는 1,2,3 순서로 숫자찍음 -->
 			<c:forEach items="${resultList}" var="result" varStatus="status">
@@ -59,10 +74,10 @@
 					<td>${result.regdate}</td>
 				</tr>
 			</c:forEach>
-			<tr>
-				<td><input type="button" value="글쓰기" id="writing"></td>
-			</tr>
 		</table>
+		<c:if test="${not empty userId}">
+			<input type="button" value="글쓰기" id="writing">
+		</c:if>
 	</form>
 </body>
 </html>

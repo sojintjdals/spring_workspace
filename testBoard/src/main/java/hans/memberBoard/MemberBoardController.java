@@ -1,5 +1,6 @@
 package hans.memberBoard;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +20,7 @@ import hans.testBoard.TestBoardVO;
 public class MemberBoardController {
 
 	@Autowired
-	MemberBoardService service;
+	MemberBoardServiceImpl service;
 	
 	@RequestMapping(value = "Login.do", method = RequestMethod.GET)
 	public String LoginGet() {
@@ -27,31 +28,36 @@ public class MemberBoardController {
 	}
 	
 	@RequestMapping(value = "Login.do", method = RequestMethod.POST)
-	public ModelAndView LoginPost(@ModelAttribute MemberBoardVO vo, HttpServletRequest request) {
+	public ModelAndView LoginPost(@ModelAttribute MemberBoardVO vo, HttpSession session) {
 		boolean result = false;
+		String msg = null;
 		try {
-			result = service.loginCheck(vo, request.getSession());
+			result = service.loginCheck(vo, session);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ModelAndView mav = new ModelAndView();
 		if(result) {
-			mav.setViewName("test/list");
+			System.out.println(result);
+			mav.setViewName("redirect:list.do");
 			mav.addObject("msg", "success");
+			msg = "success";
 		} else {
-			mav.setViewName("test/list");
+			mav.setViewName("redirect:list.do");
 			mav.addObject("msg", "failure");
+			msg = "failure";
 		}
 		return mav;
 	}
 	
 	@RequestMapping("logout.do")
 	public ModelAndView logout(HttpSession session) {
-		service.logout(session);
+//		service.logout(session);
+		session.invalidate();
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("test/list");
-		mav.addObject("msg","logout");
+		mav.setViewName("redirect:list.do");
+		mav.addObject("msg","failure");
 		return mav;
 	}
 	
@@ -65,13 +71,15 @@ public class MemberBoardController {
 		int result = 0;
 		try {
 			result = service.memberBoardInsert(vo);
+			rttr.addFlashAttribute("message", "회원가입에 성공하였습니다.");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			rttr.addFlashAttribute("message", "회원가입에 실패하였습니다.");
 		}
 		System.out.println("==========> " + result);
-		rttr.addFlashAttribute("message", "데이터 저장이 성공하였습니다.");
-		return "redirect:/test/list.do";
+		
+		return "redirect:/list.do";
 	}
 	
 	@RequestMapping("mDelete.do")

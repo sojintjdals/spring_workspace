@@ -56,4 +56,5 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 		// TODO Auto-generated method stub
 		return dao.memberBoardDelete(vo);
 	}
+	
 }

@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="<c:url value='/css/bulma-0.9.0/bulma.min.css' />">
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#writing").click(function() {
@@ -47,15 +48,8 @@
 				<td><input type="password" name="password" id="password"></td>
 			</tr>
 			<tr>
-				<td><input type="button" value="로그인" id="writing"> <%-- 	<c:if test="${msg == 'failure'}">
-						<div style="color: red;">
-							아이디 또는 비밀번호가 일치하지 않습니다.
-						</div>
-					</c:if> --%> <%-- 	<c:if test="${msg == 'logout'}">
-						<div style="color: red;">
-						로그아웃되었습니다.
-						</div>
-					</c:if> --%> <input type="reset" value="취소"></td>
+				<td><input type="button" value="로그인" id="writing" class="button is-primary is-light">
+				 <input type="button" class="button is-primary is-light" value="취소"></td>
 			</tr>
 		</table>
 	</form>
