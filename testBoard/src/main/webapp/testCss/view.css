@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+#h {
+	text-align: center;
+	color: gray;
+	font-size: 30px;
+	font-weight: 600;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#border {
+	border: 1px solid gray;
+	width: 50%;
+	margin-right: 25%;
+	margin-left: 25%;
+	padding-bottom: 10%;
+}
+#frm {
+	width: 50%;
+	margin-top: 50px;
+}
+
+#frt {
+	text-align: center;
+	height: 100%;
+	width: 100%;
+	margin-left: 25%;
+}
+#bt {
+	padding-top: 5%;
+}
+	
+.input {
+	margin-bottom:20px;
+	width: 100%;
+}
+#modify, #delete, #back{
+	border: 1px solid;
+}
+.title{
+	font-size: 20px;
+}
+.content{
+	font-size: 10px;
+}

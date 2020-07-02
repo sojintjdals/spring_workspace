@@ -79,7 +79,7 @@ public class MemberBoardController {
 		}
 		System.out.println("==========> " + result);
 		
-		return "redirect:/list.do";
+		return "redirect:list.do";
 	}
 	
 	@RequestMapping("mDelete.do")

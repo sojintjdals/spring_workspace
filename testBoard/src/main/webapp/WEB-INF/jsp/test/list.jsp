@@ -39,45 +39,50 @@
 		}
 	});
 </script>
-<link href="<c:url value="/css/list.css" />" rel="stylesheet"
+<link href="<c:url value="/testCss/list.css" />" rel="stylesheet"
 	type="text/css">
 </head>
 <body>
 	<h1 id="title">Simple Board</h1>
-	<c:if test="${not empty userId}">
-		<h2>${userName}(${userId})님환영합니다.</h2>
-		<form id="lfm" action='/test/view.do'>
-			<input type="button" name="logout" id="logout" value="로그아웃">
-		</form>
-	</c:if>
-	<c:if test="${empty userId}">
-		<form id="lfm" action='/test/view.do'>
-			<button class="button is-primary is-light" name="loginmember"
-				id="loginmember">로그인</button>
-			<button class="button is-primary is-light" name="insertMember"
-				id="insertMember">회원가입</button>
-		</form>
-	</c:if>
-	<form id="frm" action='/test/view.do'>
-		<input type="hidden" name="seqno" id="seqno">
-		<table id="list" class="table">
-			<tr id="top_tr">
-				<th id="top_th">번호</th>
-				<th id="top_th">제목</th>
-				<th id="top_th">등록일</th>
-			</tr>
-			<!-- status.count는 1,2,3 순서로 숫자찍음 -->
-			<c:forEach items="${resultList}" var="result" varStatus="status">
-				<tr data-id="${result.seqno}">
-					<td>${status.count}</td>
-					<td>${result.title}</td>
-					<td>${result.regdate}</td>
-				</tr>
-			</c:forEach>
-		</table>
+	<div>
 		<c:if test="${not empty userId}">
-			<input type="button" value="글쓰기" id="writing">
+			<div id="login">
+				<span id="welcome">${userName}(${userId})님환영합니다.</span>
+				<form id="lfm" class="lfm" action='/test/view.do'>
+					<input type="button" name="logout"
+						class="button is-primary is-light" id="logout" value="로그아웃">
+				</form>
+			</div>
 		</c:if>
-	</form>
+		<c:if test="${empty userId}">
+			<form id="lfm" class="login" action='/test/view.do'>
+				<button class="button is-primary is-light" name="loginmember"
+					id="loginmember">로그인</button>
+				<button class="button is-primary is-light" name="insertMember"
+					id="insertMember">회원가입</button>
+			</form>
+		</c:if>
+		<form id="frm" action='/test/view.do'>
+			<input type="hidden" name="seqno" id="seqno">
+			<table id="list" class="table">
+				<tr id="top_tr">
+					<th id="top_th">번호</th>
+					<th id="top_th">제목</th>
+					<th id="top_th">등록일</th>
+				</tr>
+				<!-- status.count는 1,2,3 순서로 숫자찍음 -->
+				<c:forEach items="${resultList}" var="result" varStatus="status">
+					<tr data-id="${result.seqno}">
+						<td>${status.count}</td>
+						<td>${result.title}</td>
+						<td>${result.regdate}</td>
+					</tr>
+				</c:forEach>
+			</table>
+			<c:if test="${not empty userId}">
+				<input type="button" class="button is-primary is-light" value="글쓰기" id="writing">
+			</c:if>
+		</form>
+	</div>
 </body>
 </html>

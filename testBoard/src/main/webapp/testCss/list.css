@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+#title{
+	text-align:center;
+	color: gray;
+	font-size: 30px;
+	font-weight: 600;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#list {
+	width: 40%;
+	margin-top: 50px;
+	margin-left: 30%;
+	text-align: center;
+}
+#list:hover{
+	cursor: pointer;
+}
+
+#top_tr {
+	background-color: skyblue;
+}
+td{
+	border-bottom: 1px solid gray;
+}
+
+.lfm{
+margin: 0;
+display: inline;
+}
+#welcome{
+	color: black;
+	font-size: 25px;
+	font-weight: bold;	
+	display: inline;
+}
+#login{
+	display: inline;
+	margin-left: 40%
+}
+#logout{
+	border: 1px solid;
+}
+.login{
+	margin-left: 15%;
+	position: absolute;
+}
+#back, #writing{
+	margin-left: 65%;
+	border: 1px solid;
+}
