@@ -64,11 +64,11 @@ public class TestBoardController {
 	public String insertGetUpdate(Model model, TestBoardVO vo) {
 		try {
 			model.addAttribute("resultUpdate", service.testBoardView(vo));
+			System.out.println("들어가기 성공!");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("들어가기 성공!");
 		return "test/modify";
 	}
 

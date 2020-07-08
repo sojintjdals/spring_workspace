@@ -33,7 +33,28 @@
 #back ,#writing{
 	border: 1px solid;
 }
-.input {
+#id, #password, #name {
 	margin-bottom:20px;
 	width: 300px;
+}
+#phone1{
+	width:50px;
+}
+#phone2, #phone3{
+	width: 60px;
+}
+#email1{
+	width:120px;
+}
+#email2{
+	width: 70px;
+}
+#email3{
+	width: 60px;
+}
+.1{
+width: 10px;
+}
+.2{
+width: 10px;
 }

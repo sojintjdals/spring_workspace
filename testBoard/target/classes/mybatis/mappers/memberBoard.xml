@@ -7,17 +7,20 @@
 	<insert id="MemberInsert" parameterType="MemberBoardVO">
 		INSERT INTO
 		member_metami
-		(id, password, name)
-		VALUES(#{id}, #{password}, #{name})
+		(id, password, name, phone, email)
+		VALUES(#{id},
+		#{password}, #{name}, concat(#{phone1}, '-', #{phone2}, '-',
+		#{phone3}), concat(#{email1}, '@', #{email2}, '.', #{email3}))
 	</insert>
-	
+	<!-- 멤버뷰도 사용 -->
 	<select id="loginCheck" resultType="MemberBoardVO">
-		SELECT id, name FROM member_metami
+		SELECT id, name, phone, email FROM
+		member_metami
 		where id = #{id} and password = #{password}
 	</select>
-	<select id="viewMember" resultType="MemberBoardVO">
-		SELECT id,name FROM member_metami
-		where id = #{id} and password = #{password}
+	<select id="MemberView" resultType="MemberBoardVO">
+		SELECT * FROM member_metami
+		where id = #{id}
 	</select>
 	<!-- 회원탈퇴 -->
 	<delete id="MemberDelete" parameterType="MemberBoardVO">
@@ -25,4 +28,10 @@
 		member_metami
 		WHERE id=#{id}
 	</delete>
+		<update id="MemberUpdate" parameterType="MemberBoardVO">
+			UPDATE member_metami
+			SET id=#{id}, contents=#{contents}, phone=concat(#{phone1}, '-', #{phone2}, '-',
+		#{phone3}), email=concat(#{email1}, '@', #{email2}, '.', #{email3}))
+			WHERE id= #{id}
+	</update>
 </mapper>

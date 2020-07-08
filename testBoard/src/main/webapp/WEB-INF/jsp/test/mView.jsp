@@ -14,8 +14,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#modify").click(function() {
-			$("#frm").attr("action", "/test/modify.do");
-			$("#frm").submit();
+			$("#lrm").attr("action", "/test/mModify.do");
+			$("#lrm").submit();
 		});
 	});
 
@@ -33,8 +33,8 @@
 			}
 		});
 		$("#back").click(function() {
-			$("#frm").attr("action", "/test/list.do");
-			$("#frm").submit();
+			$("#lrm").attr("action", "/test/list.do");
+			$("#lrm").submit();
 		})
 	});
 </script>
@@ -46,38 +46,41 @@
 <body>
 	<h1 id="h">리스트</h1>
 	<div id="border">
-		<form id="frm" action='/test/modify.do'>
+		<form id="lrm" class="mList" action='/test/mModify.do'>
 			<div id="frt">
-				<table id="frt">
+				<table id="lrt">
 					<tr>
-						<td><input type="hidden" name="seqno" id="seqno"
-							value="${result.seqno}"></td>
-					</tr>
-					<tr>
-						<td><input type="hidden" name="userId" id="userId"
-							value="${userName}(${userId})"></td>
-					</tr>
-					<tr>
-						<th>제목</th>
+						<th>이름</th>
 					</tr>
 					<tr>
 						<td><input type="text" class="input" name="title" id="title"
-							value="${result.title}" readonly></td>
+							value="${userName}" readonly></td>
 					</tr>
 					<tr>
-						<th>내용</th>
+						<th>아이디</th>
 					</tr>
 					<tr>
-						<td><textarea class="textarea is-large color1 size1 width1"
-								name="contents" id="contents" readonly="readonly">${result.contents}</textarea></td>
+						<td><input type="text" class="input" name="userId"
+							id="userId" value="${userId}" readonly="readonly"></td>
 					</tr>
 					<tr>
-						<td id="bt"><c:if test="${not empty userId}">
-								<input type="button" class="button is-primary is-light"
-									value="수정" id="modify">
-								<input type="button" value="삭제" id="delete"
-									class="button is-primary is-light">
-							</c:if> <input type="button" value="홈" id="back"
+						<th>전화번호</th>
+					</tr>
+					<tr>
+						<td><input type="text" class="input" name="userPhone"
+							id="userPhone" value="${userPhone}" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<th>이메일</th>
+					</tr>
+					<tr>
+						<td><input type="text" class="input" name="userPhone"
+							id="userPhone" value="${userEmail}" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td id="bt"><input type="button"
+							class="button is-primary is-light" value="수정" id="modify">
+							<input type="button" value="홈" id="back"
 							class="button is-primary is-light"></td>
 					</tr>
 				</table>

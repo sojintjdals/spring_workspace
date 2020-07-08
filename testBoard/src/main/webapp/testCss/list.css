@@ -1,53 +1,109 @@
 @charset "UTF-8";
 
-#title{
-	text-align:center;
+#title {
+	text-align: center;
 	color: gray;
 	font-size: 30px;
 	font-weight: 600;
-	margin-top: 10px;
-	margin-bottom: 10px;
 }
 
 #list {
-	width: 40%;
-	margin-top: 50px;
-	margin-left: 30%;
 	text-align: center;
 }
-#list:hover{
+
+#list:hover {
 	cursor: pointer;
 }
 
 #top_tr {
 	background-color: skyblue;
 }
-td{
+
+td {
 	border-bottom: 1px solid gray;
 }
 
-.lfm{
-margin: 0;
-display: inline;
+tr:hover {
+	background-color: #c0c0c0;
 }
-#welcome{
+
+#welcome {
 	color: black;
 	font-size: 25px;
-	font-weight: bold;	
-	display: inline;
+	font-weight: bold;
 }
-#login{
-	display: inline;
-	margin-left: 40%
+
+#login {
+	
 }
-#logout{
+
+#logout {
 	border: 1px solid;
 }
-.login{
-	margin-left: 15%;
-	position: absolute;
+
+.login {
+	
 }
-#back, #writing{
-	margin-left: 65%;
+
+#back, #writing {
 	border: 1px solid;
+}
+
+#memberView {
+	border: 1px solid;
+}
+
+.main {
+	display: grid;
+	/* vh는 화면의 비율을 의미 100vh면 현재화면의 100%길이를 의미함 */
+	height: 100vh;
+	/* fr의 경우 남은 공간을 fr의 숫자만큼 분배해준다.*/
+        grid-template-columns: 1fr repeat(3, minmax(300px, 2fr)) 1fr;
+        grid-template-rows: 1fr 5fr 1fr;
+	/* 
+            grid-template를 이용하면 모든설정을 한번에 처리할 수 있다.
+            grid-area롤 각각 영역을 설정하고 오른쪽 끝에 높이를 설정해준다.
+            마지막 높이를 설정 한 후 /표시를 한 뒤 컬럼사이즈를 조절해준다.
+         */
+         
+	grid-template-areas: "header header header header header" 
+		". section section section ." 
+		"footer footer footer footer footer";
+	gap: 3px;
+	/* justify-items: center;
+	align-items: center;
+	/* 
+            grid도 flex와 비슷하게 내부를 태그들도 정렬해줄 수 있다.
+            기본값은 stretch인데 grid로 설정해준 크기만큼 백그라운드 사이즈를 크게 해준것을 의미한다.
+            justify는 가로 align은 세로를 설정한다.
+            각각 start, center, end도 제공하는데 이는 inline처럼 안에 내용크기에 따라 영역이 달라진다.
+            두가지를 같이 설정할수도 있는데 place-items: align justify 이런식으로 설정이 가능하다. 
+           
+             
+            place-items: stretch center;
+            */
+}
+
+header {
+	background-color: aquamarine;
+	font-size: 33px;
+	color: aliceblue;
+	grid-area: header;
+	align-self: center;
+}
+
+section {
+	background-color: pink;
+	font-size: 33px;
+	color: aliceblue;
+	grid-area: section;
+	justify-self: center;
+	align-self: center;
+}
+
+footer {
+	background-color: darkslategray;
+	font-size: 33px;
+	color: aliceblue;
+	grid-area: footer;
 }

@@ -60,14 +60,6 @@
 							id="contents">${resultUpdate.contents}</textarea></td>
 				</tr>
 				<tr>
-					<td><span class="col1">글자색</span> : <select id="selectColor">
-							<option value="black">검정</option>
-							<option value="blue">파랑</option>
-							<option value="green">초록</option>
-							<option value="red">빨강</option>
-					</select></td>
-				</tr>
-				<tr>
 					<td><input type="button" value="완료" id="writing"
 						class="button is-primary is-light"> <input type="button"
 						value="홈" id="back" class="button is-primary is-light"></td>
@@ -75,6 +67,5 @@
 			</table>
 		</form>
 	</div>
-	<script src="/testJs/modify.js"></script>
 </body>
 </html>
