@@ -39,30 +39,36 @@
 	type="text/css">
 </head>
 <body>
-	<h1 id="h">로그인</h1>
-	<div id="border">
 	<form id="lrm" name="lrm" method="post" action='/test/Login.do'>
-		<table id="lrt">
-			<tr>
-				<th>아이디</th>
-			</tr>
-			<tr>
-				<td><input class="input" type="text" name="id" id="id"></td>
-			</tr>
-			<tr>
-				<th>비밀번호</th>
-			</tr>
-			<tr>
-				<td><input class="input" type="password" name="password"
-					id="password"></td>
-			</tr>
-			<tr>
-				<td id="bt"><input type="button" value="로그인" id="writing"
-					class="button is-primary is-light"> <input type="button"
-					id="back" value="홈" class="button is-primary is-light"></td>
-			</tr>
-		</table>
+
+		<div class="main">
+			<header>
+				<h1 id="h">로그인</h1>
+			</header>
+			<div></div>
+			<div></div>
+			<div id="lrt">
+				<div class="th">아이디</div>
+
+				<div>
+					<input class="input" type="text" name="id" id="id">
+				</div>
+
+				<div class="th">비밀번호</div>
+
+				<div>
+					<input class="input" type="password" name="password" id="password">
+				</div>
+				<div id="bt">
+					<input type="button" value="로그인" id="writing"
+						class="button is-primary is-light"> <input type="button"
+						id="back" value="홈" class="button is-primary is-light">
+				</div>
+			</div>
+			<div></div>
+			<div></div>
+			<footer></footer>
+		</div>
 	</form>
-	</div>
 </body>
 </html>

@@ -1,32 +1,27 @@
 @charset "UTF-8";
 
-#title {
+#h1 {
 	text-align: center;
 	color: gray;
 	font-size: 30px;
 	font-weight: 600;
 }
-
-#list {
-	text-align: center;
+.top_tr {
+	width: 100%;
+	height: 100%;
+	background-color: #717F9A;
+	color: white;
+	font-weight: bold;
 }
-
-#list:hover {
-	cursor: pointer;
+.td{
+	background-color:#DFE5F5;
+	width: 100%;
+	height: 100%;
+	border-bottom: 1px solid #90B4E6;
 }
-
-#top_tr {
-	background-color: skyblue;
+#title:hover{
+	text-decoration: underline;
 }
-
-td {
-	border-bottom: 1px solid gray;
-}
-
-tr:hover {
-	background-color: #c0c0c0;
-}
-
 #welcome {
 	color: black;
 	font-size: 25px;
@@ -34,10 +29,10 @@ tr:hover {
 }
 
 #login {
-	
 }
 
 #logout {
+	font-weight: bold;
 	border: 1px solid;
 }
 
@@ -45,12 +40,25 @@ tr:hover {
 	
 }
 
-#back, #writing {
+#loginmember, #insertMember, #back, #writing {
 	border: 1px solid;
+	font-weight: bold;
+}
+div{
+	line-height: 50px;
+	vertical-align: middle;
+	text-align: center;
+}
+#writing{
+	height: 80%;
+	justify-self: end;
+	font-weight: bold;
 }
 
 #memberView {
 	border: 1px solid;
+	font-weight: bold;
+	
 }
 
 .main {
@@ -85,25 +93,30 @@ tr:hover {
 }
 
 header {
-	background-color: aquamarine;
+/* 	background-color: aquamarine;
 	font-size: 33px;
-	color: aliceblue;
+	color: aliceblue; */
 	grid-area: header;
 	align-self: center;
 }
 
 section {
-	background-color: pink;
-	font-size: 33px;
-	color: aliceblue;
 	grid-area: section;
-	justify-self: center;
-	align-self: center;
+	display:grid;
+	grid-template-columns: 1fr 3fr 2fr;
+	grid-auto-rows: 50px;
+	font-size: 17px;
+	place-items:center center;
+	justify-content:center;
+}
+
+section:hover {
+	cursor: pointer;
 }
 
 footer {
-	background-color: darkslategray;
+/* 	background-color: darkslategray;
 	font-size: 33px;
-	color: aliceblue;
+	color: aliceblue; */
 	grid-area: footer;
 }

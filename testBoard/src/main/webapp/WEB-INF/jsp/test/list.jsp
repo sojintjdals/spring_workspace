@@ -13,8 +13,9 @@
 	href="<c:url value='/css/bulma-0.9.0/bulma.min.css' />">
 <script>
 	$(document).ready(function() {
-		$("tr").click(function() {
+		$(".td").click(function() {
 			$("#seqno").val($(this).data("id"));
+			$("#frm").attr("action", "/test/view.do");
 			$("#frm").submit();
 		});
 		$("#writing").click(function() {
@@ -22,20 +23,20 @@
 			$("#frm").submit();
 		});
 		$("#insertMember").click(function() {
-			$("#lfm").attr("action", "/test/mInsert.do");
-			$("#lfm").submit();
+			$("#frm").attr("action", "/test/mInsert.do");
+			$("#frm").submit();
 		});
 		$("#loginmember").click(function() {
-			$("#lfm").attr("action", "/test/Login.do");
-			$("#lfm").submit();
+			$("#frm").attr("action", "/test/Login.do");
+			$("#frm").submit();
 		});
 		$("#logout").click(function() {
-			$("#lfm").attr("action", "/test/logout.do");
-			$("#lfm").submit();
+			$("#frm").attr("action", "/test/logout.do");
+			$("#frm").submit();
 		});
 		$("#memberView").click(function() {
-			$("#lfm").attr("action", "/test/mView.do");
-			$("#lfm").submit();
+			$("#frm").attr("action", "/test/mView.do");
+			$("#frm").submit();
 		});
 		var message = '${message}';
 		if (message) {
@@ -43,61 +44,56 @@
 		}
 	});
 </script>
-<link href="<c:url value="/testCss/reset.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/testCss/list.css" />" rel="stylesheet" type="text/css">
+<link href="<c:url value="/testCss/reset.css" />" rel="stylesheet"
+	type="text/css">
+<link href="<c:url value="/testCss/list.css" />" rel="stylesheet"
+	type="text/css">
 </head>
 <body>
-	<div class="main">
-		<header>
-			<h1 id="title">Simple Board</h1>
+	<form id="frm" action=''>
+		<div class="main">
+			<header>
+				<h1 id="h1">Simple Board</h1>
 				<c:if test="${not empty userId}">
 					<div id="login">
-						<form id="lfm" class="lfm" action='/test/view.do'>
-							<span id="welcome">${userName}(${userId})님환영합니다.</span> <input
-								type="button" name="logout" class="button is-primary is-light"
-								id="logout" value="로그아웃"> <input type="button"
-								name="memberView" class="button is-primary is-light"
-								id="memberView" value="회원정보">
-						</form>
+						<span id="welcome">${userName}(${userId})님환영합니다.</span> <input
+							type="button" name="logout" class="button is-primary is-light"
+							id="logout" value="로그아웃"> <input type="button"
+							name="memberView" class="button is-primary is-light"
+							id="memberView" value="회원정보">
 					</div>
 				</c:if>
 				<c:if test="${empty userId}">
-					<form id="lfm" class="login" action='/test/view.do'>
-						<button class="button is-primary is-light" name="loginmember"
-							id="loginmember">로그인</button>
-						<button class="button is-primary is-light" name="insertMember"
-							id="insertMember">회원가입</button>
-					</form>
+					<button class="button is-primary is-light" name="loginmember"
+						id="loginmember">로그인</button>
+					<button class="button is-primary is-light" name="insertMember"
+						id="insertMember">회원가입</button>
 				</c:if>
-		</header>
-		
-		<section>
-			<form id="frm" action='/test/view.do'>
+			</header>
+
+			<section>
 				<input type="hidden" name="seqno" id="seqno">
-				<table id="list" class="table">
-					<tr id="top_tr">
-						<th id="top_th">번호</th>
-						<th id="top_th">제목</th>
-						<th id="top_th">등록일</th>
-					</tr>
-					<!-- status.count는 1,2,3 순서로 숫자찍음 -->
-					<c:forEach items="${resultList}" var="result" varStatus="status">
-						<tr data-id="${result.seqno}">
-							<td>${status.count}</td>
-							<td>${result.title}</td>
-							<td>${result.regdate}</td>
-						</tr>
-					</c:forEach>
-				</table>
+				<div class="top_tr">번호</div>
+				<div class="top_tr">제목</div>
+				<div class="top_tr">등록일</div>
+				<!-- status.count는 1,2,3 순서로 숫자찍음 -->
+				<c:forEach items="${resultList}" var="result" varStatus="status">
+					<div class="td" data-id="${result.seqno}">${status.count}</div>
+					<div class="td" id="title" data-id="${result.seqno}">${result.title}</div>
+					<div class="td" data-id="${result.seqno}">${result.regdate}</div>
+				</c:forEach>
+
 				<c:if test="${not empty userId}">
+					<div></div>
+					<div></div>
 					<input type="button" class="button is-primary is-light" value="글쓰기"
 						id="writing">
 				</c:if>
-			</form>
-		</section>
-		
-		<footer>
-		</footer>
-	</div>
+			</section>
+
+
+			<footer> </footer>
+		</div>
+	</form>
 </body>
 </html>

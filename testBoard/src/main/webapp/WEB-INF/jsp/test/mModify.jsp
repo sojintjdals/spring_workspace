@@ -77,56 +77,78 @@
 		})
 	})
 </script>
-<link href="<c:url value="/testCss/mInsert.css" />" rel="stylesheet"
+<link href="<c:url value="/testCss/mModify.css" />" rel="stylesheet"
 	type="text/css">
 </head>
 <body>
-	<h1 id="h">회원가입</h1>
-	<div id="border">
-		<form id="lrm" name="lrm" method="post" action='/test/mInsert.do'>
-			<table id="lrt">
-				<tr>
-					<th>아이디</th>
-				</tr>
-				<tr>
-					<td><input type="text" class="input" name="id" id="id" value="${resultUpdate.id}"></td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-				</tr>
-				<tr>
-					<td><input type="password" class="input" name="password"
-						id="password" value="${resultUpdate.password}"></td>
-				</tr>
-				<tr>
-					<th>이름</th>
-				</tr>
-				<tr>
-					<td><input type="text" class="input" name="name" id="name" value="${resultUpdate.name}"></td>
-				</tr>
-				<tr>
-					<th>전화번호</th>
-				</tr>
-				<tr>
-					<td><input type="text" class="input" name="phone" id="phone" value="${resultUpdate.phone}">
-						_ <input type="text" class="input" name="phone2" id="phone2">
-						_ <input type="text" class="input" name="phone3" id="phone3"></td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-				</tr>
-				<tr>
-					<td><input type="text" class="input" name="email1" id="email1" value="${resultUpdate.email}">@
-						<input type="text" class="input" name="email2" id="email2">.
-						<input type="text" class="input" name="email3" id="email3"></td>
-				</tr>
-				<tr>
-					<td id="bt"><input type="button" value="완료" id="writing"
+	<form id="lrm" name="lrm" method="post" action='/test/mModify.do'>
+
+		<div class="main">
+			<header>
+				<h1 id="h">회원수정</h1>
+			</header>
+			<div></div>
+			<div></div>
+			<div id="lrt">
+				<div class="th">아이디</div>
+
+				<div class="td">
+					<input type="text" class="input" name="id" id="id"
+						value="${resultUpdate.id}">
+				</div>
+
+				<div class="th">비밀번호</div>
+
+				<div class="td">
+					<input type="password" class="input" name="password" id="password"
+						value="${resultUpdate.password}">
+				</div>
+
+
+				<div class="th">이름</div>
+
+
+				<div class="td">
+					<input type="text" class="input" name="name" id="name"
+						value="${resultUpdate.name}">
+				</div>
+
+
+				<div class="th">전화번호</div>
+
+
+				<div class="td">
+					<input type="text" class="input" name="phone" id="phone1"
+						value="${resultUpdate.phone}"><span id="span1"> - </span><input
+						type="text" class="input" name="phone2" id="phone2"> <span
+						class="1"> - </span><input type="text" class="input" name="phone3"
+						id="phone3">
+				</div>
+
+
+				<div class="th">이메일</div>
+
+
+				<div class="td">
+					<input type="text" class="input" name="email1" id="email1"
+						value="${resultUpdate.email}"><span id="span3">@</span><input
+						type="text" class="input" name="email2" id="email2"><span
+						id="span2">.</span><input type="text" class="input" name="email3"
+						id="email3">
+				</div>
+
+
+				<div id="bt" class="td">
+					<input type="button" value="완료" id="writing"
 						class="button is-primary is-light"> <input type="button"
-						id="back" value="홈" class="button is-primary is-light"></td>
-				</tr>
-			</table>
-		</form>
-	</div>
+						id="back" value="홈" class="button is-primary is-light">
+				</div>
+			</div>
+			<div></div>
+			<div></div>
+			<footer></footer>
+		</div>
+	</form>
+
 </body>
 </html>

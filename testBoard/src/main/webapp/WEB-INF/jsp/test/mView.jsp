@@ -40,53 +40,60 @@
 </script>
 <link rel="stylesheet"
 	href="<c:url value='/css/bulma-0.9.0/bulma.min.css' />">
-<link href="<c:url value="/testCss/view.css" />" rel="stylesheet"
+<link href="<c:url value="/testCss/mView.css" />" rel="stylesheet"
 	type="text/css">
 </head>
 <body>
-	<h1 id="h">리스트</h1>
-	<div id="border">
-		<form id="lrm" class="mList" action='/test/mModify.do'>
-			<div id="frt">
-				<table id="lrt">
-					<tr>
-						<th>이름</th>
-					</tr>
-					<tr>
-						<td><input type="text" class="input" name="title" id="title"
-							value="${userName}" readonly></td>
-					</tr>
-					<tr>
-						<th>아이디</th>
-					</tr>
-					<tr>
-						<td><input type="text" class="input" name="userId"
-							id="userId" value="${userId}" readonly="readonly"></td>
-					</tr>
-					<tr>
-						<th>전화번호</th>
-					</tr>
-					<tr>
-						<td><input type="text" class="input" name="userPhone"
-							id="userPhone" value="${userPhone}" readonly="readonly"></td>
-					</tr>
-					<tr>
-						<th>이메일</th>
-					</tr>
-					<tr>
-						<td><input type="text" class="input" name="userPhone"
-							id="userPhone" value="${userEmail}" readonly="readonly"></td>
-					</tr>
-					<tr>
-						<td id="bt"><input type="button"
-							class="button is-primary is-light" value="수정" id="modify">
-							<input type="button" value="홈" id="back"
-							class="button is-primary is-light"></td>
-					</tr>
-				</table>
+	<form id="lrm" class="mList" action='/test/mModify.do'>
 
+		<div class="main">
+			<header>
+				<h1 id="h">리스트</h1>
+			</header>
+			<div></div>
+			<div></div>
+
+			<div id="frt">
+				<div id="lrt">
+					<div class="th">이름</div>
+
+					<div class="td">
+						<input type="text" class="input" name="title" id="title"
+							value="${userName}" readonly>
+					</div>
+
+					<div class="th">아이디</div>
+
+					<div class="td">
+						<input type="text" class="input" name="userId" id="userId"
+							value="${userId}" readonly="readonly">
+					</div>
+
+					<div class="th">전화번호</div>
+
+					<div class="td">
+						<input type="text" class="input" name="userPhone" id="userPhone"
+							value="${userPhone}" readonly="readonly">
+					</div>
+
+					<div class="th">이메일</div>
+
+					<div class="td">
+						<input type="text" class="input" name="userPhone" id="userEmail"
+							value="${userEmail}" readonly="readonly">
+					</div>
+
+					<div id="bt" class="td">
+						<input type="button" class="button is-primary is-light" value="수정"
+							id="modify"> <input type="button" value="홈" id="back"
+							class="button is-primary is-light">
+					</div>
+				</div>
 			</div>
-		</form>
-	</div>
+			<div></div>
+			<div></div>
+			<footer></footer>
+		</div>
+	</form>
 </body>
 </html>

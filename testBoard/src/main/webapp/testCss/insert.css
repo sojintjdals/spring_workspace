@@ -4,47 +4,81 @@
 	text-align: center;
 	color: gray;
 	font-size: 30px;
-	font-weight: 600;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	font-weight: bold;
 }
-#border {
-	border: 1px solid gray;
-	width: 50%;
-	margin-right: 25%;
-	margin-left: 25%;
-	padding-bottom: 10%;
+
+.th {
+	font-weight: bold;
 }
+
+.main {
+	display: grid;
+	/* vh는 화면의 비율을 의미 100vh면 현재화면의 100%길이를 의미함 */
+	height: 100vh;
+	/* fr의 경우 남은 공간을 fr의 숫자만큼 분배해준다.*/
+	grid-template-columns: 1fr repeat(3, minmax(500px, 4fr)) 1fr;
+	grid-template-rows: 1fr 5fr 1fr;
+	/* 
+            grid-template를 이용하면 모든설정을 한번에 처리할 수 있다.
+            grid-area롤 각각 영역을 설정하고 오른쪽 끝에 높이를 설정해준다.
+            마지막 높이를 설정 한 후 /표시를 한 뒤 컬럼사이즈를 조절해준다.
+         */
+	grid-template-areas: "header header header header header"
+		". section section section ." "footer footer footer footer footer";
+	gap: 3px;
+	align-items: center;
+	/* justify-items: center;
+	
+	/* 
+            grid도 flex와 비슷하게 내부를 태그들도 정렬해줄 수 있다.
+            기본값은 stretch인데 grid로 설정해준 크기만큼 백그라운드 사이즈를 크게 해준것을 의미한다.
+            justify는 가로 align은 세로를 설정한다.
+            각각 start, center, end도 제공하는데 이는 inline처럼 안에 내용크기에 따라 영역이 달라진다.
+            두가지를 같이 설정할수도 있는데 place-items: align justify 이런식으로 설정이 가능하다. 
+           
+             
+            place-items: stretch center;
+            */
+}
+
 #frm {
-	width: 50%;
-	margin-top: 50px;
+	
 }
 
 #frt {
 	text-align: center;
 	height: 100%;
-	width: 100%;
-	margin-left: 50%;
 }
-#bt {
-	padding-top: 5%;
+
+.bt {
+	margin-top: 1vh;
 }
-#back ,#writing{
+
+.input {
+	
+}
+
+#writing, #back {
+	font-weight: bold;
 	border: 1px solid;
 }
-.input {
-	margin-bottom:20px;
-	width: 100%;
+
+.title {
+	font-size: 20px;
 }
-.color1 {
-  color: black;
+
+.content {
+	font-size: 10px;
 }
-.color2 {
-  color: blue;
+
+header {
+	font-size: 33px;
+	color: aliceblue;
+	grid-area: header;
+	align-self: center;
 }
-.color3 {
-  color: green;
-}
-.color4 {
-  color: red;
+
+footer {
+	font-size: 33px;
+	grid-area: footer;
 }

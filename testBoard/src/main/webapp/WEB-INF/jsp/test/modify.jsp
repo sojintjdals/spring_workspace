@@ -25,6 +25,7 @@
 				document.frm.contents.focus();
 				return;
 			}
+			$("#frm").attr("action", "/test/modify.do");
 			document.frm.submit();
 		})
 		$("#back").click(function() {
@@ -36,36 +37,43 @@
 </script>
 <link rel="stylesheet"
 	href="<c:url value='/css/bulma-0.9.0/bulma.min.css' />">
-<link href="<c:url value="/testCss/insert.css" />" rel="stylesheet"
+<link href="<c:url value="/testCss/modify.css" />" rel="stylesheet"
 	type="text/css">
 </head>
 <body>
-	<h1 id="h">수정</h1>
-	<div id="border">
-		<form id="frm" name="frm" method="post" action='/test/modify.do'>
+	<form id="frm" name="frm" method="post" action='/test/modify.do'>
+		<div class="main">
+			<header>
+				<h1 id="h">수정</h1>
+			</header>
+			<div></div>
+			<div></div>
 			<input type="hidden" name="seqno" value="${resultUpdate.seqno}">
-			<table id="frt">
-				<tr>
-					<th>제목</th>
-				</tr>
-				<tr>
-					<td><input type="text" class="input" name="title" id="title"
-						value="${resultUpdate.title}" style="width: 100%"></td>
-				</tr>
-				<tr>
-					<th>내용</th>
-				</tr>
-				<tr>
-					<td><textarea class="textarea is-large color1" name="contents"
-							id="contents">${resultUpdate.contents}</textarea></td>
-				</tr>
-				<tr>
-					<td><input type="button" value="완료" id="writing"
+			<div id="frt">
+				<div class="th">제목</div>
+
+				<div class="td">
+					<input type="text" class="input" name="title" id="title"
+						value="${resultUpdate.title}" style="width: 100%">
+				</div>
+
+				<div class="th">내용</div>
+
+				<div class="td">
+					<textarea class="textarea is-large" rows="10" cols="50" name="contents"
+						id="contents">${resultUpdate.contents}</textarea>
+				</div>
+				<div id="bt">
+					<input type="button" value="완료" id="writing"
 						class="button is-primary is-light"> <input type="button"
-						value="홈" id="back" class="button is-primary is-light"></td>
-				</tr>
-			</table>
-		</form>
-	</div>
+						value="홈" id="back" class="button is-primary is-light">
+				</div>
+
+			</div>
+			<div></div>
+			<div></div>
+			<footer></footer>
+		</div>
+	</form>
 </body>
 </html>
