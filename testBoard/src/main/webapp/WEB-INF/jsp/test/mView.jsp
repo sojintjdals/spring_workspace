@@ -14,8 +14,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#modify").click(function() {
-			$("#lrm").attr("action", "/test/mModify.do");
-			$("#lrm").submit();
+			$("#frm").attr("action", "/test/mModify.do");
+			$("#frm").submit();
 		});
 	});
 
@@ -33,8 +33,8 @@
 			}
 		});
 		$("#back").click(function() {
-			$("#lrm").attr("action", "/test/list.do");
-			$("#lrm").submit();
+			$("#frm").attr("action", "/test/list.do");
+			$("#frm").submit();
 		})
 	});
 </script>
@@ -44,7 +44,7 @@
 	type="text/css">
 </head>
 <body>
-	<form id="lrm" class="mList" action='/test/mModify.do'>
+	<form id="frm" class="frm" action='/test/mModify.do'>
 
 		<div class="main">
 			<header>
@@ -59,28 +59,28 @@
 
 					<div class="td">
 						<input type="text" class="input" name="title" id="title"
-							value="${userName}" readonly>
+							value="${result.name}" readonly="readonly">
 					</div>
 
 					<div class="th">아이디</div>
 
 					<div class="td">
 						<input type="text" class="input" name="userId" id="userId"
-							value="${userId}" readonly="readonly">
+							value="${result.id}" readonly="readonly">
 					</div>
 
 					<div class="th">전화번호</div>
 
 					<div class="td">
 						<input type="text" class="input" name="userPhone" id="userPhone"
-							value="${userPhone}" readonly="readonly">
+							value="${result.phone}" readonly="readonly">
 					</div>
 
 					<div class="th">이메일</div>
 
 					<div class="td">
 						<input type="text" class="input" name="userPhone" id="userEmail"
-							value="${userEmail}" readonly="readonly">
+							value="${result.email}" readonly="readonly">
 					</div>
 
 					<div id="bt" class="td">

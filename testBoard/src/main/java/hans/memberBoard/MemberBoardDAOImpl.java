@@ -33,9 +33,9 @@ public class MemberBoardDAOImpl extends EgovAbstractMapper implements MemberBoar
 	}
 	//로그인정보
 	@Override
-	public MemberBoardVO memberBoardView(MemberBoardVO vo) {
+	public MemberBoardVO MemberView(MemberBoardVO vo) {
 		// TODO Auto-generated method stub
-		return selectOne("MemberBoardVO.MemberView", vo);
+		return selectOne("MemberView", vo);
 	}
 
 	@Override

@@ -26,54 +26,54 @@
 
 			if (id == "") {
 				alert("아이디을 입력하세요");
-				document.lrm.id.focus();
+				document.frm.id.focus();
 				return;
 			}
 			if (password == "") {
 				alert("비밀번호를 입력하세요");
-				document.lrm.password.focus();
+				document.frm.password.focus();
 				return;
 			}
 			if (name == "") {
 				alert("이름을 입력하세요");
-				document.lrm.name.focus();
+				document.frm.name.focus();
 				return;
 			}
 			if (phone1 == "") {
 				alert("전화번호를 입력하세요");
-				document.lrm.phone1.focus();
+				document.frm.phone1.focus();
 				return;
 			}
 			if (phone2 == "") {
 				alert("전화번호를 입력하세요");
-				document.lrm.phone2.focus();
+				document.frm.phone2.focus();
 				return;
 			}
 			if (phone3 == "") {
 				alert("전화번호를 입력하세요");
-				document.lrm.phone3.focus();
+				document.frm.phone3.focus();
 				return;
 			}
 			if (email1 == "") {
 				alert("이메일을 입력하세요");
-				document.lrm.email1.focus();
+				document.frm.email1.focus();
 				return;
 			}
 			if (email2 == "") {
 				alert("이메일을 입력하세요");
-				document.lrm.email2.focus();
+				document.frm.email2.focus();
 				return;
 			}
 			if (email3 == "") {
 				alert("이메일을 입력하세요");
-				document.lrm.email3.focus();
+				document.frm.email3.focus();
 				return;
 			}
-			document.lrm.submit();
+			document.frm.submit();
 		})
 		$("#back").click(function() {
-			$("#lrm").attr("action", "/test/list.do");
-			$("#lrm").submit();
+			$("#frm").attr("action", "/test/list.do");
+			$("#frm").submit();
 		})
 	})
 </script>
@@ -81,7 +81,7 @@
 	type="text/css">
 </head>
 <body>
-	<form id="lrm" name="lrm" method="post" action='/test/mModify.do'>
+	<form id="frm" name="frm" method="post" action='/test/mModify.do'>
 
 		<div class="main">
 			<header>

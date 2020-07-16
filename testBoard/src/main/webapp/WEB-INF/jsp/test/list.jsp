@@ -38,6 +38,10 @@
 			$("#frm").attr("action", "/test/mView.do");
 			$("#frm").submit();
 		});
+		if ($("#L1").val() == $("#h1").val()) {
+			$("#L1").css("background-color", "#175EB8");
+			$("#L1").css("color", "#77FFFF");
+		}
 		var message = '${message}';
 		if (message) {
 			alert(message);
@@ -53,24 +57,51 @@
 	<form id="frm" action=''>
 		<div class="main">
 			<header>
-				<h1 id="h1">Simple Board</h1>
-				<c:if test="${not empty userId}">
-					<div id="login">
-						<span id="welcome">${userName}(${userId})님환영합니다.</span> <input
-							type="button" name="logout" class="button is-primary is-light"
-							id="logout" value="로그아웃"> <input type="button"
-							name="memberView" class="button is-primary is-light"
-							id="memberView" value="회원정보">
-					</div>
-				</c:if>
-				<c:if test="${empty userId}">
-					<button class="button is-primary is-light" name="loginmember"
-						id="loginmember">로그인</button>
-					<button class="button is-primary is-light" name="insertMember"
-						id="insertMember">회원가입</button>
-				</c:if>
+				<div></div>
+				<div></div>
+				<span id="h1">게시판1</span>
+				<div>
+					<c:if test="${not empty userId}">
+						<div id="login">
+							<span id="welcome">${userName}(${userId})</span> <input
+								type="button" name="logout" class="button is-primary is-light"
+								id="logout" value="로그아웃"> <input type="hidden" name="id"
+								id="id" value="${userId}"> <input type="button"
+								name="memberView" class="button is-primary is-light"
+								id="memberView" value="회원정보">
+						</div>
+					</c:if>
+					<c:if test="${empty userId}">
+						<button class="button is-primary is-light" name="loginmember"
+							id="loginmember">로그인</button>
+						<button class="button is-primary is-light" name="insertMember"
+							id="insertMember">회원가입</button>
+					</c:if>
+				</div>
 			</header>
-
+			<nav>
+				<ul>
+					<li id="L1">게시판1</li>
+				</ul>
+				<ul>
+					<li id="L2">게시판2</li>
+				</ul>
+				<ul>
+					<li id="L3">게시판3</li>
+				</ul>
+				<ul>
+					<li id="L4">게시판4</li>
+				</ul>
+				<ul>
+					<li id="L5">게시판5</li>
+				</ul>
+				<ul>
+					<li id="L6">게시판6</li>
+				</ul>
+				<ul>
+					<li id="L7">게시판7</li>
+				</ul>
+			</nav>
 			<section>
 				<input type="hidden" name="seqno" id="seqno">
 				<div class="top_tr">번호</div>
@@ -92,7 +123,13 @@
 			</section>
 
 
-			<footer> </footer>
+			<footer>
+				<div></div>
+				<div></div>
+				<div>위 내용에 대한 저작권 및 법적 책임은 자료제공사 또는 글쓴이에 있으며 metamiweb의 입장과 다를 수 있습니다.</div>
+				<div></div>
+				<div></div>
+			</footer>
 		</div>
 	</form>
 </body>

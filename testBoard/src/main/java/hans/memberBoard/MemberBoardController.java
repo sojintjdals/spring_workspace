@@ -67,11 +67,13 @@ public class MemberBoardController {
 //회원가입
 	@RequestMapping(value = "mInsert.do", method = RequestMethod.GET)
 	public String mInsertGet() {
+		System.out.println("1");
 		return "test/mInsert";
 	}
 
 	@RequestMapping(value = "mInsert.do", method = RequestMethod.POST)
 	public String mInsertPost(RedirectAttributes rttr, MemberBoardVO vo) {
+		System.out.println("2");
 		int result = 0;
 		try {
 			result = service.memberBoardInsert(vo);
@@ -97,22 +99,27 @@ public class MemberBoardController {
 		}
 		return "test/mDelete";
 	}
+
 //회원정보
 	@RequestMapping("mView.do")
-	public String mView(Model model, MemberBoardVO vo) {
-/*		try {
-			model.addAttribute("result", service.memberBoardView(vo, null));
+	public String MemberView(Model model, MemberBoardVO vo) {
+		System.out.println("3");
+		try {
+			System.out.println("1");
+			model.addAttribute("result", service.MemberView(vo));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+			System.out.println("2");
+		}
 		return "test/mView";
 	}
+
 //회원수정
 	@RequestMapping("mModify.do")
 	public String insertGetUpdate(Model model, MemberBoardVO vo) {
 		try {
-			model.addAttribute("resultUpdate", service.memberBoardView(vo));
+			model.addAttribute("resultUpdate", service.MemberView(vo));
 			System.out.println("멤버 수정 들어가기 성공!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -126,14 +133,15 @@ public class MemberBoardController {
 		int result = 0;
 		try {
 			result = service.memberBoardUpdate(vo);
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(result == 1)
+		if (result == 1)
 			rttr.addFlashAttribute("message", "데이터 저장이 성공하였습니다.");
-		else rttr.addFlashAttribute("message", "데이터 저장이 실패하였습니다.");
+		else
+			rttr.addFlashAttribute("message", "데이터 저장이 실패하였습니다.");
 		return "redirect:/test/list.do";
 	}
 }

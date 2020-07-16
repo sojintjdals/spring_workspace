@@ -33,8 +33,7 @@
 			}
 		});
 		$("#back").click(function() {
-			$("#frm").attr("action", "/test/list.do");
-			$("#frm").submit();
+			$(location).attr('href','/test/list.do');
 		})
 	});
 </script>

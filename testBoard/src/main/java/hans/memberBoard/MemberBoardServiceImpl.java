@@ -43,14 +43,7 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 
 		return result;
 	}
-
-	// 로그인정보
-	@Override
-	public MemberBoardVO memberBoardView(MemberBoardVO vo, HttpSession session) {
-
-		return dao.memberBoardView(vo);
-	}
-
+	
 	// 회원 로그아웃
 	@Override
 	public void logout(HttpSession session) {
@@ -81,10 +74,17 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 		System.out.println(vo.getPhone());
 		return dao.memberBoardUpdate(vo);
 	}
+
 	@Override
-	public MemberBoardVO memberBoardView(MemberBoardVO vo) throws Exception {
+	public MemberBoardVO MemberView(MemberBoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.memberBoardView(vo);
+		vo.setPassword(EgovFileScrty.encryptPassword(vo.getPassword(), vo.getId()));
+		System.out.println(vo.getId());
+		System.out.println(vo.getPassword());
+		System.out.println(vo.getName());
+		System.out.println(vo.getPhone());
+		System.out.println(vo.getEmail());
+		return dao.MemberView(vo);
 	}
-	
+
 }

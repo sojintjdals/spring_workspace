@@ -7,7 +7,7 @@ public interface MemberBoardDAO {
 	// 회원 로그인 체크
 	public MemberBoardVO loginCheck(MemberBoardVO vo);
 	// 회원 로그인 정보
-	public MemberBoardVO memberBoardView(MemberBoardVO vo);
+	public MemberBoardVO MemberView(MemberBoardVO vo);
 	// 회원 로그아웃
 	public void logout(HttpSession session);
 	// 회원 가입

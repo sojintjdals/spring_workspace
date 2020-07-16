@@ -18,8 +18,8 @@
 		member_metami
 		where id = #{id} and password = #{password}
 	</select>
-	<select id="MemberView" resultType="MemberBoardVO">
-		SELECT * FROM member_metami
+	<select id="MemberView" resultType="MemberBoardVO" parameterType="MemberBoardVO">
+		SELECT id, password, name, phone, email FROM member_metami
 		where id = #{id}
 	</select>
 	<!-- 회원탈퇴 -->
