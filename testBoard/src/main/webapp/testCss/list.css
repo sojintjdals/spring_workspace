@@ -52,6 +52,7 @@
 	font-weight: bold;
 	vertical-align: middle;
 }
+
 div {
 	line-height: 50px;
 	vertical-align: middle;
@@ -109,6 +110,7 @@ nav {
 	float: left;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 	grid-area: nav;
+	height: 50px;
 }
 
 ul {
@@ -160,4 +162,9 @@ footer {
 	color: aliceblue; */
 	background-color: #F3F3F3;
 	grid-area: footer;
+}
+
+.metami {
+	line-height: 70px;
+	vertical-align: middle;
 }

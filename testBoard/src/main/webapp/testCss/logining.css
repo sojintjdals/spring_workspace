@@ -8,8 +8,10 @@
 }
 
 .th {
-	text-align:center;
+	text-align: center;
 	font-weight: bold;
+	margin-top: 1vh;
+	margin-bottom: 1vh;
 }
 
 .main {
@@ -17,15 +19,15 @@
 	/* vh는 화면의 비율을 의미 100vh면 현재화면의 100%길이를 의미함 */
 	height: 100vh;
 	/* fr의 경우 남은 공간을 fr의 숫자만큼 분배해준다.*/
-	grid-template-columns: 1fr repeat(3, minmax(300px, 4fr)) 1fr;
+	grid-template-columns: repeat(3, minmax(300px, 4fr));
 	grid-template-rows: 1fr 5fr 1fr;
 	/* 
             grid-template를 이용하면 모든설정을 한번에 처리할 수 있다.
             grid-area롤 각각 영역을 설정하고 오른쪽 끝에 높이를 설정해준다.
             마지막 높이를 설정 한 후 /표시를 한 뒤 컬럼사이즈를 조절해준다.
          */
-	grid-template-areas: "header header header header header"
-		". section section section ." "footer footer footer footer footer";
+	grid-template-areas: "header header header" "section section section"
+		"footer footer footer";
 	gap: 3px;
 	justify-items: center;
 	/* align-items: center; */
@@ -52,18 +54,33 @@
 	height: 100%;
 }
 
-#bt {
-	text-align:center;
-	margin-top: 1vh;
+.bt {
+	width: 70%;
+	text-align: center;
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 2vh;
+	margin-bottom: 2vh;
 }
 
 .input {
-
+	width: 70%;
+	font-weight: bold;
+	margin-left: 15%;
+	margin-right: 15%;
 }
 
 #writing, #back {
+	font-size: 25px;
 	font-weight: bold;
 	border: 1px solid;
+	width: 100%;
+	background-color: #1A70DC;
+	color: white;
+	font-weight: bold;
+	padding-top: 1vh;
+	padding-bottom: 1vh;
+	
 }
 
 .title {
@@ -84,4 +101,11 @@ header {
 footer {
 	font-size: 33px;
 	grid-area: footer;
+}
+
+#lrt {
+	width: 100%;
+	border: 1px solid #C7C7C7;
+	border-radius: 5px;
+	margin-bottom: 30vh;
 }

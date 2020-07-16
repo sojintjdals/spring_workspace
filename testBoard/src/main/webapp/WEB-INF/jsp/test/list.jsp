@@ -62,7 +62,7 @@
 				<span id="h1">게시판1</span>
 				<div>
 					<c:if test="${not empty userId}">
-						<div id="login">
+						<div class="login">
 							<span id="welcome">${userName}(${userId})</span> <input
 								type="button" name="logout" class="button is-primary is-light"
 								id="logout" value="로그아웃"> <input type="hidden" name="id"
@@ -72,10 +72,12 @@
 						</div>
 					</c:if>
 					<c:if test="${empty userId}">
-						<button class="button is-primary is-light" name="loginmember"
-							id="loginmember">로그인</button>
-						<button class="button is-primary is-light" name="insertMember"
-							id="insertMember">회원가입</button>
+						<div class="login">
+							<button class="button is-primary is-light" name="loginmember"
+								id="loginmember">로그인</button>
+							<button class="button is-primary is-light" name="insertMember"
+								id="insertMember">회원가입</button>
+						</div>
 					</c:if>
 				</div>
 			</header>
@@ -126,7 +128,8 @@
 			<footer>
 				<div></div>
 				<div></div>
-				<div>위 내용에 대한 저작권 및 법적 책임은 자료제공사 또는 글쓴이에 있으며 metamiweb의 입장과 다를 수 있습니다.</div>
+				<div class="metami">위 내용에 대한 저작권 및 법적 책임은 자료제공사 또는 글쓴이에 있으며
+					metamiweb의 입장과 다를 수 있습니다.</div>
 				<div></div>
 				<div></div>
 			</footer>

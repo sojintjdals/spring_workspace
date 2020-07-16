@@ -46,7 +46,6 @@
 				<h1 id="h">로그인</h1>
 			</header>
 			<div></div>
-			<div></div>
 			<div id="lrt">
 				<div class="th">아이디</div>
 
@@ -59,16 +58,18 @@
 				<div>
 					<input class="input" type="password" name="password" id="password">
 				</div>
-				<div id="bt">
+				<div class="bt">
 					<input type="button" value="로그인" id="writing"
-						class="button is-primary is-light"> <input type="button"
-						id="back" value="홈" class="button is-primary is-light">
+						class="buttonl">
+				</div>
+				<div class="bt">
+					<input type="button" id="back" value="홈"
+						class="buttonl">
 				</div>
 			</div>
-			<div></div>
-			<div></div>
-			<footer></footer>
 		</div>
+		<div></div>
+		<footer></footer>
 	</form>
 </body>
 </html>
