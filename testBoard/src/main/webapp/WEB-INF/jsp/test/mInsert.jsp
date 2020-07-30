@@ -99,6 +99,7 @@
 		new daum.Postcode(
 				{
 					oncomplete : function(data) {
+						//http://postcode.map.daum.net/guide 사이트 주소
 						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
 						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
@@ -193,15 +194,15 @@
 					<input type="text" class="input" name="email2" id="email2"><span>.</span>
 					<input type="text" class="input" name="email3" id="email3">
 				</div>
-				<!-- 				우편번호
+				<!-- 우편번호 -->
 				<div>
-					<input type="text" id="sample6_postcode" placeholder="우편번호">
+					<input type="text" class="zonecode" name="zonecode" id="sample6_postcode" placeholder="우편번호">
 					<input type="button" onclick="sample6_execDaumPostcode()"
-						value="우편번호 찾기"><br> <input type="text"
+						value="우편번호 찾기"><br> <input type="text" class="add1" name="add1"
 						id="sample6_address" placeholder="주소"><br> <input
-						type="text" id="sample6_detailAddress" placeholder="상세주소">
-					<input type="text" id="sample6_extraAddress" placeholder="참고항목">
-				</div> -->
+						type="text" id="sample6_detailAddress" class="add2" name="add2" placeholder="상세주소">
+					<input type="text" id="sample6_extraAddress" class="add3"  name="add3" placeholder="참고항목">
+				</div>
 				<div class="td" id="bt">
 					<input type="button" value="완료" id="writing"
 						class="button is-primary is-light"> <input type="button"
