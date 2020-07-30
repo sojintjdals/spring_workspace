@@ -24,11 +24,11 @@
 
 			var answer = false;
 
-			answer = confirm("글을 삭제하시겠습니까?");
+			answer = confirm("회원 탈퇴를 하시겠습니까?");
 
 			if (answer == true) {
 				alert("삭제가 완료되었습니다.");
-				$("#frm").attr("action", "/test/delete.do");
+				$("#frm").attr("action", "/test/mDelete.do");
 				$("#frm").submit();
 			}
 		});
@@ -59,34 +59,35 @@
 
 					<div class="td">
 						<input type="text" class="input" name="title" id="title"
-							value="${result.name}" readonly="readonly">
+							value="${resultView.name}" readonly="readonly">
 					</div>
 
 					<div class="th">아이디</div>
 
 					<div class="td">
-						<input type="text" class="input" name="userId" id="userId"
-							value="${result.id}" readonly="readonly">
+						<input type="text" class="input" name="id" id="id"
+							value="${resultView.id}" readonly="readonly"> 
 					</div>
 
 					<div class="th">전화번호</div>
 
 					<div class="td">
-						<input type="text" class="input" name="userPhone" id="userPhone"
-							value="${result.phone}" readonly="readonly">
+						<input type="text" class="input" name="phone" id="phone"
+							value="${resultView.phone}" readonly="readonly">
 					</div>
 
 					<div class="th">이메일</div>
 
 					<div class="td">
-						<input type="text" class="input" name="userPhone" id="userEmail"
-							value="${result.email}" readonly="readonly">
+						<input type="text" class="input" name="email" id="email"
+							value="${resultView.email}" readonly="readonly">
 					</div>
 
 					<div id="bt" class="td">
 						<input type="button" class="button is-primary is-light" value="수정"
 							id="modify"> <input type="button" value="홈" id="back"
-							class="button is-primary is-light">
+							class="button is-primary is-light"><input type="button"
+							class="button is-primary is-light" value="회원탈퇴" id="delete">
 					</div>
 				</div>
 			</div>

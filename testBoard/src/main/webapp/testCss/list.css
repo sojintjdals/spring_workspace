@@ -44,7 +44,7 @@
 }
 
 .login {
-	
+	min-width: 450px;
 }
 
 #loginmember, #insertMember, #back, #writing {

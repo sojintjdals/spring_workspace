@@ -10,7 +10,9 @@ public interface MemberBoardService {
 	// 회원 로그아웃
 	public void logout(HttpSession session);
 	int memberBoardInsert(MemberBoardVO vo) throws Exception;
-	int memberBoardDelete(MemberBoardVO vo) throws Exception;
-	int memberBoardUpdate(MemberBoardVO vo) throws Exception;
+	int memberBoardDelete(MemberBoardVO vo, HttpSession session) throws Exception;
+	int memberBoardUpdate(MemberBoardVO vo, HttpSession session) throws Exception;
 	MemberBoardVO MemberView(MemberBoardVO vo) throws Exception;
+	// 아이디 체크
+	public boolean idCheck(MemberBoardVO vo) throws Exception;
 }

@@ -18,7 +18,7 @@ public class MemberBoardDAOImpl extends EgovAbstractMapper implements MemberBoar
 	}
 
 	@Override
-	public int memberBoardDelete(MemberBoardVO vo) throws Exception {
+	public int memberBoardDelete(MemberBoardVO vo, HttpSession session) throws Exception {
 		// TODO Auto-generated method stub
 		return delete("MemberDelete", vo);
 	}
@@ -26,6 +26,11 @@ public class MemberBoardDAOImpl extends EgovAbstractMapper implements MemberBoar
 	@Override
 	public MemberBoardVO loginCheck(MemberBoardVO vo) {
 		return selectOne("MemberBoardVO.loginCheck", vo);
+	}
+	//아이디 체크
+	@Override
+	public MemberBoardVO idCheck(MemberBoardVO vo) {
+		return selectOne("MemberBoardVO.idCheck", vo);
 	}
 	//로그아웃
 	@Override
@@ -39,7 +44,7 @@ public class MemberBoardDAOImpl extends EgovAbstractMapper implements MemberBoar
 	}
 
 	@Override
-	public int memberBoardUpdate(MemberBoardVO vo) throws Exception {
+	public int memberBoardUpdate(MemberBoardVO vo, HttpSession session) throws Exception {
 		// TODO Auto-generated method stub
 		return update("MemberUpdate", vo);
 	}

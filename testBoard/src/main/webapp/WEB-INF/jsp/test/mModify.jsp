@@ -90,20 +90,15 @@
 			<div></div>
 			<div></div>
 			<div id="lrt">
-				<div class="th">아이디</div>
+				<div class="th">아이디(수정못함)</div>
 
 				<div class="td">
 					<input type="text" class="input" name="id" id="id"
+						value="${resultUpdate.id}" readonly="readonly">
+					<!-- 변경되지않는 아이디 -->
+					<input type="hidden" class="input" name="fakeId" id="fakeId"
 						value="${resultUpdate.id}">
 				</div>
-
-				<div class="th">비밀번호</div>
-
-				<div class="td">
-					<input type="password" class="input" name="password" id="password"
-						value="${resultUpdate.password}">
-				</div>
-
 
 				<div class="th">이름</div>
 
@@ -118,11 +113,11 @@
 
 
 				<div class="td">
-					<input type="text" class="input" name="phone" id="phone1"
-						value="${resultUpdate.phone}"><span id="span1"> - </span><input
-						type="text" class="input" name="phone2" id="phone2"> <span
-						class="1"> - </span><input type="text" class="input" name="phone3"
-						id="phone3">
+					<input type="text" class="input" name="phone1" id="phone1" value="" maxlength="3"><span
+						id="span1"> - </span><input type="text" class="input"
+						name="phone2" id="phone2" value="" maxlength="4"> <span class="1">
+						- </span><input type="text" class="input" name="phone3" id="phone3"
+						value="" maxlength="4">
 				</div>
 
 
@@ -130,11 +125,10 @@
 
 
 				<div class="td">
-					<input type="text" class="input" name="email1" id="email1"
-						value="${resultUpdate.email}"><span id="span3">@</span><input
-						type="text" class="input" name="email2" id="email2"><span
-						id="span2">.</span><input type="text" class="input" name="email3"
-						id="email3">
+					<input type="text" class="input" name="email1" id="email1" value="" maxlength="15"><span
+						id="span3">@</span><input type="text" class="input" name="email2"
+						id="email2" value="" maxlength="7"><span id="span2">.</span><input
+						type="text" class="input" name="email3" id="email3" value="" maxlength="3"> 
 				</div>
 
 

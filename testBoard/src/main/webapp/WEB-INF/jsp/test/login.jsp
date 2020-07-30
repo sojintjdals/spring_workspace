@@ -16,6 +16,7 @@
 		$("#writing").click(function() {
 			var id = $("#id").val();
 			var password = $("#password").val();
+			var msg = '${msg}';
 
 			if (id == "") {
 				alert("아이디을 입력하세요");
@@ -29,6 +30,9 @@
 			}
 			document.lrm.submit();
 		})
+		if('${msg}' != ''){
+			alert('${msg}');
+		}
 		$("#back").click(function() {
 			$("#lrm").attr("action", "/test/list.do");
 			$("#lrm").submit();

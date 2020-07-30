@@ -59,9 +59,10 @@
 	
 }
 
-#modify, #back {
+#modify, #back, #delete {
 	font-weight: bold;
 	border: 1px solid;
+	margin-right: 8px;
 }
 
 .title {
@@ -73,17 +74,17 @@
 	width: 40%;
 }
 
-#userId{
+#id{
 	text-align: center;
 	width: 40%;
 }
 
-#userPhone {
+#phone {
 	text-align:center;
 	width: 40%;
 }
 
-#userEmail {
+#email {
 	text-align:center;
 	width: 40%;
 }

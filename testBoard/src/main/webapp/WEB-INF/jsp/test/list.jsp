@@ -48,6 +48,7 @@
 		}
 	});
 </script>
+
 <link href="<c:url value="/testCss/reset.css" />" rel="stylesheet"
 	type="text/css">
 <link href="<c:url value="/testCss/list.css" />" rel="stylesheet"
@@ -66,8 +67,9 @@
 							<span id="welcome">${userName}(${userId})</span> <input
 								type="button" name="logout" class="button is-primary is-light"
 								id="logout" value="로그아웃"> <input type="hidden" name="id"
-								id="id" value="${userId}"> <input type="button"
-								name="memberView" class="button is-primary is-light"
+								id="id" data-id="${userId}" value="${userId}"> <input
+								type="button" name="memberView"
+								class="button is-primary is-light" data-id="${userId}"
 								id="memberView" value="회원정보">
 						</div>
 					</c:if>

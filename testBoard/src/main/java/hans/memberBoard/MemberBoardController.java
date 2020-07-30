@@ -4,20 +4,22 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import hans.testBoard.TestBoardVO;
 
 @Controller
 @RequestMapping("/test/*")
 public class MemberBoardController {
+	private static final Logger logger = LoggerFactory.getLogger(MemberBoardController.class);
 
 	@Autowired
 	MemberBoardServiceImpl service;
@@ -30,7 +32,7 @@ public class MemberBoardController {
 
 //로그인	
 	@RequestMapping(value = "Login.do", method = RequestMethod.POST)
-	public ModelAndView LoginPost(@ModelAttribute MemberBoardVO vo, HttpSession session) {
+	public ModelAndView LoginPost(@ModelAttribute MemberBoardVO vo, HttpSession session, RedirectAttributes rttr) {
 		boolean result = false;
 		String msg = null;
 		try {
@@ -43,12 +45,10 @@ public class MemberBoardController {
 		if (result) {
 			System.out.println(result);
 			mav.setViewName("redirect:list.do");
-			mav.addObject("msg", "success");
-			msg = "success";
 		} else {
-			mav.setViewName("redirect:list.do");
-			mav.addObject("msg", "failure");
-			msg = "failure";
+			mav.setViewName("redirect:Login.do");
+			rttr.addFlashAttribute("msg", "로그인에 실패하였습니다");
+			msg = "로그인에 실패하였습니다";
 		}
 		return mav;
 	}
@@ -67,7 +67,6 @@ public class MemberBoardController {
 //회원가입
 	@RequestMapping(value = "mInsert.do", method = RequestMethod.GET)
 	public String mInsertGet() {
-		System.out.println("1");
 		return "test/mInsert";
 	}
 
@@ -88,29 +87,48 @@ public class MemberBoardController {
 		return "redirect:list.do";
 	}
 
-//회원탈퇴(아직)
+//회원탈퇴
 	@RequestMapping("mDelete.do")
-	public String delete(Model model, MemberBoardVO vo) {
+	public String delete(Model model, MemberBoardVO vo, HttpSession session) {
+		System.out.println("mDelete");
 		try {
-			model.addAttribute("memberDelete", service.memberBoardDelete(vo));
+			model.addAttribute("resultDelete", service.memberBoardDelete(vo, session));
+			session.invalidate();
+			System.out.println("삭제성공");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "test/mDelete";
+		return "redirect:list.do";
+	}
+
+//아이디 중복체크
+	// String 보냄
+	@ResponseBody
+	@RequestMapping(value = "idCheckAjax.do", method = RequestMethod.POST)
+	public String idCheck(MemberBoardVO vo) throws Exception {
+		System.out.println("idCheck start!!");
+		logger.info("idCheck start!!");
+		String result = "N";
+		boolean checkResult = service.idCheck(vo);
+		if (checkResult) {
+			result = "Y";
+		}
+		logger.info("result :" + result);
+		return result;
 	}
 
 //회원정보
 	@RequestMapping("mView.do")
 	public String MemberView(Model model, MemberBoardVO vo) {
-		System.out.println("3");
+		System.out.println("mView시작");
 		try {
-			System.out.println("1");
-			model.addAttribute("result", service.MemberView(vo));
+			System.out.println("mView성공");
+			model.addAttribute("resultView", service.MemberView(vo));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("2");
+			System.out.println("mView실패");
 		}
 		return "test/mView";
 	}
@@ -129,19 +147,19 @@ public class MemberBoardController {
 	}
 
 	@RequestMapping(value = "mModify.do", method = RequestMethod.POST)
-	public String insertPostUpdate(RedirectAttributes rttr, MemberBoardVO vo) {
+	public String insertPostUpdate(RedirectAttributes rttr, MemberBoardVO vo, HttpSession session) {
 		int result = 0;
 		try {
-			result = service.memberBoardUpdate(vo);
-
+			result = service.memberBoardUpdate(vo, session);
+			session.invalidate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (result == 1)
-			rttr.addFlashAttribute("message", "데이터 저장이 성공하였습니다.");
+			rttr.addFlashAttribute("message", "수정에 성공하였습니다. 다시 로그인해 주십시오");
 		else
-			rttr.addFlashAttribute("message", "데이터 저장이 실패하였습니다.");
+			rttr.addFlashAttribute("message", "수정에 실패하였습니다.");
 		return "redirect:/test/list.do";
 	}
 }

@@ -44,6 +44,22 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 		return result;
 	}
 	
+	public boolean idCheck(MemberBoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		vo.setPassword(EgovFileScrty.encryptPassword(vo.getPassword(), vo.getId()));
+		boolean result = false;
+		MemberBoardVO userInfo = dao.idCheck(vo);
+		if (userInfo != null) {
+			if (userInfo.getId() != null) {
+				result = true;
+
+				System.out.println(userInfo.getId());
+			}
+		}
+		return result;
+	}
+
+	
 	// 회원 로그아웃
 	@Override
 	public void logout(HttpSession session) {
@@ -60,30 +76,31 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 	}
 
 	@Override
-	public int memberBoardDelete(MemberBoardVO vo) throws Exception {
+	public int memberBoardDelete(MemberBoardVO vo, HttpSession session) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.memberBoardDelete(vo);
+		session.invalidate();
+		return dao.memberBoardDelete(vo, session);
 	}
 
 	@Override
-	public int memberBoardUpdate(MemberBoardVO vo) throws Exception {
+	public int memberBoardUpdate(MemberBoardVO vo, HttpSession session) throws Exception {
 		vo.setPassword(EgovFileScrty.encryptPassword(vo.getPassword(), vo.getId()));
+		System.out.println("수정ServiceImpl 들어가짐");
+		System.out.println(vo.getPhone());
 		System.out.println(vo.getPhone1());
 		System.out.println(vo.getPhone2());
 		System.out.println(vo.getPhone3());
-		System.out.println(vo.getPhone());
-		return dao.memberBoardUpdate(vo);
+		System.out.println(vo.getEmail());
+		System.out.println(vo.getEmail1());
+		System.out.println(vo.getEmail2());
+		System.out.println(vo.getEmail3());
+		return dao.memberBoardUpdate(vo, session);
 	}
 
 	@Override
 	public MemberBoardVO MemberView(MemberBoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		vo.setPassword(EgovFileScrty.encryptPassword(vo.getPassword(), vo.getId()));
-		System.out.println(vo.getId());
-		System.out.println(vo.getPassword());
-		System.out.println(vo.getName());
-		System.out.println(vo.getPhone());
-		System.out.println(vo.getEmail());
 		return dao.MemberView(vo);
 	}
 

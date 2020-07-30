@@ -17,8 +17,17 @@ public class MemberBoardVO {
 	private String email3;
 	private String phone;
 	private String email;
+	private String fakeId;
 	
 	
+	public String getFakeId() {
+		return fakeId;
+	}
+
+	public void setFakeId(String fakeId) {
+		this.fakeId = fakeId;
+	}
+
 	public String getPhone() {
 		return phone;
 	}
