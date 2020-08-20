@@ -39,6 +39,22 @@ public class TestBoardDAOImpl extends EgovAbstractMapper implements TestBoardDAO
 		// TODO Auto-generated method stub
 		return delete("testBoardDelete", vo);
 	}
+
+	@Override
+	public List<TestBoardVO> listPage(int page) throws Exception {
+		// TODO Auto-generated method stub
+		return selectList("listPage", page);
+	}
+	@Override
+	public List<TestBoardVO> listCriteria(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return selectList("listCriteria", cri);
+	}
+	@Override
+	public int countPaging(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return selectOne("countPaging", cri);
+	}
 	
 	
 	

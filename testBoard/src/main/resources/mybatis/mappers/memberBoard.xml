@@ -10,7 +10,7 @@
 		(id, password, name, phone, email, zonecode, address)
 		VALUES(#{id},
 		#{password}, #{name}, concat(#{phone1}, '-', #{phone2}, '-',
-		#{phone3}), concat(#{email1}, '@', #{email2}, '.', #{email3}), #{zonecode}, concat(#{add1}, #{add2}, #{add3}) )
+		#{phone3}), concat(#{email1}, '@', #{email2}, '.', #{email3}), #{zonecode}, concat(#{add1}, ' ',  #{add2}, #{add3}) )
 	</insert>
 	<!-- 멤버뷰도 사용 -->
 	<select id="loginCheck" resultType="MemberBoardVO">

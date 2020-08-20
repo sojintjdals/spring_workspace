@@ -18,6 +18,16 @@
 			var id = $("#id").val();
 			var password = $("#password").val();
 			var name = $("#name").val();
+			var phone1 = $("#phone1").val();
+			var phone2 = $("#phone2").val();
+			var phone3 = $("#phone3").val();
+			var email1 = $("#email1").val();
+			var email2 = $("#email2").val();
+			var email3 = $("#email3").val();
+			var zonecode = $(".zonecode").val();
+			var add1 = $(".add1").val();
+			var add2 = $(".add2").val();
+			var add3 = $(".add3").val();
 
 			if (id == "") {
 				alert("아이디을 입력하세요");
@@ -47,6 +57,36 @@
 			if (phone3 == "") {
 				alert("전화번호를 입력하세요");
 				document.lrm.phone3.focus();
+				return;
+			}
+			if (email1 == "") {
+				alert("이메일을 입력하세요");
+				document.lrm.email1.focus();
+				return;
+			}
+			if (email2 == "") {
+				alert("이메일을 입력하세요");
+				document.lrm.email2.focus();
+				return;
+			}
+			if (email3 == "") {
+				alert("이메일을 입력하세요");
+				document.lrm.email3.focus();
+				return;
+			}
+			if (zonecode == "") {
+				alert("우편번호를 입력하세요");
+				document.lrm.zonecode.focus();
+				return;
+			}
+			if (add1 == "") {
+				alert("주소를 입력하세요");
+				document.lrm.add1.focus();
+				return;
+			}
+			if (add3 == "") {
+				alert("주소를 입력하세요");
+				document.lrm.add3.focus();
 				return;
 			}
 			document.lrm.submit();
@@ -195,13 +235,14 @@
 					<input type="text" class="input" name="email3" id="email3">
 				</div>
 				<!-- 우편번호 -->
+				<div class="th">주소</div>
 				<div>
-					<input type="text" class="zonecode" name="zonecode" id="sample6_postcode" placeholder="우편번호">
-					<input type="button" onclick="sample6_execDaumPostcode()"
-						value="우편번호 찾기"><br> <input type="text" class="add1" name="add1"
+					<input type="text" class="zonecode input" name="zonecode" id="sample6_postcode" placeholder="우편번호">
+					<input type="button" class="abtn" onclick="sample6_execDaumPostcode()"
+						value="우편번호 찾기"><br> <input type="text" class="add1 input" name="add1"
 						id="sample6_address" placeholder="주소"><br> <input
-						type="text" id="sample6_detailAddress" class="add2" name="add2" placeholder="상세주소">
-					<input type="text" id="sample6_extraAddress" class="add3"  name="add3" placeholder="참고항목">
+						type="text" id="sample6_detailAddress" class="add2 input" name="add2" placeholder="상세주소">
+					<input type="text" id="sample6_extraAddress" class="add3 input"  name="add3" placeholder="참고항목">
 				</div>
 				<div class="td" id="bt">
 					<input type="button" value="완료" id="writing"

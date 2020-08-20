@@ -3,10 +3,35 @@
 
 <mapper namespace="TestBoardVO">
 	<select id="testBoardList" resultType="TestBoardVO">
+		<![CDATA[
 		SELECT seqno, title,
 		contents, regdate
 		FROM test_metami
-		<!-- date_format(regdate, '%Y-%m-%d') -->
+		where seqno > 0
+		order by seqno desc, regdate desc
+		]]>
+	</select>
+	<select id="listPage" resultType="TestBoardVO">
+	<![CDATA[
+	select 
+		seqno, title,
+		contents, regdate
+		FROM test_metami
+		where seqno > 0
+		order by seqno desc, regdate desc
+		limit #{page}, 10
+	]]>
+	</select>
+	<select id="listCriteria" resultType="TestBoardVO">
+	<![CDATA[
+	select 
+		seqno, title,
+		contents, regdate
+		FROM test_metami
+		where seqno > 0
+		order by seqno desc, regdate desc
+		limit #{pageStart}, #{perPageNum}
+	]]>
 	</select>
 	<select id="testBoardView" parameterType="TestBoardVO" resultType="TestBoardVO">
 		SELECT seqno, title,

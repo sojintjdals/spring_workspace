@@ -40,4 +40,10 @@ public class TestBoardServiceImpl implements TestBoardService {
 		// TODO Auto-generated method stub
 		return dao.testBoardDelete(vo);
 	}
+
+	@Override
+	public List<TestBoardVO> listCriteria(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.listCriteria(cri);
+	}
 }

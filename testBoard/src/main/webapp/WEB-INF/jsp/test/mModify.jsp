@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,15 +110,15 @@
 				</div>
 
 
-				<div class="th">전화번호</div>
-
+				<div class="th">전화번호${resultUpdate.phone}</div>
+				<c:set var="phoneArr" value="${fn:split(resultUpdate.phone,'-')}" />
 
 				<div class="td">
-					<input type="text" class="input" name="phone1" id="phone1" value="" maxlength="3"><span
-						id="span1"> - </span><input type="text" class="input"
-						name="phone2" id="phone2" value="" maxlength="4"> <span class="1">
-						- </span><input type="text" class="input" name="phone3" id="phone3"
-						value="" maxlength="4">
+					<input type="text" class="input" name="phone1" id="phone1" value="${phoneArr[0]}" maxlength="3">
+					<span id="span1"> - </span>
+					<input type="text" class="input" name="phone2" id="phone2" value="${phoneArr[1]}" maxlength="4"> 
+					<span class="1"> - </span>
+					<input type="text" class="input" name="phone3" id="phone3" value="${phoneArr[2]}" maxlength="4">
 				</div>
 
 
@@ -125,10 +126,10 @@
 
 
 				<div class="td">
-					<input type="text" class="input" name="email1" id="email1" value="" maxlength="15"><span
+					<input type="text" class="input" name="email1" id="email1" value="${fn:substring(resultUpdate.email, 0, fn:indexOf(resultUpdate.email,'@'))}" maxlength="15"><span
 						id="span3">@</span><input type="text" class="input" name="email2"
-						id="email2" value="" maxlength="7"><span id="span2">.</span><input
-						type="text" class="input" name="email3" id="email3" value="" maxlength="3"> 
+						id="email2" value="${fn:substring(resultUpdate.email, fn:indexOf(resultUpdate.email,'@')+1, fn:indexOf(resultUpdate.email,'.'))}" maxlength="7"><span id="span2">.</span><input
+						type="text" class="input" name="email3" id="email3" value="${fn:substring(resultUpdate.email, fn:indexOf(resultUpdate.email,'.')+1, -1)}" maxlength="3"> 
 				</div>
 
 
