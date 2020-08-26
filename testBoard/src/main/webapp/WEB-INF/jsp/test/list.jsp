@@ -46,6 +46,15 @@
 		if (message) {
 			alert(message);
 		}
+		$(".pagination li a").on("click", function(event) {
+			event.preventDefault();
+			var targetPageNum = $(this).attr("href");
+			
+			var frm = $("#frm");
+			frm.find("[name='page']").val(targetPageNum);
+			frm.attr("action", "/test/listPage.do").attr("method","get");
+			frm.submit();
+		});
 	});
 </script>
 
@@ -56,6 +65,8 @@
 </head>
 <body>
 	<form id="frm" action=''>
+		<!--페이지 값을 저장하고 넘어갈수있게 ex)2누르면 2를 저장-->
+		<input type="hidden" name="page" >
 		<div class="main">
 			<header>
 				<div></div>
@@ -112,7 +123,7 @@
 				<div class="top_tr">제목</div>
 				<div class="top_tr">등록일</div>
 				<!-- status.count는 1,2,3 순서로 숫자찍음 -->
-				<c:forEach items="${resultList}" var="result" varStatus="status">
+				<c:forEach items="${list}" var="result" varStatus="status">
 					<div class="td" data-id="${result.seqno}">${status.count}</div>
 					<div class="td" id="title" data-id="${result.seqno}">${result.title}</div>
 					<div class="td" data-id="${result.seqno}">${result.regdate}</div>
@@ -121,17 +132,17 @@
 					<ul class="pagination">
 					
 					<c:if test="${pageMaker.prev}">
-						<li><a href="listPage?page=${pageMaker.startPage - 1}">&laquo;</a></li>
+						<li><a href="${pageMaker.startPage - 1}">&laquo;</a></li>
 					</c:if>
 					
 					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var= "idx">
 						<li <c:out value="${pageMaker.cri.page == idx?'class = active' : '' }" />>
-							<a href="listPage?page=${idx}">${idx}</a>
+							<a href="${idx}">${idx}</a>
 						</li>
 					</c:forEach>
 					
 					<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-						<li><a href="listPage?page=${pageMaker.endPage + 1 }">&raquo;</a></li>
+						<li><a href="${pageMaker.endPage + 1 }">&raquo;</a></li>
 					</c:if>
 					
 					</ul>

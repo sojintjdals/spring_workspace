@@ -8,8 +8,10 @@ public interface TestBoardService {
 	List<TestBoardVO> listPage(int page)throws Exception;
 	//Criteria
 	List<TestBoardVO> listCriteria(Criteria cri) throws Exception;
+	int listCountCriteria(Criteria cri) throws Exception;
 	//read
 	TestBoardVO testBoardView(TestBoardVO vo) throws Exception;
+	TestBoardVO testBoardRead(int seqno) throws Exception;
 	int testBoardInsert(TestBoardVO vo) throws Exception;
 	//modify
 	int testBoardUpdate(TestBoardVO vo) throws Exception;

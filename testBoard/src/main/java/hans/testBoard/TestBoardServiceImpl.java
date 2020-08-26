@@ -46,4 +46,22 @@ public class TestBoardServiceImpl implements TestBoardService {
 		// TODO Auto-generated method stub
 		return dao.listCriteria(cri);
 	}
+
+	@Override
+	public List<TestBoardVO> listPage(int page) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.listPage(page);
+	}
+
+	@Override
+	public int listCountCriteria(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.countPaging(cri);
+	}
+
+	@Override
+	public TestBoardVO testBoardRead(int seqno) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.testBoardRead(seqno);
+	}
 }

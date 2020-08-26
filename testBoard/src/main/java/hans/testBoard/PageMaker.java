@@ -52,7 +52,7 @@ public class PageMaker {
 	
 		return uriComponents.toUriString();
 	}
-
+	
 	public int getTotalCount() {
 		return totalCount;
 	}

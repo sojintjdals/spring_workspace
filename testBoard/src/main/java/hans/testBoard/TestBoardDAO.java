@@ -11,6 +11,7 @@ public interface TestBoardDAO {
 	List<TestBoardVO> listCriteria(Criteria cri) throws Exception;
 	//read
 	TestBoardVO testBoardView(TestBoardVO vo) throws Exception;
+	TestBoardVO testBoardRead(int seqno) throws Exception;
 	//create
 	int testBoardInsert(TestBoardVO vo) throws Exception;
 	//update

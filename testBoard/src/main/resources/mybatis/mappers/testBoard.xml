@@ -3,13 +3,15 @@
 
 <mapper namespace="TestBoardVO">
 	<select id="testBoardList" resultType="TestBoardVO">
-		<![CDATA[
-		SELECT seqno, title,
+	<![CDATA[
+	select 
+		seqno, title,
 		contents, regdate
 		FROM test_metami
 		where seqno > 0
 		order by seqno desc, regdate desc
-		]]>
+		limit #{pageStart}, #{perPageNum}
+	]]>
 	</select>
 	<select id="listPage" resultType="TestBoardVO">
 	<![CDATA[
@@ -19,7 +21,7 @@
 		FROM test_metami
 		where seqno > 0
 		order by seqno desc, regdate desc
-		limit #{page}, 10
+		limit #{pageStart}, #{perPageNum}
 	]]>
 	</select>
 	<select id="listCriteria" resultType="TestBoardVO">
@@ -31,6 +33,16 @@
 		where seqno > 0
 		order by seqno desc, regdate desc
 		limit #{pageStart}, #{perPageNum}
+	]]>
+	</select>
+	<select id="countPaging" resultType="int">
+		<![CDATA[
+	select 
+		count(seqno)		
+	FROM 
+		test_metami
+	where
+		seqno > 0
 	]]>
 	</select>
 	<select id="testBoardView" parameterType="TestBoardVO" resultType="TestBoardVO">

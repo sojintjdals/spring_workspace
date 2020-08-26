@@ -32,8 +32,13 @@
 				$("#frm").submit();
 			}
 		});
-		$("#back").click(function() {
+	/* 	$("#back").click(function() {
 			$(location).attr('href','/test/list.do');
+		}) */
+		$("#back").click(function() {
+			$("#frm").attr("method","get");
+			$("#frm").attr("action","/test/listPage.do");
+			$("#frm").submit();
 		})
 	});
 </script>
@@ -44,6 +49,12 @@
 </head>
 <body>
 	<form id="frm" action='/test/modify.do'>
+	
+		<input type="hidden" name="seqno" value="${result.seqno}">
+<%-- 		<input type="hidden" name="page" value="${cri.page}">
+		<input type="hidden" name="perPageNum" value="${cri.perPageNum}"> --%>
+		
+		
 		<div class="main">
 			<header>
 				<h1 id="h">게시물</h1>
