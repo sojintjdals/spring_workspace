@@ -2,7 +2,11 @@ package hans.testBoard;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.commons.validator.Msg;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,28 +36,33 @@ public class TestBoardController {
 		return "test/list";
 	}
 
-	@RequestMapping(value = "/listPage.do", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/listPage.do", method = RequestMethod.GET)
 	public String listPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		
 		System.out.println(cri.toString());
+		
 		model.addAttribute("list", service.listCriteria(cri));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		/* pageMaker.setTotalCount(21); */
+		pageMaker.setTotalCount(service.listCountCriteria(cri));
+		model.addAttribute("pageMaker", pageMaker);
+		return "test/list";
+	}*/
+	@RequestMapping(value = "/listPage.do", method = RequestMethod.GET)
+	public String seacrhListPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		
+		System.out.println(cri.toString());
+		
+		model.addAttribute("list", service.listCriteria(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(service.listCountCriteria(cri));
 		model.addAttribute("pageMaker", pageMaker);
 		return "test/list";
 	}
-	
-/*	@RequestMapping(value = "readPage.do", method = RequestMethod.GET)
-	public String read(@RequestParam("seqno") int seqno,
-			@ModelAttribute("cri") Criteria cri,
-			Model model)throws Exception{
-		model.addAttribute(service.testBoardRead(seqno));
-		return "test/view";
-	}*/
-	//20200826 기능구현할것
+
 	@RequestMapping("view.do")
-	public String view(Model model, @ModelAttribute("cri") Criteria cri) {
+	public String view(Model model, TestBoardVO vo) {
 		try {
 			model.addAttribute("result", service.testBoardView(vo));
 		} catch (Exception e) {
@@ -62,17 +71,6 @@ public class TestBoardController {
 		}
 		return "test/view";
 	}
-/*	@RequestMapping(value = "view.do", method = RequestMethod.GET)
-	public String view(Model model, TestBoardVO vo, @ModelAttribute("cri") Criteria cri) {
-		try {
-			model.addAttribute("result", service.testBoardView(vo));
-			model.addAttribute("cri", service.listCriteria(cri));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "test/view";
-	}*/
 
 	@RequestMapping(value = "insert.do", method = RequestMethod.GET)
 	public String insertGet() {
@@ -90,7 +88,7 @@ public class TestBoardController {
 		}
 		System.out.println("==========> " + result);
 		rttr.addFlashAttribute("message", "데이터 저장이 성공하였습니다.");
-		return "redirect:/test/list.do";
+		return "redirect:/test/listPage.do";
 	}
 
 	@RequestMapping("modify.do")
@@ -119,7 +117,7 @@ public class TestBoardController {
 			rttr.addFlashAttribute("message", "데이터 저장이 성공하였습니다.");
 		else
 			rttr.addFlashAttribute("message", "데이터 저장이 실패하였습니다.");
-		return "redirect:/test/list.do";
+		return "redirect:/test/listPage.do";
 	}
 
 	@RequestMapping("delete.do")
@@ -130,6 +128,7 @@ public class TestBoardController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "redirect:/test/list.do";
+		return "redirect:/test/listPage.do";
 	}
+	
 }

@@ -51,8 +51,6 @@
 	<form id="frm" action='/test/modify.do'>
 	
 		<input type="hidden" name="seqno" value="${result.seqno}">
-<%-- 		<input type="hidden" name="page" value="${cri.page}">
-		<input type="hidden" name="perPageNum" value="${cri.perPageNum}"> --%>
 		
 		
 		<div class="main">

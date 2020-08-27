@@ -20,4 +20,6 @@ public interface TestBoardDAO {
 	int testBoardDelete(TestBoardVO vo) throws Exception;
 	//count
 	int countPaging(Criteria cri)throws Exception;
+	List<TestBoardVO> listSearch(Criteria cri) throws Exception;
+	int listSearchCount(Criteria cri) throws Exception;
  }

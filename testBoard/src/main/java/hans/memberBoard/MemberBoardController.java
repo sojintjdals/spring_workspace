@@ -44,7 +44,7 @@ public class MemberBoardController {
 		ModelAndView mav = new ModelAndView();
 		if (result) {
 			System.out.println(result);
-			mav.setViewName("redirect:list.do");
+			mav.setViewName("redirect:listPage.do");
 		} else {
 			mav.setViewName("redirect:Login.do");
 			rttr.addFlashAttribute("msg", "로그인에 실패하였습니다");

@@ -61,6 +61,18 @@ public class TestBoardDAOImpl extends EgovAbstractMapper implements TestBoardDAO
 		// TODO Auto-generated method stub
 		return selectOne("testBoardRead", seqno);
 	}
+	@Override
+	public List<TestBoardVO> listSearch(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+			System.out.println("Search");
+		return selectList("listCriteria", cri);
+	}
+	@Override
+	public int listSearchCount(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return selectOne("listSearchCount", cri);
+	}
+
 	
 	
 	

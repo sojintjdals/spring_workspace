@@ -34,7 +34,7 @@
 			alert('${msg}');
 		}
 		$("#back").click(function() {
-			$("#lrm").attr("action", "/test/list.do");
+			$("#lrm").attr("action", "/test/listPage.do");
 			$("#lrm").submit();
 		})
 	})

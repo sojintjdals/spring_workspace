@@ -46,15 +46,13 @@
 		if (message) {
 			alert(message);
 		}
-		$(".pagination li a").on("click", function(event) {
-			event.preventDefault();
-			var targetPageNum = $(this).attr("href");
+		
+		$("#searchBtn").on("click", function(event) {
 			
-			var frm = $("#frm");
-			frm.find("[name='page']").val(targetPageNum);
-			frm.attr("action", "/test/listPage.do").attr("method","get");
-			frm.submit();
-		});
+		  self.location = "listPage.do"+'${pageMaker.makeQuery(1)}'
+		  +"&searchType="+$("select option:selected").val()
+		  +"&keyword="+$('#keywordInput').val();
+		})
 	});
 </script>
 
@@ -66,7 +64,7 @@
 <body>
 	<form id="frm" action=''>
 		<!--페이지 값을 저장하고 넘어갈수있게 ex)2누르면 2를 저장-->
-		<input type="hidden" name="page" >
+		<input type="hidden" name="page">
 		<div class="main">
 			<header>
 				<div></div>
@@ -130,22 +128,46 @@
 				</c:forEach>
 				<div class="text-center">
 					<ul class="pagination">
-					
-					<c:if test="${pageMaker.prev}">
-						<li><a href="${pageMaker.startPage - 1}">&laquo;</a></li>
-					</c:if>
-					
-					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var= "idx">
-						<li <c:out value="${pageMaker.cri.page == idx?'class = active' : '' }" />>
-							<a href="${idx}">${idx}</a>
-						</li>
-					</c:forEach>
-					
-					<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-						<li><a href="${pageMaker.endPage + 1 }">&raquo;</a></li>
-					</c:if>
-					
+
+						<c:if test="${pageMaker.prev}">
+							<li><a href="${pageMaker.makeSearch(pageMaker.startPage - 1)}">&laquo;</a></li>
+						</c:if>
+
+						<c:forEach begin="${pageMaker.startPage }"
+							end="${pageMaker.endPage }" var="idx">
+							<li
+								<c:out value="${pageMaker.cri.page == idx?'class = active' : '' }" />>
+								<a href="${pageMaker.makeSearch(idx)}">${idx}</a>
+							</li>
+						</c:forEach>
+
+						<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+							<li><a href="${pageMaker.endPage + 1 }">&raquo;</a></li>
+						</c:if>
+
 					</ul>
+				</div>
+				<div class="box-body">
+					<select name="searchType">
+						<option value="n">
+							<c:out value="${cri.searchType == null?'selected' : '' }" />---
+						</option>
+						<option value="t">
+							<c:out value="${cri.searchType eq 't'?'selected' : '' }" />
+							Title
+						</option>
+						<option value="c">
+							<c:out value="${cri.searchType eq 'c'?'selected' : '' }" />
+							Content
+						</option> 
+						<option value="tc">
+							<c:out value="${cri.searchType eq 'tc'?'selected' : '' }" />
+							Title OR Content
+						</option>
+					</select>
+					<input type="text" id="keywordInput">
+					<input type="button" value="Search" name="Search" id="searchBtn">
+					<input type="button" value="NewBoard" name="NewBoard"> 
 				</div>
 				<c:if test="${not empty userId}">
 					<div></div>
@@ -160,8 +182,12 @@
 				<div></div>
 				<div class="metami">위 내용에 대한 저작권 및 법적 책임은 자료제공사 또는 글쓴이에 있으며
 					metamiweb의 입장과 다를 수 있습니다.</div>
-				<div></div>
-				<div></div>
+				<div>
+					<%-- ${pageMaker.cri.perPageNum} --%>
+				</div>
+				<div>
+					<%-- ${pageMaker.cri.page} --%>
+				</div>
 			</footer>
 		</div>
 	</form>
