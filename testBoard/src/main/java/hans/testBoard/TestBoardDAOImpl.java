@@ -19,7 +19,7 @@ public class TestBoardDAOImpl extends EgovAbstractMapper implements TestBoardDAO
 	@Override
 	public TestBoardVO testBoardView(TestBoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return selectOne("testBoardView",vo);
+		return selectOne("testBoardView", vo);
 	}
 
 	@Override
@@ -45,11 +45,13 @@ public class TestBoardDAOImpl extends EgovAbstractMapper implements TestBoardDAO
 		// TODO Auto-generated method stub
 		return selectList("listPage", page);
 	}
+
 	@Override
 	public List<TestBoardVO> listCriteria(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
 		return selectList("listCriteria", cri);
 	}
+
 	@Override
 	public int countPaging(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
@@ -61,21 +63,24 @@ public class TestBoardDAOImpl extends EgovAbstractMapper implements TestBoardDAO
 		// TODO Auto-generated method stub
 		return selectOne("testBoardRead", seqno);
 	}
+
 	@Override
 	public List<TestBoardVO> listSearch(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
-			System.out.println("Search");
+		System.out.println("Search");
 		return selectList("listCriteria", cri);
 	}
+
 	@Override
 	public int listSearchCount(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
 		return selectOne("listSearchCount", cri);
 	}
 
-	
-	
-	
-	
+	@Override
+	public int addAttach(String fullName) throws Exception {
+		// TODO Auto-generated method stub
+		return insert("addAttach", fullName);
+	}
 
 }

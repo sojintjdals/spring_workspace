@@ -22,4 +22,6 @@ public interface TestBoardDAO {
 	int countPaging(Criteria cri)throws Exception;
 	List<TestBoardVO> listSearch(Criteria cri) throws Exception;
 	int listSearchCount(Criteria cri) throws Exception;
+	//파일업로드
+	int addAttach(String fullName)throws Exception;
  }

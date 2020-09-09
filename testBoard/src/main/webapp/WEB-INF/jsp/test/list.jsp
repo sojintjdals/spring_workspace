@@ -12,48 +12,53 @@
 <link rel="stylesheet"
 	href="<c:url value='/css/bulma-0.9.0/bulma.min.css' />">
 <script>
-	$(document).ready(function() {
-		$(".td").click(function() {
-			$("#seqno").val($(this).data("id"));
-			$("#frm").attr("action", "/test/view.do");
-			$("#frm").submit();
-		});
-		$("#writing").click(function() {
-			$("#frm").attr("action", "/test/insert.do");
-			$("#frm").submit();
-		});
-		$("#insertMember").click(function() {
-			$("#frm").attr("action", "/test/mInsert.do");
-			$("#frm").submit();
-		});
-		$("#loginmember").click(function() {
-			$("#frm").attr("action", "/test/Login.do");
-			$("#frm").submit();
-		});
-		$("#logout").click(function() {
-			$("#frm").attr("action", "/test/logout.do");
-			$("#frm").submit();
-		});
-		$("#memberView").click(function() {
-			$("#frm").attr("action", "/test/mView.do");
-			$("#frm").submit();
-		});
-		if ($("#L1").val() == $("#h1").val()) {
-			$("#L1").css("background-color", "#175EB8");
-			$("#L1").css("color", "#77FFFF");
-		}
-		var message = '${message}';
-		if (message) {
-			alert(message);
-		}
-		
-		$("#searchBtn").on("click", function(event) {
-			
-		  self.location = "listPage.do"+'${pageMaker.makeQuery(1)}'
-		  +"&searchType="+$("select option:selected").val()
-		  +"&keyword="+$('#keywordInput').val();
-		})
-	});
+	$(document).ready(
+			function() {
+				$(".td").click(function() {
+					$("#seqno").val($(this).data("id"));
+					$("#frm").attr("action", "/test/view.do");
+					$("#frm").submit();
+				});
+				$("#writing").click(function() {
+					$("#frm").attr("action", "/test/insert.do");
+					$("#frm").submit();
+				});
+				$("#insertMember").click(function() {
+					$("#frm").attr("action", "/test/mInsert.do");
+					$("#frm").submit();
+				});
+				$("#loginmember").click(function() {
+					$("#frm").attr("action", "/test/Login.do");
+					$("#frm").submit();
+				});
+				$("#logout").click(function() {
+					$("#frm").attr("action", "/test/logout.do");
+					$("#frm").submit();
+				});
+				$("#memberView").click(function() {
+					$("#frm").attr("action", "/test/mView.do");
+					$("#frm").submit();
+				});
+				if ($("#L1").val() == $("#h1").val()) {
+					$("#L1").css("background-color", "#175EB8");
+					$("#L1").css("color", "#77FFFF");
+				}
+				var message = '${message}';
+				if (message) {
+					alert(message);
+				}
+
+				$("#searchBtn").on(
+						"click",
+						function(event) {
+
+							self.location = "listPage.do"
+									+ '${pageMaker.makeQuery(1)}'
+									+ "&searchType="
+									+ $("select option:selected").val()
+									+ "&keyword=" + $('#keywordInput').val();
+						})
+			});
 </script>
 
 <link href="<c:url value="/testCss/reset.css" />" rel="stylesheet"
@@ -130,7 +135,8 @@
 					<ul class="pagination">
 
 						<c:if test="${pageMaker.prev}">
-							<li><a href="${pageMaker.makeSearch(pageMaker.startPage - 1)}">&laquo;</a></li>
+							<li><a
+								href="${pageMaker.makeSearch(pageMaker.startPage - 1)}">&laquo;</a></li>
 						</c:if>
 
 						<c:forEach begin="${pageMaker.startPage }"
@@ -159,15 +165,14 @@
 						<option value="c">
 							<c:out value="${cri.searchType eq 'c'?'selected' : '' }" />
 							Content
-						</option> 
+						</option>
 						<option value="tc">
 							<c:out value="${cri.searchType eq 'tc'?'selected' : '' }" />
 							Title OR Content
 						</option>
-					</select>
-					<input type="text" id="keywordInput">
-					<input type="button" value="Search" name="Search" id="searchBtn">
-					<input type="button" value="NewBoard" name="NewBoard"> 
+					</select> <input type="text" id="keywordInput"> <input type="button"
+						value="Search" name="Search" id="searchBtn"> <input
+						type="button" value="NewBoard" name="NewBoard">
 				</div>
 				<c:if test="${not empty userId}">
 					<div></div>
@@ -183,7 +188,10 @@
 				<div class="metami">위 내용에 대한 저작권 및 법적 책임은 자료제공사 또는 글쓴이에 있으며
 					metamiweb의 입장과 다를 수 있습니다.</div>
 				<div>
-					<%-- ${pageMaker.cri.perPageNum} --%>
+					<form id="uploadForm" action="/test/upload.do" method="post"
+						enctype="multipart/form-data">
+						<input type="file" name="file"><input type="submit">
+					</form>
 				</div>
 				<div>
 					<%-- ${pageMaker.cri.page} --%>

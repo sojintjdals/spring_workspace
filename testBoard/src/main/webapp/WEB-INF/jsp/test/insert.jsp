@@ -63,7 +63,6 @@
 					<textarea class="textarea is-large" rows="10" cols="50"
 						name="contents" id="contents"></textarea>
 				</div>
-
 				<div class="td bt">
 					<input type="button" value="완료" id="writing"
 						class="button is-primary is-light"> <input type="button"

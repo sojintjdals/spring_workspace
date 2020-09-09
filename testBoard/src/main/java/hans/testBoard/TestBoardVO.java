@@ -1,5 +1,7 @@
 package hans.testBoard;
 
+import java.util.Arrays;
+
 public class TestBoardVO {
 //	CREATE TABLE `test_metami` (
 //			  `seqno` int(11) NOT NULL AUTO_INCREMENT,
@@ -12,6 +14,35 @@ public class TestBoardVO {
 	private String title;
 	private String contents;
 	private String regdate;
+	//파일업로드때 추가한것들
+	private int viewcnt;
+	public int getViewcnt() {
+		return viewcnt;
+	}
+
+	public void setViewcnt(int viewcnt) {
+		this.viewcnt = viewcnt;
+	}
+
+	public int getReplycnt() {
+		return replycnt;
+	}
+
+	public void setReplycnt(int replycnt) {
+		this.replycnt = replycnt;
+	}
+
+	public String[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
+
+	private int replycnt;
+	
+	private String[] files; //첨부파일의 이름을 보관하는 문자열 배열
 
 	public int getSeqno() {
 		return seqno;
@@ -48,8 +79,7 @@ public class TestBoardVO {
 	@Override
 	public String toString() {
 		return "TestBoardVO [seqno=" + seqno + ", title=" + title + ", contents=" + contents + ", regdate=" + regdate
-				+ ", getSeqno()=" + getSeqno() + ", getTitle()=" + getTitle() + ", getContents()=" + getContents()
-				+ ", getRegdate()=" + getRegdate() + "]";
+				+ ", viewcnt=" + viewcnt + ", replycnt=" + replycnt + ", files=" + Arrays.toString(files) + "]";
 	}
 
 }
