@@ -1,9 +1,10 @@
 package hans.testBoard;
 
-import java.awt.PageAttributes.MediaType;
 import java.awt.image.BufferedImage;
+import java.beans.MethodDescriptor;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -11,18 +12,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Function;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
-import javax.ws.rs.core.HttpHeaders;
 
 import org.apache.commons.validator.Msg;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 import org.imgscalr.Scalr;
+import org.omg.CORBA.PRIVATE_MEMBER;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,9 +42,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/test/*")
 public class TestBoardController {
+	
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(TestBoardController.class);
 
 	@Autowired
 	TestBoardService service;
+
+	@Resource(name = "uploadPath")
+	private String uploadPath;
 
 	@RequestMapping("list.do")
 	public String list(Model model) {
@@ -152,31 +161,66 @@ public class TestBoardController {
 	}
 
 	// 파일업로드관련
-	@RequestMapping(value = "upload.do", method = RequestMethod.POST)
-	public String upload(MultipartFile file, Model model) {
+	@RequestMapping(value = "uploadForm.do", method = RequestMethod.GET)
+	public String uploadGet(MultipartFile file, Model model) throws Exception {
+
+		return "test/uploadForm";
+	}
+
+	@RequestMapping(value = "uploadForm.do", method = RequestMethod.POST)
+	public String uploadPost(MultipartFile file, Model model) throws Exception {
+
+		logger.info("originalName: " + file.getOriginalFilename());
+		logger.info("size: " + file.getSize());
+		logger.info("contentType: " + file.getContentType());
 
 		String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 
 		model.addAttribute("savedName", savedName);
 
-		return "test/uploadResult.do";
+		return "test/uploadResult";
 	}
 
-	private static String makeIcon(String uploadPath, String path, String fileName) throws Exception {
-
-		String iconName = uploadPath + path + File.separator + fileName;
-
-		return iconName.substring(uploadPath.length()).replace(File.separator, '/');
+	@RequestMapping(value = "uploadAjax.do", method = RequestMethod.GET)
+	public String uploadAjaxGet() {
+		return "test/uploadAjax";
 	}
 
+	@RequestMapping(value = "uploadAjax.do", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> uploadAjaxPost(MultipartFile file) throws IOException, Exception {
+
+		logger.info("originalName: " + file.getOriginalFilename());
+		logger.info("size: " + file.getSize());
+		logger.info("contentType: " + file.getContentType());
+
+		return new ResponseEntity<>(uploadFile2(uploadPath, file.getOriginalFilename(), file.getBytes()),
+				HttpStatus.CREATED);
+	}
+
+	// uploadpost
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {
+
+		UUID uid = UUID.randomUUID();
+
+		String savedName = uid.toString() + "_" + originalName;
+
+		File target = new File(uploadPath, savedName);
+
+		FileCopyUtils.copy(fileData, target);
+
+		return savedName;
+	}
+
+	// uploadajax
+	private String uploadFile2(String uploadPath, String originalName, byte[] fileData) throws Exception {
+
 		UUID uid = UUID.randomUUID();
 
 		String savedName = uid.toString() + "_" + originalName;
 
 		String savedPath = calcPath(uploadPath);
 
-		File target = new File(uploadPath, savedName);
+		File target = new File(uploadPath + savedPath, savedName);
 
 		FileCopyUtils.copy(fileData, target);
 
@@ -185,20 +229,22 @@ public class TestBoardController {
 		String uploadedFileName = null;
 
 		if (MediaUtils.getMediaType(formatName) != null) {
-			uploadedFileName = makeThumbnail(uploadPath, savedPath, savedName);
+			uploadedFileName = makeThumbnail(uploadedFileName, savedPath, savedName);
 		} else {
 			uploadedFileName = makeIcon(uploadPath, savedPath, savedName);
 		}
 
-		return uploadedFileName;
+		return savedName;
 	}
 
 	private static void makeDir(String uploadPath, String... paths) {
+
 		if (new File(paths[paths.length - 1]).exists()) {
 			return;
 		}
 
 		for (String path : paths) {
+
 			File dirPath = new File(uploadPath + path);
 
 			if (!dirPath.exists()) {
@@ -208,30 +254,21 @@ public class TestBoardController {
 	}
 
 	private static String calcPath(String uploadPath) {
+
 		Calendar cal = Calendar.getInstance();
 
 		String yearPath = File.separator + cal.get(Calendar.YEAR);
 
 		String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
 
-		String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		String dataPath = File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
 
-		makeDir(uploadPath, yearPath, monthPath, datePath);
+		makeDir(uploadPath, yearPath, monthPath, dataPath);
 
-		return datePath;
+		logger.info(dataPath);
+
+		return dataPath;
 	}
-
-	@ResponseBody
-	@RequestMapping(value = "upload.do", method = RequestMethod.POST, produces = "test/plain;charset=UTF-8")
-	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
-
-		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
-				HttpStatus.CREATED);
-		/* file.getOriginalFilename(), HttpStatus.CREATED); */
-	}
-
-	@Resource(name = "uploadPath")
-	private String uploadPath;
 
 	private static String makeThumbnail(String uploadPath, String path, String fileName) throws Exception {
 
@@ -245,35 +282,32 @@ public class TestBoardController {
 		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 
 		ImageIO.write(destImg, formatName.toUpperCase(), newFile);
-		return thumbnailName.substring(uploadPath.length()).replace(File.separator, '/');
+		return thumbnailName.substring(uploadPath.length()).replace(File.separatorChar, '/');
 	}
 
-	private static Map<String, MediaType> mediaMap;
-	static {
-		mediaMap = new HashMap<String, MediaType>();
-		mediaMap.put("JPG", MediaType.IMAGE_JPEG);
-		mediaMap.put("GIF", MediaType.IMAGE_GIF);
-		mediaMap.put("GIF", MediaType.IMAGE_PNG);
+	private static String makeIcon(String uploadPath, String path, String fileName) throws Exception {
+
+		String iconName = uploadPath + path + File.separator + fileName;
+
+		return iconName.substring(uploadPath.length()).replace(File.separatorChar, '/');
 	}
 
-	public static MediaType geMediaType(String type) {
-		return mediaMap.get(type.toUpperCase());
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "test/displayFile.do")
-	public ResponseEntity<byte[]> displayFile(String fileName)throws
-	Exception {
+	@RequestMapping("displayFile.do")
+	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
+		
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
 		
+		logger.info("FILE NAME : " + fileName);
+		
 		try {
+			
 			String formatName =
 		fileName.substring(fileName.lastIndexOf(".")+1);
 			
 			MediaType mType = MediaUtils.getMediaType(formatName);
-			
-			HttpHeaders headers = new HttpHeaders(); 
+	
+			HttpHeaders headers = new HttpHeaders();
 			
 			in = new FileInputStream(uploadPath+fileName);
 			
@@ -282,8 +316,8 @@ public class TestBoardController {
 			}else {
 				fileName = fileName.substring(fileName.indexOf("_")+1);
 				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-				headers.add("Content-Disposition","attachment; filename=\""+
-				new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");	
+				headers.add("Content-Disposition", "attachment; filename=\"" +
+					new String(fileName));
 			}
 			
 		} catch (Exception e) {
@@ -293,26 +327,8 @@ public class TestBoardController {
 		}finally {
 			in.close();
 		}
-			return entity;
+		return entity;
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "test/deleteFile.do", method=RequestMethod.POST)
-	public ResponseEntity<String> deleteFile(String fileName){
-		
-		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-		
-		MediaType mType = MediaUtils.getMediaType(formatName);
-		
-		if(mType != null) {
-			
-			String front = fileName.substring(0,12);
-			String end = fileName.substring(14);
-			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
-		}
-		
-		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
-		
-		return new ResponseEntity<String>("deleted",HttpStatus.OK);
-	}
+
 }
