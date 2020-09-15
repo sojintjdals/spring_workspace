@@ -17,4 +17,5 @@ public interface TestBoardService {
 	int testBoardUpdate(TestBoardVO vo) throws Exception;
 	//remove
 	int testBoardDelete(TestBoardVO vo) throws Exception;
+	void InsertFile(TestBoardVO vo) throws Exception;
 }

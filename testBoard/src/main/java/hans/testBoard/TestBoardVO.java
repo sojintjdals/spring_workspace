@@ -14,8 +14,21 @@ public class TestBoardVO {
 	private String title;
 	private String contents;
 	private String regdate;
-	//파일업로드때 추가한것들
+	// 파일업로드때 추가한것들
 	private int viewcnt;
+	private String fullName;
+	private int replycnt;
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	private String[] files; // 첨부파일의 이름을 보관하는 문자열 배열
+
 	public int getViewcnt() {
 		return viewcnt;
 	}
@@ -39,10 +52,6 @@ public class TestBoardVO {
 	public void setFiles(String[] files) {
 		this.files = files;
 	}
-
-	private int replycnt;
-	
-	private String[] files; //첨부파일의 이름을 보관하는 문자열 배열
 
 	public int getSeqno() {
 		return seqno;

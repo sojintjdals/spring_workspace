@@ -2,8 +2,12 @@ package hans.testBoard;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import egovframework.let.cop.bbs.service.Board;
 
 @Service
 public class TestBoardServiceImpl implements TestBoardService {
@@ -63,5 +67,22 @@ public class TestBoardServiceImpl implements TestBoardService {
 	public TestBoardVO testBoardRead(int seqno) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.testBoardRead(seqno);
+	}
+	//오류가 나도 실제로 들어가지않게하고 롤백시켜주는 명령어
+	@Transactional
+	@Override
+	public void InsertFile(TestBoardVO vo) throws Exception{
+		
+		dao.testBoardInsert(vo);
+		
+		String[] files = vo.getFiles();
+		
+		if(files == null) {
+			return;
+		}
+		
+		for(String fileName : files) {
+			dao.addAttach(fileName);
+		}
 	}
 }

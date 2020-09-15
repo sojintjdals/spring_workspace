@@ -40,47 +40,42 @@
 
 						formData.append("file", file);
 
-						$
-								.ajax({
-									url : '/test/uploadAjax.do',
-									data : formData,
-									dataType : 'text',
-									processData : false,
-									contentType : false,
-									type : 'POST',
-									success : function(data) {
+						$.ajax({
+								url : '/test/uploadAjax.do',
+								data : formData,
+								dataType : 'text',
+								processData : false,
+								contentType : false,
+								type : 'POST',
+								success : function(data) {
 
-										var str = "";
-										console.log(data);
-										console.log(checkImageType);
-										if (checkImageType(data)) {
-											str = "<div>"
-													+ "<img src='/test/displayFile.do?fileName="
-													+ getImageLink(data)
-													+ "'/><small data-src="+data+">X</small></div>";
-										} else {
-											str = "<div><a href='/test/displayFile.do?fileName="
-													+ data
-													+ "'>"
-													+ getOriginalName(data)
-													+ "</a><small data-src="+data+">X</small></div>";
-											alert(data);
-										}
-
-										$(".uploadedList").append(str);
+								var str = "";
+								console.log(data);
+								console.log(checkImageType);
+									if (checkImageType(data)) {
+										str = "<div>"
+												+ "<img src='/test/displayFile.do?fileName="
+												+ getImageLink(data)
+												+ "'/><small data-src="+data+">X</small></div>";
+									} else {
+										str = "<div><a href='/test/displayFile.do?fileName="
+												+ data
+												+ "'>"
+												+ getOriginalName(data)
+												+ "</a><small data-src="+data+">X</small></div>";
+										alert(data);
 									}
-								});
-					});
-	$(".uploadedList").on("click", "small", function(event) {
-
+										$(".uploadedList").append(str);
+								}
+							});
+				});
+$(".uploadedList").on("click", "small", function(event) {
 		var that = $(this);
 
 		$.ajax({
 			url : "/test/deleteFile.do",
 			type : "post",
-			data : {
-				fileName : $(this).attr("data-src")
-			},
+			data : {fileName : $(this).attr("data-src")},
 			dataType : "text",
 			success : function(result) {
 				if (result == 'deleted') {

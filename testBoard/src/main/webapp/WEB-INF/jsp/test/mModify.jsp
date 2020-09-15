@@ -73,8 +73,7 @@
 			document.frm.submit();
 		})
 		$("#back").click(function() {
-			$("#frm").attr("action", "/test/list.do");
-			$("#frm").submit();
+			window.location.href="<c:url value='/test/listPage.do' />";
 		})
 	})
 </script>

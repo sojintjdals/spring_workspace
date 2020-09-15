@@ -188,10 +188,6 @@
 				<div class="metami">위 내용에 대한 저작권 및 법적 책임은 자료제공사 또는 글쓴이에 있으며
 					metamiweb의 입장과 다를 수 있습니다.</div>
 				<div>
-					<form id="uploadForm" action="/test/upload.do" method="post"
-						enctype="multipart/form-data">
-						<input type="file" name="file"><input type="submit">
-					</form>
 				</div>
 				<div>
 					<%-- ${pageMaker.cri.page} --%>
