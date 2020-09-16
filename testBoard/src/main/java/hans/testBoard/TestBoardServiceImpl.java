@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mysql.fabric.xmlrpc.base.Data;
+
 import egovframework.let.cop.bbs.service.Board;
 
 @Service
@@ -19,12 +21,6 @@ public class TestBoardServiceImpl implements TestBoardService {
 	public List<TestBoardVO> testBoardList() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.testBoardList();
-	}
-
-	@Override
-	public TestBoardVO testBoardView(TestBoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.testBoardView(vo);
 	}
 
 	@Override
@@ -71,18 +67,30 @@ public class TestBoardServiceImpl implements TestBoardService {
 	//오류가 나도 실제로 들어가지않게하고 롤백시켜주는 명령어
 	@Transactional
 	@Override
-	public void InsertFile(TestBoardVO vo) throws Exception{
-		
-		dao.testBoardInsert(vo);
+	public int InsertFile(TestBoardVO vo) throws Exception{
 		
 		String[] files = vo.getFiles();
-		
-		if(files == null) {
-			return;
+		System.out.println("==============================================================>" + files);
+		if(files != null && files[0].getBytes().length > 0) {
+			for(String fileName : files) {
+				dao.addAttach(fileName);
+			}
 		}
 		
-		for(String fileName : files) {
-			dao.addAttach(fileName);
-		}
+		return dao.testBoardInsert(vo);
+	}
+
+	@Override
+	public TestBoardVO testBoardView(TestBoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		int seqno = dao.testBoardView(vo).getSeqno();
+			dao.getAttach(seqno);
+		return dao.testBoardView(vo);
+	}
+
+	@Override
+	public List<TestBoardVO> getAttach(int seqno) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getAttach(seqno);
 	}
 }

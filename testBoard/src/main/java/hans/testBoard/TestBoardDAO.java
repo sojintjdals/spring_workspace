@@ -24,4 +24,5 @@ public interface TestBoardDAO {
 	int listSearchCount(Criteria cri) throws Exception;
 	//파일업로드
 	int addAttach(String fullName)throws Exception;
+	List<TestBoardVO> getAttach(int seqno) throws Exception;
  }

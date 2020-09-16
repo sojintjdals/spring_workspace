@@ -51,7 +51,6 @@
 	
 		<input type="hidden" name="seqno" value="${result.seqno}">
 		
-		
 		<div class="main">
 			<header>
 				<h1 id="h">게시물</h1>

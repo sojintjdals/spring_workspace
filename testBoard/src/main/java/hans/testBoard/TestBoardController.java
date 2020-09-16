@@ -33,6 +33,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -94,6 +95,7 @@ public class TestBoardController {
 	@RequestMapping("view.do")
 	public String view(Model model, TestBoardVO vo) {
 		try {
+			System.out.println("view attach : " + service.testBoardView(vo).getFullName());
 			model.addAttribute("result", service.testBoardView(vo));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -101,6 +103,12 @@ public class TestBoardController {
 		}
 		return "test/view";
 	}
+/*	@RequestMapping("view.do")
+		@ResponseBody
+		public List<TestBoardVO> getAttach(@PathVariable("seqno")int seqno)throws
+	Exception{
+		return service.getAttach(seqno);
+	}*/
 
 	@RequestMapping(value = "insert.do", method = RequestMethod.GET)
 	public String insertGet() {
@@ -111,12 +119,12 @@ public class TestBoardController {
 	public String insertPost(RedirectAttributes rttr, TestBoardVO vo) {
 		int result = 0;
 		try {
-			result = service.testBoardInsert(vo);
+			result = service.InsertFile(vo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("==========> " + result);
+		System.out.println("==========> result:" + result);
 		rttr.addFlashAttribute("message", "데이터 저장이 성공하였습니다.");
 		return "redirect:/test/listPage.do";
 	}

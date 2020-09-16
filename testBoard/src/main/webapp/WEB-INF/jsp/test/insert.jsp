@@ -34,10 +34,10 @@
 				$("#back").click(function() {
 					window.location.href = "<c:url value='/test/listPage.do' />";
 				})
+				//파일업로드 부분
 				$(".fileDrop").on("dragenter dragover", function(event) {
 					event.preventDefault();
-				});
-
+				})
 			$(".fileDrop").on("drop",	function(event) {
 				event.preventDefault();
 
@@ -46,7 +46,7 @@
 				var formData = new FormData();
 
 				formData.append("file", file);
-
+				//에이젝스부분
 				$.ajax({
 					url : '/test/uploadAjax.do',
 					data : formData,
@@ -54,8 +54,7 @@
 					processData : false,
 					contentType : false,
 					type : 'POST',
-					success : function(data) {
-
+					success : function(data) {	
 						var str = "";
 						console.log(data);
 						console.log(checkImageType);
@@ -64,14 +63,15 @@
 							+ "<img src='/test/displayFile.do?fileName="
 							+ getImageLink(data)
 							+ "'/><small data-src="+data+">X</small></div>";
-							} else {
-								str = "<div><a href='/test/displayFile.do?fileName="
-									+ data + "'>" + getOriginalName(data)
-									+ "</a><small data-src="+data+">X</small></div>";
-										alert(data);
-									}
-				$(".uploadedList").append(str);
-									
+						} else {
+							str = "<div><a href='/test/displayFile.do?fileName="
+								+ data + "'>" + getOriginalName(data)
+								+ "</a><small data-src="+data+">X</small></div>";
+									alert(data);
+						}
+						var str2 = "<input type='hidden' name='files' value='" + data +"'> ";
+						$(".uploadedList").append(str);
+						$(".uploadedList").append(str2);											
 					}
 				});
 				});
@@ -121,7 +121,9 @@
 
 							return front + end;
 						}
-					})
+					})			
+			
+			/* that.get(0).submit(); */
 </script>
 <link rel="stylesheet"
 	href="<c:url value='/css/bulma-0.9.0/bulma.min.css' />">
@@ -160,8 +162,9 @@
 						name="contents" id="contents"></textarea>
 				</div>
 				<div class="fileDrop"></div>
-				<div class="uploadedList"></div>
-				
+				<div class="uploadedList">
+				<div class="delbtn"></div>
+				</div>
 				<div class="td bt">
 					<input type="button" value="완료" id="writing"
 						class="button is-primary is-light"> <input type="button"

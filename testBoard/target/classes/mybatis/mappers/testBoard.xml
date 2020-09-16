@@ -113,4 +113,7 @@
 		insert into attach_metami(fullName, seqno) values (#{fullName},
 		LAST_INSERT_ID())
 	</insert>
+	<select id="getAttach" resultType="string">
+	select fullName from attach_metami where seqno = #{seqno} order by regdate
+	</select>
 </mapper>
