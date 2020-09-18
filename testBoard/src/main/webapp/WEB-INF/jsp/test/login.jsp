@@ -34,8 +34,7 @@
 			alert('${msg}');
 		}
 		$("#back").click(function() {
-			$("#lrm").attr("action", "/test/listPage.do");
-			$("#lrm").submit();
+			window.location.href = "<c:url value='/test/listPage.do' />";
 		})
 	})
 </script>

@@ -59,7 +59,7 @@ public class MemberBoardController {
 //		service.logout(session);
 		session.invalidate();
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:list.do");
+		mav.setViewName("redirect:listPage.do");
 		mav.addObject("msg", "failure");
 		return mav;
 	}
@@ -84,7 +84,7 @@ public class MemberBoardController {
 		}
 		System.out.println("==========> " + result);
 
-		return "redirect:list.do";
+		return "redirect:listPage.do";
 	}
 
 //회원탈퇴
@@ -99,7 +99,7 @@ public class MemberBoardController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "redirect:list.do";
+		return "redirect:listPage.do";
 	}
 
 //아이디 중복체크
@@ -160,6 +160,6 @@ public class MemberBoardController {
 			rttr.addFlashAttribute("message", "수정에 성공하였습니다. 다시 로그인해 주십시오");
 		else
 			rttr.addFlashAttribute("message", "수정에 실패하였습니다.");
-		return "redirect:/test/list.do";
+		return "redirect:/test/listPage.do";
 	}
 }

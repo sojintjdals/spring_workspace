@@ -11,6 +11,7 @@ public interface TestBoardDAO {
 	List<TestBoardVO> listCriteria(Criteria cri) throws Exception;
 	//read
 	TestBoardVO testBoardView(TestBoardVO vo) throws Exception;
+	TestBoardVO getAttach(TestBoardVO vo) throws Exception;
 	TestBoardVO testBoardRead(int seqno) throws Exception;
 	//create
 	int testBoardInsert(TestBoardVO vo) throws Exception;
@@ -24,5 +25,5 @@ public interface TestBoardDAO {
 	int listSearchCount(Criteria cri) throws Exception;
 	//파일업로드
 	int addAttach(String fullName)throws Exception;
-	List<TestBoardVO> getAttach(int seqno) throws Exception;
+	int deleteAttach(TestBoardVO vo)throws Exception;
  }

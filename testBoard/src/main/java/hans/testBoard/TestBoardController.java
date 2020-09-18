@@ -93,22 +93,26 @@ public class TestBoardController {
 	}
 
 	@RequestMapping("view.do")
-	public String view(Model model, TestBoardVO vo) {
+	public String view(Model model, TestBoardVO vo, int seqno) {
 		try {
-			System.out.println("view attach : " + service.testBoardView(vo).getFullName());
 			model.addAttribute("result", service.testBoardView(vo));
+			if (service.getAttach(vo).getFullName() != null) {
+				model.addAttribute("result", service.getAttach(vo));
+			} else {
+				model.addAttribute("result", service.testBoardView(vo));
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "test/view";
 	}
-/*	@RequestMapping("view.do")
-		@ResponseBody
-		public List<TestBoardVO> getAttach(@PathVariable("seqno")int seqno)throws
-	Exception{
-		return service.getAttach(seqno);
-	}*/
+	/*
+	 * @RequestMapping("view.do")
+	 * 
+	 * @ResponseBody public List<TestBoardVO> getAttach(@PathVariable("seqno")int
+	 * seqno)throws Exception{ return service.getAttach(seqno); }
+	 */
 
 	@RequestMapping(value = "insert.do", method = RequestMethod.GET)
 	public String insertGet() {
@@ -133,6 +137,11 @@ public class TestBoardController {
 	public String insertGetUpdate(Model model, TestBoardVO vo) {
 		try {
 			model.addAttribute("resultUpdate", service.testBoardView(vo));
+			if (service.getAttach(vo).getFullName() != null) {
+				model.addAttribute("resultUpdate", service.getAttach(vo));
+			} else {
+				model.addAttribute("resultUpdate", service.testBoardView(vo));
+			}
 			System.out.println("들어가기 성공!");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -143,18 +152,14 @@ public class TestBoardController {
 
 	@RequestMapping(value = "modify.do", method = RequestMethod.POST)
 	public String insertPostUpdate(RedirectAttributes rttr, TestBoardVO vo) {
-		int result = 0;
 		try {
-			result = service.testBoardUpdate(vo);
-
+			rttr.addFlashAttribute("message", "데이터 저장이 성공하였습니다.");
+			service.UpdateFile(vo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		if (result == 1)
-			rttr.addFlashAttribute("message", "데이터 저장이 성공하였습니다.");
-		else
 			rttr.addFlashAttribute("message", "데이터 저장이 실패하였습니다.");
+		}
 		return "redirect:/test/listPage.do";
 	}
 
@@ -170,7 +175,7 @@ public class TestBoardController {
 	}
 
 	// 파일업로드관련
-	//static으로 할시 생성자로 일일이 지정할필요없이 바로가져와서 쓸수있다
+	// static으로 할시 생성자로 일일이 지정할필요없이 바로가져와서 쓸수있다
 	@RequestMapping(value = "uploadForm.do", method = RequestMethod.GET)
 	public String uploadGet(MultipartFile file, Model model) throws Exception {
 
@@ -205,16 +210,16 @@ public class TestBoardController {
 		logger.info("contentType: " + file.getContentType());
 		logger.info("contentType: ");
 		logger.info("result = " + uploadFile2(uploadPath, file.getOriginalFilename(), file.getBytes()));
-		//result에 updateFile2의
+		// result에 updateFile2의
 		String result = uploadFile2(uploadPath, file.getOriginalFilename(), file.getBytes());
 		return new ResponseEntity<String>(result, HttpStatus.CREATED);
 	}
 
 	// uploadpost에 쓰임
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {
-		//고유식별번호를 만듬
+		// 고유식별번호를 만듬
 		UUID uid = UUID.randomUUID();
-		//기존 파일이름앞에 고유식별번호를 붙임
+		// 기존 파일이름앞에 고유식별번호를 붙임
 		String savedName = uid.toString() + "_" + originalName;
 
 		File target = new File(uploadPath, savedName);
@@ -226,13 +231,13 @@ public class TestBoardController {
 
 	// uploadAjax에 쓰임
 	private String uploadFile2(String uploadPath, String originalName, byte[] fileData) throws Exception {
-		//고유식별번호를 만듬
+		// 고유식별번호를 만듬
 		UUID uid = UUID.randomUUID();
-		//기존 파일이름앞에 고유식별번호를 붙임
+		// 기존 파일이름앞에 고유식별번호를 붙임
 		String savedName = uid.toString() + "_" + originalName;
-		//완성된 파일이름을 찍음
+		// 완성된 파일이름을 찍음
 		logger.info("savedName: " + savedName);
-		
+
 		String savedPath = calcPath(uploadPath);
 		logger.info("savedPath: " + savedPath);
 		File target = new File(uploadPath + savedPath, savedName);
@@ -254,19 +259,20 @@ public class TestBoardController {
 
 		return uploadedFileName;
 	}
-								//calcPath의 yearPath,monthPath,dataPath을 배열형식으로 정리 길이 총 3 [0,1,2]
+
+	// calcPath의 yearPath,monthPath,dataPath을 배열형식으로 정리 길이 총 3 [0,1,2]
 	private static void makeDir(String uploadPath, String... paths) {
-		//만약 오늘 날짜로 폴더가 있으면 그냥 리턴을 한다. 
+		// 만약 오늘 날짜로 폴더가 있으면 그냥 리턴을 한다.
 		if (new File(uploadPath + paths[paths.length - 1]).exists()) {
 			return;
 		}
-		//없다면 만들기 위해 for문을 돌림 최대 3번
+		// 없다면 만들기 위해 for문을 돌림 최대 3번
 		for (String path : paths) {
-			//dirPath에 년,월,일씩 붙임 
+			// dirPath에 년,월,일씩 붙임
 			File dirPath = new File(uploadPath + path);
-			//존재하지않는다면만듬
+			// 존재하지않는다면만듬
 			if (!dirPath.exists()) {
-				//폴더를 만드는 구문
+				// 폴더를 만드는 구문
 				dirPath.mkdir();
 			}
 		}
@@ -274,16 +280,16 @@ public class TestBoardController {
 
 	// fileUpload경로에 현재 년도 + 월 + 일 폴더를 만들고 그곳에 넣은 파일들을 집어넣음
 	private static String calcPath(String uploadPath) {
-		//현재시간
+		// 현재시간
 		Calendar cal = Calendar.getInstance();
 		System.out.println("calcPath 캘린더 cal : " + cal);
-		//현재년도 ex) /2020
+		// 현재년도 ex) /2020
 		String yearPath = File.separator + cal.get(Calendar.YEAR);
-		//현재 달 ex) /2020/09 여기서 월이 8로나와서 + 1을 해야함
+		// 현재 달 ex) /2020/09 여기서 월이 8로나와서 + 1을 해야함
 		String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
-		//현재 일 ex) /2020/09/14
+		// 현재 일 ex) /2020/09/14
 		String dataPath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
-		
+
 		makeDir(uploadPath, yearPath, monthPath, dataPath);
 
 		logger.info(dataPath);
@@ -294,9 +300,9 @@ public class TestBoardController {
 	private static String makeThumbnail(String uploadPath, String path, String fileName) throws Exception {
 
 		BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
-		//이미지 크기조정 이미지 품질조정
+		// 이미지 크기조정 이미지 품질조정
 		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
-		//썸네일이름정하기 원래 파일앞에 s_가 붙음
+		// 썸네일이름정하기 원래 파일앞에 s_가 붙음
 		String thumbnailName = uploadPath + path + File.separator + "s_" + fileName;
 		logger.info("thumbnailName(썸네일이름): " + thumbnailName);
 		File newFile = new File(thumbnailName);
@@ -321,7 +327,7 @@ public class TestBoardController {
 
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
-		//로그에 파일이름 띄움
+		// 로그에 파일이름 띄움
 		logger.info("FILE NAME : " + fileName);
 
 		try {
@@ -357,23 +363,36 @@ public class TestBoardController {
 	@ResponseBody
 	@RequestMapping("deleteFile.do")
 	public ResponseEntity<String> deleteFile(String fileName) {
-		//삭제할 파일이름을 찍는다
+		// 삭제할 파일이름을 찍는다
 		logger.info("delete file: " + fileName);
-		//formatName에 .뒤의 파일이름을 찍는다.
+		// formatName에 .뒤의 파일이름을 찍는다.
 		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-		//mType에 파일형식을 저장
+		// mType에 파일형식을 저장
 		MediaType mType = MediaUtils.getMediaType(formatName);
 
 		if (mType != null) {
-			//파일들을 substring으로 잘라낸다
+			// 파일들을 substring으로 잘라낸다
 			String front = fileName.substring(0, 12);
 			String end = fileName.substring(14);
-			//경로와 잘라낸 파일이름의 앞+뒤를 붙이고 
+			// 경로와 잘라낸 파일이름의 앞+뒤를 붙이고
 			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
-		}else {
-			//다른형식의 파일들 pdf나 등등
+		} else {
+			// 다른형식의 파일들 pdf나 등등
 			new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
 		}
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@RequestMapping("deleteAttach.do")
+	public ResponseEntity<String> deleteAttach(Model model, TestBoardVO vo) {
+		try {
+			System.out.println("FileDelete들어감 ===> " + vo.getFullName());
+			model.addAttribute("fileDelete", service.deleteAttach(vo));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>("fileDelete", HttpStatus.OK);
 	}
 }

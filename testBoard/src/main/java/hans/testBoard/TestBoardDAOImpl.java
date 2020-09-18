@@ -82,10 +82,18 @@ public class TestBoardDAOImpl extends EgovAbstractMapper implements TestBoardDAO
 		// TODO Auto-generated method stub
 		return insert("addAttach", fullName);
 	}
-	
-	public List<TestBoardVO> getAttach(int seqno) throws Exception {
+
+	@Override
+	public TestBoardVO getAttach(TestBoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return selectList("getAttach", seqno);
+		return selectOne("getAttach", vo);
 	}
+
+	@Override
+	public int deleteAttach(TestBoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return delete("deleteAttach", vo);
+	}
+	
 
 }

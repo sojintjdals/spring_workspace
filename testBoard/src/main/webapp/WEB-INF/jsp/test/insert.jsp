@@ -163,7 +163,8 @@
 				</div>
 				<div class="fileDrop"></div>
 				<div class="uploadedList">
-				<div class="delbtn"></div>
+				<div class="delbtn">
+				</div>
 				</div>
 				<div class="td bt">
 					<input type="button" value="완료" id="writing"

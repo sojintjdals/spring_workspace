@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous">
+	
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -31,12 +32,12 @@
 				$("#frm").submit();
 			}
 		});
-	/* 	$("#back").click(function() {
-			$(location).attr('href','/test/list.do');
-		}) */
+		/* 	$("#back").click(function() {
+				$(location).attr('href','/test/list.do');
+			}) */
 		$("#back").click(function() {
-			$("#frm").attr("method","get");
-			$("#frm").attr("action","/test/listPage.do");
+			$("#frm").attr("method", "get");
+			$("#frm").attr("action", "/test/listPage.do");
 			$("#frm").submit();
 		})
 	});
@@ -48,9 +49,9 @@
 </head>
 <body>
 	<form id="frm" action='/test/modify.do'>
-	
+
 		<input type="hidden" name="seqno" value="${result.seqno}">
-		
+
 		<div class="main">
 			<header>
 				<h1 id="h">게시물</h1>
@@ -74,8 +75,11 @@
 					</div>
 					<div id="th">내용</div>
 					<div id="td">
-						<textarea class="textarea is-large" rows="10" cols="50" name="contents" id="contents"
-							readonly="readonly">${result.contents}</textarea>
+						<textarea class="textarea is-large" rows="10" cols="50"
+							name="contents" id="contents" readonly="readonly">${result.contents}</textarea>
+						<c:if test="${not empty result.fullName}">
+							<img src="/test/displayFile.do?fileName=${result.fullName}" /> <a>${result.fullName}</a>
+						</c:if>
 					</div>
 					<div class="bt" id="td">
 						<c:if test="${not empty userId}">

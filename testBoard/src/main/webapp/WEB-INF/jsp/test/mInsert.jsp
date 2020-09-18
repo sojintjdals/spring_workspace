@@ -92,8 +92,7 @@
 			document.lrm.submit();
 		});
 		$("#back").click(function() {
-			$("#lrm").attr("action", "/test/list.do");
-			$("#lrm").submit();
+			window.location.href = "<c:url value='/test/listPage.do' />";
 		});
 		$("#id").blur(function() {
 			if ($("#id").val().length > 0) {
@@ -237,12 +236,16 @@
 				<!-- 우편번호 -->
 				<div class="th">주소</div>
 				<div>
-					<input type="text" class="zonecode input" name="zonecode" id="sample6_postcode" placeholder="우편번호">
-					<input type="button" class="abtn" onclick="sample6_execDaumPostcode()"
-						value="우편번호 찾기"><br> <input type="text" class="add1 input" name="add1"
-						id="sample6_address" placeholder="주소"><br> <input
-						type="text" id="sample6_detailAddress" class="add2 input" name="add2" placeholder="상세주소">
-					<input type="text" id="sample6_extraAddress" class="add3 input"  name="add3" placeholder="참고항목">
+					<input type="text" class="zonecode input" name="zonecode"
+						id="sample6_postcode" placeholder="우편번호"> <input
+						type="button" class="abtn" onclick="sample6_execDaumPostcode()"
+						value="우편번호 찾기"><br> <input type="text"
+						class="add1 input" name="add1" id="sample6_address"
+						placeholder="주소"><br> <input type="text"
+						id="sample6_detailAddress" class="add2 input" name="add2"
+						placeholder="상세주소"> <input type="text"
+						id="sample6_extraAddress" class="add3 input" name="add3"
+						placeholder="참고항목">
 				</div>
 				<div class="td" id="bt">
 					<input type="button" value="완료" id="writing"

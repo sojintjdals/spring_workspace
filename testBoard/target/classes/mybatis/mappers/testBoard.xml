@@ -32,7 +32,8 @@
 			and contents like concat('%',#{keyword},'%')
 		</if>
 		<if test="searchType == 'tc'.toString()">
-			and ( title like concat('%',#{keyword},'%') or contents like concat('%',
+			and ( title like concat('%',#{keyword},'%') or contents
+			like concat('%',
 			#{keyword}, '%'))
 		</if>
 	</sql>
@@ -82,11 +83,8 @@
 	<!-- 사용되는곳 -->
 	<select id="testBoardView" parameterType="TestBoardVO"
 		resultType="TestBoardVO">
-		SELECT seqno, title,
-		contents, regdate
-		FROM test_metami
-		where
-		seqno = #{seqno}
+		select seqno, title, contents, regdate 
+		from test_metami where seqno = #{seqno};
 	</select>
 	<!-- 사용되는곳 -->
 	<insert id="testBoardInsert" parameterType="TestBoardVO">
@@ -110,10 +108,20 @@
 	</delete>
 	<!--파일업로드때 사용되는것 -->
 	<insert id="addAttach">
-		insert into attach_metami(fullName, seqno) values (#{fullName},
-		LAST_INSERT_ID())
+		insert into attach_metami(fullName, seqno) values
+		(#{fullName},
+		LAST_INSERT_ID()+1)	
 	</insert>
-	<select id="getAttach" resultType="string">
-	select fullName from attach_metami where seqno = #{seqno} order by regdate
+	<select id="getAttach" parameterType="TestBoardVO" resultType="TestBoardVO">
+		SELECT t.seqno, t.title,
+		t.contents, t.regdate, a.fullName
+		FROM test_metami t
+		join attach_metami a
+		on t.seqno = a.seqno and t.seqno = #{seqno}
 	</select>
+		<delete id="deleteAttach" parameterType="TestBoardVO">
+		DELETE FROM
+		attach_metami
+		WHERE fullName=#{fullName}
+	</delete>
 </mapper>

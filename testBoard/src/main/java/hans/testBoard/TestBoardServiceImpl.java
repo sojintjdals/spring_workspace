@@ -13,10 +13,10 @@ import egovframework.let.cop.bbs.service.Board;
 
 @Service
 public class TestBoardServiceImpl implements TestBoardService {
-	
+
 	@Autowired
 	TestBoardDAO dao;
-	
+
 	@Override
 	public List<TestBoardVO> testBoardList() throws Exception {
 		// TODO Auto-generated method stub
@@ -64,33 +64,56 @@ public class TestBoardServiceImpl implements TestBoardService {
 		// TODO Auto-generated method stub
 		return dao.testBoardRead(seqno);
 	}
-	//오류가 나도 실제로 들어가지않게하고 롤백시켜주는 명령어
+
+	// 오류가 나도 실제로 들어가지않게하고 롤백시켜주는 명령어
 	@Transactional
 	@Override
-	public int InsertFile(TestBoardVO vo) throws Exception{
-		
+	public int InsertFile(TestBoardVO vo) throws Exception {
+
 		String[] files = vo.getFiles();
 		System.out.println("==============================================================>" + files);
-		if(files != null && files[0].getBytes().length > 0) {
-			for(String fileName : files) {
+		if (files != null && files[0].length() > 0) {
+			for (String fileName : files) {
 				dao.addAttach(fileName);
 			}
 		}
-		
+
 		return dao.testBoardInsert(vo);
+	}
+
+	@Transactional
+	@Override
+	public int UpdateFile(TestBoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		
+		String[] files = vo.getFiles();
+		System.out.println("==============================================================>" + files);
+		System.out.println("=====" + files[0]);
+		if (files != null && files[0].length() > 0) {
+			for (String fileName : files) {
+				dao.addAttach(fileName);
+			}
+		}
+		return dao.testBoardUpdate(vo);
 	}
 
 	@Override
 	public TestBoardVO testBoardView(TestBoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		int seqno = dao.testBoardView(vo).getSeqno();
-			dao.getAttach(seqno);
 		return dao.testBoardView(vo);
 	}
 
 	@Override
-	public List<TestBoardVO> getAttach(int seqno) throws Exception {
+	public TestBoardVO getAttach(TestBoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.getAttach(seqno);
+		System.out.println("getAttach fullName :" + dao.getAttach(vo).getFullName());
+		return dao.getAttach(vo);
 	}
+
+	@Override
+	public int deleteAttach(TestBoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.deleteAttach(vo);
+	}
+
+
 }
