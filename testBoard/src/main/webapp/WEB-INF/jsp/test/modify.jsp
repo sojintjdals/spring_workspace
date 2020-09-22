@@ -94,7 +94,7 @@
 										url : "/test/deleteFile.do",
 										type : "post",
 										data : {
-											fileName : $(this).attr("data-src")
+											fullName : $(this).attr("data-src")
 										},
 										dataType : "text",
 										success : function(result) {
@@ -157,7 +157,8 @@
 <style type="text/css">
 .fileDrop {
 	width: 100%;
-	height: 50px;
+	margin-top: 10px;
+	height: 15%;
 	border: 1px solid black;
 }
 </style>
@@ -186,13 +187,14 @@
 						name="contents" id="contents">${resultUpdate.contents}</textarea>
 					<div class="fileDrop"></div>
 					<div class="uploadedList">
-						<c:if test="${not empty resultUpdate.fullName}">
-							<div>
-								<img
-									src="/test/displayFile.do?fileName=${resultUpdate.fullName}" />
-								<b data-src="${resultUpdate.fullName}">X</b>
+						<c:forEach items="${list}" var="result2">
+							<div class="td" data-id="${result2.seqno}"></div>
+							<div class="td" id="title" data-id="${result2.seqno}">
+								<img src="/test/displayFile.do?fileName=${result2.fullName}" />
+								<a>${result2.fullName}</a>
+								<b data-src="${result2.fullName}">X</b>
 							</div>
-						</c:if>
+						</c:forEach>
 						<div class="delbtn"></div>
 						<div id="bt">
 							<input type="button" value="완료" id="writing"
@@ -205,6 +207,8 @@
 					<div></div>
 					<footer></footer>
 				</div>
+			</div>
+		</div>
 	</form>
 </body>
 </html>

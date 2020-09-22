@@ -77,9 +77,13 @@
 					<div id="td">
 						<textarea class="textarea is-large" rows="10" cols="50"
 							name="contents" id="contents" readonly="readonly">${result.contents}</textarea>
-						<c:if test="${not empty result.fullName}">
-							<img src="/test/displayFile.do?fileName=${result.fullName}" /> <a>${result.fullName}</a>
-						</c:if>
+							<c:forEach items="${list}" var="result2">
+								<div class="td" data-id="${result2.seqno}"></div>
+								<div class="td" id="title" data-id="${result2.seqno}">
+									<img src="/test/displayFile.do?fileName=${result2.fullName}" />
+									<a>${result2.fullName}</a>
+								</div>
+							</c:forEach>
 					</div>
 					<div class="bt" id="td">
 						<c:if test="${not empty userId}">
@@ -93,7 +97,7 @@
 					</div>
 				</div>
 			</div>
-			<footer></footer>
+			<footer> </footer>
 		</div>
 
 	</form>

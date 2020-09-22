@@ -11,7 +11,7 @@ public interface TestBoardService {
 	int listCountCriteria(Criteria cri) throws Exception;
 	//read
 	TestBoardVO testBoardView(TestBoardVO vo) throws Exception;
-	TestBoardVO getAttach(TestBoardVO vo) throws Exception;
+	List<TestBoardVO> getAttach(TestBoardVO vo) throws Exception;
 	TestBoardVO testBoardRead(int seqno) throws Exception;
 	int testBoardInsert(TestBoardVO vo) throws Exception;
 	//modify
@@ -22,6 +22,6 @@ public interface TestBoardService {
 	int InsertFile(TestBoardVO vo) throws Exception;
 	//fileGet
 	int deleteAttach(TestBoardVO vo) throws Exception;
-	int UpdateFile(TestBoardVO vo) throws Exception;
-	
+	int updateAttach(TestBoardVO vo) throws Exception;
+	int selectDeleteAttach(TestBoardVO vo) throws Exception;
 }

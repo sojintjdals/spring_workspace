@@ -83,7 +83,7 @@
 	<!-- 사용되는곳 -->
 	<select id="testBoardView" parameterType="TestBoardVO"
 		resultType="TestBoardVO">
-		select seqno, title, contents, regdate 
+		select seqno, title, contents, regdate
 		from test_metami where seqno = #{seqno};
 	</select>
 	<!-- 사용되는곳 -->
@@ -93,6 +93,9 @@
 		(title, contents, regdate)
 		VALUES(#{title}, #{contents},
 		now())
+	    <selectKey resultType="int" keyProperty="seqno" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>  
 	</insert>
 	<!-- 사용되는곳 -->
 	<update id="testBoardUpdate" parameterType="TestBoardVO">
@@ -109,19 +112,27 @@
 	<!--파일업로드때 사용되는것 -->
 	<insert id="addAttach">
 		insert into attach_metami(fullName, seqno) values
-		(#{fullName},
-		LAST_INSERT_ID()+1)	
+		(#{fullName},#{seqno})
 	</insert>
-	<select id="getAttach" parameterType="TestBoardVO" resultType="TestBoardVO">
-		SELECT t.seqno, t.title,
-		t.contents, t.regdate, a.fullName
-		FROM test_metami t
-		join attach_metami a
-		on t.seqno = a.seqno and t.seqno = #{seqno}
+	<insert id="updateAttach">
+		insert into attach_metami(fullName, seqno) values
+		(#{fullName}, #{seqno})
+	</insert>
+	<select id="getAttach" parameterType="TestBoardVO"
+		resultType="TestBoardVO">
+		<!-- SELECT t.seqno, t.title, t.contents, t.regdate, a.fullName FROM test_metami 
+			t join attach_metami a on t.seqno = a.seqno and t.seqno = #{seqno} -->
+		SELECT seqno, fullName from
+		attach_metami where seqno = #{seqno}
 	</select>
-		<delete id="deleteAttach" parameterType="TestBoardVO">
+	<delete id="deleteAttach" parameterType="TestBoardVO">
 		DELETE FROM
 		attach_metami
-		WHERE fullName=#{fullName}
+		WHERE seqno=#{seqno}
+	</delete>
+	<delete id="seleteDeleteAttach" parameterType="TestBoardVO">
+		DELETE FROM
+		attach_metami
+		WHERE fullName = #{fullName}
 	</delete>
 </mapper>

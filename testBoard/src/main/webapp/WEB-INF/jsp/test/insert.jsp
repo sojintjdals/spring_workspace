@@ -13,86 +13,102 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/
 3.0.1/handlebars.js"></script>
 <script>
-	$(document).ready(function() {
-			$("#writing").click(function() {
-				var title = $("#title").val();
-				var contents = $("#contents").val();
+	$(document)
+			.ready(
+					function() {
+						$("#writing").click(function() {
+							var title = $("#title").val();
+							var contents = $("#contents").val();
 
-				if (title == "") {
-					alert("제목을 입력하세요");
-					document.frm.title.focus();
-					return;
-				}
-				if (contents == "") {
-					alert("내용을 입력하세요");
-					document.frm.contents.focus();
-					return;
-				}
-				$("#frm").attr("action", "/test/insert.do");
-					document.frm.submit();
-				})
-				$("#back").click(function() {
-					window.location.href = "<c:url value='/test/listPage.do' />";
-				})
-				//파일업로드 부분
-				$(".fileDrop").on("dragenter dragover", function(event) {
-					event.preventDefault();
-				})
-			$(".fileDrop").on("drop",	function(event) {
-				event.preventDefault();
+							if (title == "") {
+								alert("제목을 입력하세요");
+								document.frm.title.focus();
+								return;
+							}
+							if (contents == "") {
+								alert("내용을 입력하세요");
+								document.frm.contents.focus();
+								return;
+							}
+							$("#frm").attr("action", "/test/insert.do");
+							document.frm.submit();
+						})
+						$("#back")
+								.click(
+										function() {
+											window.location.href = "<c:url value='/test/listPage.do' />";
+										})
+						//파일업로드 부분
+						$(".fileDrop").on("dragenter dragover",
+								function(event) {
+									event.preventDefault();
+								})
+						$(".fileDrop")
+								.on(
+										"drop",
+										function(event) {
+											event.preventDefault();
 
-				var files = event.originalEvent.dataTransfer.files;
-				var file = files[0];
-				var formData = new FormData();
+											var files = event.originalEvent.dataTransfer.files;
+											var file = files[0];
+											var formData = new FormData();
 
-				formData.append("file", file);
-				//에이젝스부분
-				$.ajax({
-					url : '/test/uploadAjax.do',
-					data : formData,
-					dataType : 'text',
-					processData : false,
-					contentType : false,
-					type : 'POST',
-					success : function(data) {	
-						var str = "";
-						console.log(data);
-						console.log(checkImageType);
-						if (checkImageType(data)) {
-							str = "<div>"
-							+ "<img src='/test/displayFile.do?fileName="
-							+ getImageLink(data)
-							+ "'/><small data-src="+data+">X</small></div>";
-						} else {
-							str = "<div><a href='/test/displayFile.do?fileName="
-								+ data + "'>" + getOriginalName(data)
-								+ "</a><small data-src="+data+">X</small></div>";
-									alert(data);
-						}
-						var str2 = "<input type='hidden' name='files' value='" + data +"'> ";
-						$(".uploadedList").append(str);
-						$(".uploadedList").append(str2);											
-					}
-				});
-				});
-				$(".uploadedList").on("click", "small",
-					function(event) {
-					var that = $(this);
+											formData.append("file", file);
+											//에이젝스부분
+											$
+													.ajax({
+														url : '/test/uploadAjax.do',
+														data : formData,
+														dataType : 'text',
+														processData : false,
+														contentType : false,
+														type : 'POST',
+														success : function(data) {
+															var str = "";
+															console.log(data);
+															console
+																	.log(checkImageType);
+															if (checkImageType(data)) {
+																str = "<div>"
+																		+ "<img src='/test/displayFile.do?fileName="
+																		+ getImageLink(data)
+																		+ "'/><small data-src="+data+">X</small></div>";
+															} else {
+																str = "<div><a href='/test/displayFile.do?fileName="
+																		+ data
+																		+ "'>"
+																		+ getOriginalName(data)
+																		+ "</a><small data-src="+data+">X</small></div>";
+																alert(data);
+															}
+															var str2 = "<input type='hidden' name='files' value='" + data +"'> ";
+															$(".uploadedList")
+																	.append(str);
+															$(".uploadedList")
+																	.append(
+																			str2);
+														}
+													});
+										});
+						$(".uploadedList").on("click", "small",
+								function(event) {
+									var that = $(this);
 
-					$.ajax({
-							url : "/test/deleteFile.do",
-							type : "post",
-							data : {
-							fileName : $(this).attr("data-src")	},
-							dataType : "text",
-							success : function(result) {
-									if (result == 'deleted') {
+									$.ajax({
+										url : "/test/deleteFile.do",
+										type : "post",
+										data : {
+											fileName : $(this).attr("data-src")
+										},
+										dataType : "text",
+										success : function(result) {
+											if (result == 'deleted') {
 												that.parent("div").remove();
 											}
 										}
 									});
 								});
-	
+
 						function checkImageType(fileName) {
 
 							var pattern = /jpg|gif|png|jpeg/i;
@@ -121,9 +137,9 @@
 
 							return front + end;
 						}
-					})			
-			
-			/* that.get(0).submit(); */
+					})
+
+	/* that.get(0).submit(); */
 </script>
 <link rel="stylesheet"
 	href="<c:url value='/css/bulma-0.9.0/bulma.min.css' />">
@@ -132,7 +148,8 @@
 <style type="text/css">
 .fileDrop {
 	width: 100%;
-	height: 5%;
+	margin-top: 10px;
+	height: 15%;
 	border: 1px solid black;
 }
 </style>
@@ -163,8 +180,7 @@
 				</div>
 				<div class="fileDrop"></div>
 				<div class="uploadedList">
-				<div class="delbtn">
-				</div>
+					<div class="delbtn"></div>
 				</div>
 				<div class="td bt">
 					<input type="button" value="완료" id="writing"

@@ -171,8 +171,7 @@
 							Title OR Content
 						</option>
 					</select> <input type="text" id="keywordInput"> <input type="button"
-						value="Search" name="Search" id="searchBtn"> <input
-						type="button" value="NewBoard" name="NewBoard">
+						value="Search" name="Search" id="searchBtn">
 				</div>
 				<c:if test="${not empty userId}">
 					<div></div>

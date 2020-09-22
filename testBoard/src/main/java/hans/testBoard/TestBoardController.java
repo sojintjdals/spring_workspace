@@ -52,7 +52,6 @@ public class TestBoardController {
 
 	@Resource(name = "uploadPath")
 	private String uploadPath;
-
 	@RequestMapping("list.do")
 	public String list(Model model) {
 		try {
@@ -95,12 +94,10 @@ public class TestBoardController {
 	@RequestMapping("view.do")
 	public String view(Model model, TestBoardVO vo, int seqno) {
 		try {
+			System.out.println("View File :" + service.getAttach(vo));
+			System.out.println("View Files :" + service.testBoardView(vo).getFullName());
 			model.addAttribute("result", service.testBoardView(vo));
-			if (service.getAttach(vo).getFullName() != null) {
-				model.addAttribute("result", service.getAttach(vo));
-			} else {
-				model.addAttribute("result", service.testBoardView(vo));
-			}
+			model.addAttribute("list", service.getAttach(vo));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -137,11 +134,7 @@ public class TestBoardController {
 	public String insertGetUpdate(Model model, TestBoardVO vo) {
 		try {
 			model.addAttribute("resultUpdate", service.testBoardView(vo));
-			if (service.getAttach(vo).getFullName() != null) {
-				model.addAttribute("resultUpdate", service.getAttach(vo));
-			} else {
-				model.addAttribute("resultUpdate", service.testBoardView(vo));
-			}
+			model.addAttribute("list", service.getAttach(vo));
 			System.out.println("들어가기 성공!");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -154,7 +147,7 @@ public class TestBoardController {
 	public String insertPostUpdate(RedirectAttributes rttr, TestBoardVO vo) {
 		try {
 			rttr.addFlashAttribute("message", "데이터 저장이 성공하였습니다.");
-			service.UpdateFile(vo);
+			service.testBoardUpdate(vo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -388,7 +381,7 @@ public class TestBoardController {
 	public ResponseEntity<String> deleteAttach(Model model, TestBoardVO vo) {
 		try {
 			System.out.println("FileDelete들어감 ===> " + vo.getFullName());
-			model.addAttribute("fileDelete", service.deleteAttach(vo));
+			model.addAttribute("fileDelete", service.selectDeleteAttach(vo));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
