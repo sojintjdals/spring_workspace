@@ -30,6 +30,8 @@
 								document.frm.contents.focus();
 								return;
 							}
+							alert($("#userName").val());
+							alert($("#userId").val());
 							$("#frm").attr("action", "/test/insert.do");
 							document.frm.submit();
 						})
@@ -169,9 +171,11 @@
 				<div>
 					<div class="td">
 						<input class="input" type="text" name="title" id="title">
+						<input type="hidden" name="userId" id="userId" value="${userId}">
+						<input type="hidden" name="userName" id="userName" value="${userName}">
 					</div>
 				</div>
-
+				
 				<div class="th">내용</div>
 
 				<div class="td">

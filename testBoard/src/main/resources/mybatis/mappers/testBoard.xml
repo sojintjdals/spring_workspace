@@ -22,9 +22,9 @@
 	</select>
 	<!-- 사용되는곳 -->
 	<sql id="search">
-		<if test="searchType != null">
+	<!-- 	<if test="searchType == null">
 			and title like concat('%',#{keyword},'%')
-		</if>
+		</if> -->
 		<if test="searchType == 't'.toString()">
 			and title like concat('%',#{keyword},'%')
 		</if>
@@ -83,16 +83,16 @@
 	<!-- 사용되는곳 -->
 	<select id="testBoardView" parameterType="TestBoardVO"
 		resultType="TestBoardVO">
-		select seqno, title, contents, regdate
+		select seqno, title, contents, regdate, userName, userId
 		from test_metami where seqno = #{seqno};
 	</select>
 	<!-- 사용되는곳 -->
 	<insert id="testBoardInsert" parameterType="TestBoardVO">
 		INSERT INTO
 		test_metami
-		(title, contents, regdate)
+		(title, contents, regdate, userName, userId)
 		VALUES(#{title}, #{contents},
-		now())
+		now(), #{userName}, #{userId})
 	    <selectKey resultType="int" keyProperty="seqno" order="AFTER">
         	SELECT LAST_INSERT_ID()
     	</selectKey>  

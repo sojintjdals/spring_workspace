@@ -36,9 +36,7 @@
 				$(location).attr('href','/test/list.do');
 			}) */
 		$("#back").click(function() {
-			$("#frm").attr("method", "get");
-			$("#frm").attr("action", "/test/listPage.do");
-			$("#frm").submit();
+			window.location.href = "<c:url value='/test/listPage.do' />";
 		})
 	});
 </script>
@@ -62,7 +60,10 @@
 				<div id="frt">
 					<div id="td">
 						<input type="hidden" name="seqno" id="seqno"
-							value="${result.seqno}">
+							value="${result.seqno}"> <input type="hidden"
+							name="userName" id="userName" value="${result.userName}">
+						<input type="hidden" name="userId" id="userId"
+							value="${result.userId}">
 					</div>
 					<div id="td">
 						<input type="hidden" name="userId" id="userId"
@@ -77,16 +78,22 @@
 					<div id="td">
 						<textarea class="textarea is-large" rows="10" cols="50"
 							name="contents" id="contents" readonly="readonly">${result.contents}</textarea>
-							<c:forEach items="${list}" var="result2">
-								<div class="td" data-id="${result2.seqno}"></div>
-								<div class="td" id="title" data-id="${result2.seqno}">
-									<img src="/test/displayFile.do?fileName=${result2.fullName}" />
-									<a>${result2.fullName}</a>
-								</div>
-							</c:forEach>
+						<c:forEach items="${list}" var="result2">
+							<div class="td" data-id="${result2.seqno}"></div>
+							<div class="td" id="title" data-id="${result2.seqno}">
+								<img src="/test/displayFile.do?fileName=${result2.fullName}" />
+								<a>${result2.fullName}</a>
+							</div>
+						</c:forEach>
 					</div>
 					<div class="bt" id="td">
 						<c:if test="${not empty userId}">
+							<div>
+							<textarea class="textarea is-large" rows="1" cols="20"
+							name="comments" id="contents" placeholder="댓글을 작성해보세요"></textarea>
+							</div>
+						</c:if>
+						<c:if test="${result.userId eq userId}">
 							<input type="button" class="button is-primary is-light"
 								value="수정" id="modify">
 							<input type="button" value="삭제" id="delete"

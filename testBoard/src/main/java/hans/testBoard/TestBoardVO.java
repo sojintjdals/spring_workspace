@@ -14,6 +14,9 @@ public class TestBoardVO {
 	private String title;
 	private String contents;
 	private String regdate;
+	private String userName;
+	private String userId;
+
 	// 파일업로드때 추가한것들
 	private int viewcnt;
 	private String fullName;
@@ -84,11 +87,28 @@ public class TestBoardVO {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	@Override
 	public String toString() {
 		return "TestBoardVO [seqno=" + seqno + ", title=" + title + ", contents=" + contents + ", regdate=" + regdate
-				+ ", viewcnt=" + viewcnt + ", replycnt=" + replycnt + ", files=" + Arrays.toString(files) + "]";
+				+ ", userName=" + userName + ", userId=" + userId + ", viewcnt=" + viewcnt + ", fullName=" + fullName
+				+ "]";
 	}
 
 }
