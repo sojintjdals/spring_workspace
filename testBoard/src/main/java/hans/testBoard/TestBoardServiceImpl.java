@@ -121,7 +121,7 @@ public class TestBoardServiceImpl implements TestBoardService {
 		 * null떠서 리턴을 못함 그래서 주석 처리한거
 		 */
 		dao.getAttach(vo);
-
+		dao.cntUpdate(vo);
 		return dao.testBoardView(vo);
 	}
 
@@ -153,5 +153,11 @@ public class TestBoardServiceImpl implements TestBoardService {
 		// TODO Auto-generated method stub
 		return dao.updateAttach(vo);
 	}
-	//스마트에디터
+	// 스마트에디터
+
+	@Override
+	public int cntUpdate(TestBoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.cntUpdate(vo);
+	}
 }

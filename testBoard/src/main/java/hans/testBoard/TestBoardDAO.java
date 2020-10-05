@@ -18,6 +18,7 @@ public interface TestBoardDAO {
 	int testBoardInsert(TestBoardVO vo) throws Exception;
 	//update
 	int testBoardUpdate(TestBoardVO vo) throws Exception;
+	int cntUpdate(TestBoardVO vo) throws Exception;
 	//delete
 	int testBoardDelete(TestBoardVO vo) throws Exception;
 	//count

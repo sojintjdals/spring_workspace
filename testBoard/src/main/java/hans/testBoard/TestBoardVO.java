@@ -3,22 +3,16 @@ package hans.testBoard;
 import java.util.Arrays;
 
 public class TestBoardVO {
-//	CREATE TABLE `test_metami` (
-//			  `seqno` int(11) NOT NULL AUTO_INCREMENT,
-//			  `title` varchar(100) NOT NULL,
-//			  `contents` varchar(1000) DEFAULT NULL,
-//			  `regdate` datetime DEFAULT NULL,
-//			  PRIMARY KEY (`seqno`)
-//			) ENGINE=MyISAM DEFAULT CHARSET=utf8
 	private int seqno;
 	private String title;
 	private String contents;
 	private String regdate;
 	private String userName;
 	private String userId;
+	//조회수 
+	private int cnt;
 
 	// 파일업로드때 추가한것들
-	private int viewcnt;
 	private String fullName;
 	private int replycnt;
 
@@ -32,12 +26,12 @@ public class TestBoardVO {
 
 	private String[] files; // 첨부파일의 이름을 보관하는 문자열 배열
 
-	public int getViewcnt() {
-		return viewcnt;
+	public int getCnt() {
+		return cnt;
 	}
 
-	public void setViewcnt(int viewcnt) {
-		this.viewcnt = viewcnt;
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 
 	public int getReplycnt() {
@@ -107,8 +101,8 @@ public class TestBoardVO {
 	@Override
 	public String toString() {
 		return "TestBoardVO [seqno=" + seqno + ", title=" + title + ", contents=" + contents + ", regdate=" + regdate
-				+ ", userName=" + userName + ", userId=" + userId + ", viewcnt=" + viewcnt + ", fullName=" + fullName
-				+ "]";
+				+ ", userName=" + userName + ", userId=" + userId + ", cnt=" + cnt + ", fullName=" + fullName
+				+ ", replycnt=" + replycnt + ", files=" + Arrays.toString(files) + "]";
 	}
 
 }

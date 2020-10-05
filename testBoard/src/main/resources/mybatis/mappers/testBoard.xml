@@ -42,7 +42,7 @@
 	<![CDATA[
 	select 
 		seqno, title,
-		contents, regdate
+		contents, regdate, cnt
 		FROM test_metami
 		where seqno > 0
 	]]>
@@ -73,7 +73,7 @@
 	<![CDATA[
 	select 
 		seqno, title,
-		contents, regdate
+		contents, regdate, cnt
 		FROM test_metami
 		where seqno > 0
 		order by seqno desc, regdate desc
@@ -83,7 +83,7 @@
 	<!-- 사용되는곳 -->
 	<select id="testBoardView" parameterType="TestBoardVO"
 		resultType="TestBoardVO">
-		select seqno, title, contents, regdate, userName, userId
+		select seqno, title, contents, regdate, userName, userId, cnt
 		from test_metami where seqno = #{seqno};
 	</select>
 	<!-- 사용되는곳 -->
@@ -135,4 +135,9 @@
 		attach_metami
 		WHERE fullName = #{fullName}
 	</delete>
+	<update id="cntUpdate" parameterType="TestBoardVO">
+		UPDATE test_metami
+		SET cnt= cnt+1
+		WHERE seqno= #{seqno}
+	</update>
 </mapper>

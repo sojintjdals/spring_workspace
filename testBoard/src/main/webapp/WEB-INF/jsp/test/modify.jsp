@@ -196,9 +196,7 @@
 <body>
 	<form id="frm" name="frm" method="post" action='/test/modify.do'>
 		<div class="main">
-			<header>
-				<h1 id="h">수정</h1>
-			</header>
+<c:import url="header.jsp"></c:import>
 			<div></div>
 			<div></div>
 			<input type="hidden" name="seqno" value="${resultUpdate.seqno}">
@@ -213,7 +211,8 @@
 				<div class="th">내용</div>
 
 				<div class="td">
-				<textarea style="width:100%; height: 100%;" id="contents" name="contents">${resultUpdate.contents}</textarea>
+					<textarea style="width: 100%; height: 100%;" id="contents"
+						name="contents">${resultUpdate.contents}</textarea>
 					<div class="delbtn"></div>
 					<div id="bt">
 						<input type="button" value="완료" id="writing"
@@ -223,9 +222,9 @@
 				</div>
 				<div></div>
 				<div></div>
-				<footer></footer>
+				
 			</div>
-		</div>
+			<c:import url="footer.jsp"></c:import>
 		</div>
 	</form>
 </body>

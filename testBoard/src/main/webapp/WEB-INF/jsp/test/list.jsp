@@ -71,65 +71,19 @@
 		<!--페이지 값을 저장하고 넘어갈수있게 ex)2누르면 2를 저장-->
 		<input type="hidden" name="page">
 		<div class="main">
-			<header>
-				<div></div>
-				<div></div>
-				<span id="h1">게시판1</span>
-				<div>
-					<c:if test="${not empty userId}">
-						<div class="login">
-							<span id="welcome">${userName}(${userId})</span> <input
-								type="button" name="logout" class="button is-primary is-light"
-								id="logout" value="로그아웃"> <input type="hidden" name="id"
-								id="id" data-id="${userId}" value="${userId}"> <input
-								type="button" name="memberView"
-								class="button is-primary is-light" data-id="${userId}"
-								id="memberView" value="회원정보">
-						</div>
-					</c:if>
-					<c:if test="${empty userId}">
-						<div class="login">
-							<button class="button is-primary is-light" name="loginmember"
-								id="loginmember">로그인</button>
-							<button class="button is-primary is-light" name="insertMember"
-								id="insertMember">회원가입</button>
-						</div>
-					</c:if>
-				</div>
-			</header>
-			<nav>
-				<ul>
-					<li id="L1">게시판1</li>
-				</ul>
-				<ul>
-					<li id="L2">게시판2</li>
-				</ul>
-				<ul>
-					<li id="L3">게시판3</li>
-				</ul>
-				<ul>
-					<li id="L4">게시판4</li>
-				</ul>
-				<ul>
-					<li id="L5">게시판5</li>
-				</ul>
-				<ul>
-					<li id="L6">게시판6</li>
-				</ul>
-				<ul>
-					<li id="L7">게시판7</li>
-				</ul>
-			</nav>
+			<c:import url="header.jsp"></c:import>
 			<section>
 				<input type="hidden" name="seqno" id="seqno">
 				<div class="top_tr">번호</div>
 				<div class="top_tr">제목</div>
 				<div class="top_tr">등록일</div>
+				<div class="top_tr">조회수</div>
 				<!-- status.count는 1,2,3 순서로 숫자찍음 -->
 				<c:forEach items="${list}" var="result" varStatus="status">
 					<div class="td" data-id="${result.seqno}">${status.count}</div>
 					<div class="td" id="title" data-id="${result.seqno}">${result.title}</div>
 					<div class="td" data-id="${result.seqno}">${result.regdate}</div>
+					<div class="td" data-id="${result.seqno}">${result.cnt}</div>
 				</c:forEach>
 				<div class="text-center">
 					<ul class="pagination">
@@ -155,20 +109,17 @@
 				</div>
 				<div class="box-body">
 					<select name="searchType">
-						<option value="n">
-							<c:out value="${cri.searchType == null?'selected' : '' }" />---
-						</option>
 						<option value="t">
-							<c:out value="${cri.searchType eq 't'?'selected' : '' }" />
-							Title
+							<c:out value="${cri.searchType eq 't'? '' : '' }" />
+							제목
 						</option>
 						<option value="c">
-							<c:out value="${cri.searchType eq 'c'?'selected' : '' }" />
-							Content
+							<c:out value="${cri.searchType eq 'c'? '' : '' }" />
+							내용
 						</option>
 						<option value="tc">
-							<c:out value="${cri.searchType eq 'tc'?'selected' : '' }" />
-							Title OR Content
+							<c:out value="${cri.searchType eq 'tc'?'' : '' }" />
+							제목 또는 내용
 						</option>
 					</select> <input type="text" id="keywordInput"> <input type="button"
 						value="Search" name="Search" id="searchBtn">
@@ -180,18 +131,7 @@
 						id="writing">
 				</c:if>
 			</section>
-
-			<footer>
-				<div></div>
-				<div></div>
-				<div class="metami">위 내용에 대한 저작권 및 법적 책임은 자료제공사 또는 글쓴이에 있으며
-					metamiweb의 입장과 다를 수 있습니다.</div>
-				<div>
-				</div>
-				<div>
-					<%-- ${pageMaker.cri.page} --%>
-				</div>
-			</footer>
+			<c:import url="footer.jsp"></c:import>
 		</div>
 	</form>
 </body>

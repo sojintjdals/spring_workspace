@@ -106,6 +106,12 @@ public class TestBoardDAOImpl extends EgovAbstractMapper implements TestBoardDAO
 		// TODO Auto-generated method stub
 		return delete("seleteDeleteAttach", vo);
 	}
+
+	@Override
+	public int cntUpdate(TestBoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return update("cntUpdate", vo);
+	}
 	
 
 }

@@ -23,5 +23,6 @@ public interface TestBoardService {
 	//fileGet
 	int deleteAttach(TestBoardVO vo) throws Exception;
 	int updateAttach(TestBoardVO vo) throws Exception;
+	int cntUpdate(TestBoardVO vo) throws Exception;
 	int selectDeleteAttach(TestBoardVO vo) throws Exception;
 }

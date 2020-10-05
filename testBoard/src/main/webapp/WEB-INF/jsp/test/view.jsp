@@ -17,8 +17,15 @@
 			$("#frm").attr("action", "/test/modify.do");
 			$("#frm").submit();
 		});
+		$("#loginmember").click(function() {
+			$("#frm").attr("action", "/test/Login.do");
+			$("#frm").submit();
+		});
+		$("#logout").click(function() {
+			$("#frm").attr("action", "/test/logout.do");
+			$("#frm").submit();
+		});
 	});
-
 	$(document)
 			.ready(
 					function() {
@@ -37,11 +44,9 @@
 						/* 	$("#back").click(function() {
 								$(location).attr('href','/test/list.do');
 							}) */
-						$("#back")
-								.click(
-										function() {
-											window.location.href = "<c:url value='/test/listPage.do' />";
-										})
+						$("#back").click(function() {
+							window.location.href = "<c:url value='/test/listPage.do' />";
+						})
 						$("#commentsBtn")
 								.on(
 										"click",
@@ -110,13 +115,9 @@
 </head>
 <body>
 	<form id="frm" action='/test/modify.do'>
-
 		<input type="hidden" name="seqno" value="${result.seqno}">
-
 		<div class="main">
-			<header>
-				<h1 id="h">게시물</h1>
-			</header>
+			<c:import url="header.jsp"></c:import>
 			<div></div>
 			<div></div>
 			<div id="frt">
@@ -126,7 +127,8 @@
 							value="${result.seqno}"> <input type="hidden"
 							name="userName" id="userName" value="${result.userName}">
 						<input type="hidden" name="userId" id="userId"
-							value="${result.userId}">
+							value="${result.userId}"> <input type="hidden" name="cnt"
+							id="cnt" value="${result.cnt}">
 					</div>
 					<div id="td">
 						<input type="hidden" name="userId" id="userId"
@@ -152,7 +154,7 @@
 
 					</div>
 					<div class="bt" id="td">
-						<c:if test="${not empty userId}">
+						<%-- <c:if test="${not empty userId}">
 							<div>
 								<!-- <div class="textarea is-large" id="comments"
 							name="comments"></div> -->
@@ -161,7 +163,7 @@
 							</div>
 							<input type="button" id="commentsBtn" name="commentsBtn"
 								class="button is-primary is-light" value="댓글작성">
-						</c:if>
+						</c:if> --%>
 						<c:if test="${result.userId eq userId}">
 							<input type="button" class="button is-primary is-light"
 								value="수정" id="modify">
@@ -173,7 +175,7 @@
 					</div>
 				</div>
 			</div>
-			<footer> </footer>
+			<c:import url="footer.jsp"></c:import>
 		</div>
 
 	</form>

@@ -185,9 +185,7 @@
 <body>
 	<form id="frm" name="frm" method="post" action='/test/insert.do'>
 		<div class="main">
-			<header>
-				<h1 id="h">리스트</h1>
-			</header>
+			<c:import url="header.jsp"></c:import>
 			<div></div>
 			<div></div>
 			<div id="frt">
@@ -208,7 +206,6 @@
 				<div class="td">
 					<input type="text" id="contents" name="contents">
 				</div>
-				<div class="fileDrop"></div>
 				<div class="uploadedList">
 					<div class="delbtn"></div>
 				</div>
@@ -220,7 +217,7 @@
 			</div>
 			<div></div>
 			<div></div>
-			<footer></footer>
+			<c:import url="footer.jsp"></c:import>
 		</div>
 	</form>
 </body>

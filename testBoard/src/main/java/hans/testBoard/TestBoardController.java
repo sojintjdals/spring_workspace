@@ -72,7 +72,6 @@ public class TestBoardController {
 		}
 		return "test/list";
 	}
-
 	/*
 	 * @RequestMapping(value = "/listPage.do", method = RequestMethod.GET) public
 	 * String listPage(@ModelAttribute("cri") Criteria cri, Model model) throws
@@ -102,10 +101,14 @@ public class TestBoardController {
 	@RequestMapping("view.do")
 	public String view(Model model, TestBoardVO vo, int seqno) {
 		try {
-			System.out.println("View File :" + service.getAttach(vo));
-			System.out.println("View Files :" + service.testBoardView(vo).getFullName());
-			model.addAttribute("result", service.testBoardView(vo));
-			model.addAttribute("list", service.getAttach(vo));
+			List<TestBoardVO> resultList = service.getAttach(vo);
+			TestBoardVO result = service.testBoardView(vo);
+			
+			System.out.println("View File :" + resultList);
+			System.out.println("View Files :" + result.getFullName());
+			
+			model.addAttribute("result", result);
+			model.addAttribute("list", resultList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

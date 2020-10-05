@@ -1,14 +1,69 @@
 @charset "UTF-8";
 
-#h {
+#h1 {
 	text-align: center;
 	color: gray;
 	font-size: 30px;
 	font-weight: bold;
 }
 
-.th {
+.top_tr {
+	width: 100%;
+	height: 100%;
+	background-color: #717F9A;
+	color: white;
 	font-weight: bold;
+}
+
+
+#title:hover {
+	text-decoration: underline;
+}
+
+#welcome {
+	color: black;
+	font-size: 25px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+#login {
+	
+}
+
+#logout {
+	font-weight: bold;
+	border: 1px solid;
+	vertical-align: middle;
+}
+
+.login {
+	min-width: 450px;
+}
+
+#loginmember, #insertMember, #back, #writing {
+	border: 1px solid;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+div {
+	line-height: 50px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#writing {
+	height: 80%;
+	justify-self: end;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+#memberView {
+	border: 1px solid;
+	font-weight: bold;
+	vertical-align: middle;
 }
 
 .main {
@@ -16,19 +71,19 @@
 	/* vh는 화면의 비율을 의미 100vh면 현재화면의 100%길이를 의미함 */
 	height: 100vh;
 	/* fr의 경우 남은 공간을 fr의 숫자만큼 분배해준다.*/
-	grid-template-columns: 1fr repeat(3, minmax(600px, 5fr)) 1fr;
-	grid-template-rows: 1fr 6fr 1fr;
+	grid-template-columns: 1fr repeat(3, minmax(600px, 2fr)) 1fr;
+	grid-template-rows: 1fr 1fr 5fr 1fr;
 	/* 
             grid-template를 이용하면 모든설정을 한번에 처리할 수 있다.
             grid-area롤 각각 영역을 설정하고 오른쪽 끝에 높이를 설정해준다.
             마지막 높이를 설정 한 후 /표시를 한 뒤 컬럼사이즈를 조절해준다.
          */
-	grid-template-areas: "header header header header header header"
-		". section section section section ." "footer footer footer footer footer footer";
+	grid-template-areas: "header header header header header"
+		"nav nav nav nav nav" ". section section section ."
+		"footer footer footer footer footer";
 	gap: 3px;
-	/* align-items: center; */
 	/* justify-items: center;
-	
+	align-items: center;
 	/* 
             grid도 flex와 비슷하게 내부를 태그들도 정렬해줄 수 있다.
             기본값은 stretch인데 grid로 설정해준 크기만큼 백그라운드 사이즈를 크게 해준것을 의미한다.
@@ -41,49 +96,61 @@
             */
 }
 
-#frm {
-	
+nav {
+	background-color: #1A70DC;
+	display: grid;
+	color: white;
+	list-style: none;
+	float: left;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-area: nav;
+	height: 50px;
 }
 
-#frm {
-	text-align: center;
-	height: 100%;
+ul {
+	justify-content: center;
 }
 
-#bt {
-	margin-top: 1vh;
-}
-
-.input {
-	
-}
-
-#writing, #back {
+li {
 	font-weight: bold;
-	border: 1px solid;
+	width: 80%;
 }
 
-.title {
-	font-size: 20px;
-}
-
-.contents {
-	font-size: 10px;
-}
-
-.textarea {
-	text-align: left;
-	width: 100%;
+li:hover {
+	cursor: pointer;
+	color: #77FFFF;
+	background-color: #175EB8;
 }
 
 header {
+	/* 	background-color: aquamarine;
 	font-size: 33px;
-	color: aliceblue;
+	color: aliceblue; */
 	grid-area: header;
 	align-self: center;
+	display: grid;
+	grid-template-columns: 1fr 2fr 2fr 3fr;
+	justify-items: center;
+	align-items: center;
+	place-items: align justify;
+	vertical-align: middle;
+}
+
+section {
+	grid-area: section;
+	display: grid;
+	grid-template-columns: 1fr 3fr 2fr;
+	grid-auto-rows: 50px;
+	font-size: 17px;
+	place-items: center center;
+	justify-content: center;
+}
+
+section:hover {
+	cursor: pointer;
 }
 
 footer {
-	font-size: 33px;
+	background-color: #F3F3F3;
 	grid-area: footer;
 }

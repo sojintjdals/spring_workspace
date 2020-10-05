@@ -145,7 +145,7 @@ header {
 section {
 	grid-area: section;
 	display: grid;
-	grid-template-columns: 1fr 3fr 2fr;
+	grid-template-columns: 1fr 3fr 2fr 1fr;
 	grid-auto-rows: 50px;
 	font-size: 17px;
 	place-items: center center;
@@ -162,9 +162,4 @@ footer {
 	color: aliceblue; */
 	background-color: #F3F3F3;
 	grid-area: footer;
-}
-
-.metami {
-	line-height: 70px;
-	vertical-align: middle;
 }
