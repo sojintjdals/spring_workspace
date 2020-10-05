@@ -16,25 +16,33 @@
 	$(document)
 			.ready(
 					function() {
-						$("#writing").click(function() {
-							var title = $("#title").val();
-							var contents = $("#contents").val();
 
-							if (title == "") {
-								alert("제목을 입력하세요");
-								document.frm.title.focus();
-								return;
-							}
-							if (contents == "") {
-								alert("내용을 입력하세요");
-								document.frm.contents.focus();
-								return;
-							}
-							alert($("#userName").val());
-							alert($("#userId").val());
-							$("#frm").attr("action", "/test/insert.do");
-							document.frm.submit();
-						})
+						$("#writing")
+								.click(
+										function() {
+											editor_object.getById["contents"]
+													.exec(
+															"UPDATE_CONTENTS_FIELD",
+															[]);
+											var title = $("#title").val();
+											var contents = $("#contents").val();
+
+											if (title == "") {
+												alert("제목을 입력하세요");
+												document.frm.title.focus();
+												return;
+											}
+											if (contents == "") {
+												alert("내용을 입력하세요");
+												document.frm.contents.focus();
+												return;
+											}
+											alert($("#userName").val());
+											alert($("#userId").val());
+											$("#frm").attr("action",
+													"/test/insert.do");
+											document.frm.submit();
+										})
 						$("#back")
 								.click(
 										function() {
@@ -139,10 +147,28 @@
 
 							return front + end;
 						}
-					})
+						/* <!--네이버 스마트에디터 --> */
+						var editor_object = [];
 
-	/* that.get(0).submit(); */
+						nhn.husky.EZCreator
+								.createInIFrame({
+									oAppRef : editor_object,
+									elPlaceHolder : "contents",
+									sSkinURI : "/resources/smartEditor/SmartEditor2Skin.html",
+									htParams : {
+										// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+										bUseToolbar : true,
+										// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+										bUseVerticalResizer : false,
+										// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+										bUseModeChanger : false,
+									}
+								});
+					})
 </script>
+<!-- 네이버스마트에디터 -->
+<script type="text/javascript"
+	src="/resources/smartEditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <link rel="stylesheet"
 	href="<c:url value='/css/bulma-0.9.0/bulma.min.css' />">
 <link href="<c:url value="/testCss/insert.css" />" rel="stylesheet"
@@ -172,15 +198,15 @@
 					<div class="td">
 						<input class="input" type="text" name="title" id="title">
 						<input type="hidden" name="userId" id="userId" value="${userId}">
-						<input type="hidden" name="userName" id="userName" value="${userName}">
+						<input type="hidden" name="userName" id="userName"
+							value="${userName}">
 					</div>
 				</div>
-				
+
 				<div class="th">내용</div>
 
 				<div class="td">
-					<textarea class="textarea is-large" rows="10" cols="50"
-						name="contents" id="contents"></textarea>
+					<input type="text" id="contents" name="contents">
 				</div>
 				<div class="fileDrop"></div>
 				<div class="uploadedList">

@@ -2,13 +2,19 @@ package hans.testBoard;
 
 import java.awt.image.BufferedImage;
 import java.beans.MethodDescriptor;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -17,6 +23,8 @@ import java.util.function.Function;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.validator.Msg;
@@ -110,12 +118,17 @@ public class TestBoardController {
 	 * @ResponseBody public List<TestBoardVO> getAttach(@PathVariable("seqno")int
 	 * seqno)throws Exception{ return service.getAttach(seqno); }
 	 */
-
+	
+	@RequestMapping("smartEditer.do")
+	public String smartEditer() {
+		return "test/smartEditer";
+	}
+	
 	@RequestMapping(value = "insert.do", method = RequestMethod.GET)
 	public String insertGet() {
 		return "test/insert";
 	}
-
+	
 	@RequestMapping(value = "insert.do", method = RequestMethod.POST)
 	public String insertPost(RedirectAttributes rttr, TestBoardVO vo) {
 		int result = 0;
@@ -388,4 +401,98 @@ public class TestBoardController {
 		}
 		return new ResponseEntity<String>("fileDelete", HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/imageSrc.do", method = RequestMethod.GET)
+	   public void download2(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	      logger.info("=========> Back End Start!!");
+	      Map<String,String[]> map = request.getParameterMap();
+	      Iterator<String> it = map.keySet().iterator();
+	      while(it.hasNext()) {
+	         String key = it.next();
+	         logger.info(Arrays.toString(map.get(key)));
+	      }
+	      String uploadDir = "C:" + File.separator + "FileUpload" + File.separator;
+	      /*Date today = new Date();
+	      SimpleDateFormat date = new SimpleDateFormat(
+	            File.separator + "yyyy" + File.separator + "MM" + File.separator + "dd");
+	      String dataFolder = date.format(today);*/
+//	      String subPath = "smartEditor" + dataFolder + File.separator;
+	      String subPath = "smartEditor" + File.separator;
+	      String physical = request.getParameter("physical");
+	      String mimeType = "image/jpeg";
+	      logger.info("넘어온 데이터 : " + physical);
+	      logger.info("완성 경로 : " + uploadDir + subPath + physical);
+
+	      viewFile(response, uploadDir, subPath, physical, mimeType);
+	   }
+
+	   public void viewFile(HttpServletResponse response, String where, String serverSubPath, String physicalName,
+	         String mimeTypeParam) throws Exception {
+	      String mimeType = mimeTypeParam;
+	      // String downFileName = where + SEPERATOR + serverSubPath + SEPERATOR +
+	      // physicalName;
+	      String downFileName = where + serverSubPath + physicalName;
+	      logger.info("hello!");
+	      File file = new File(filePathBlackList(downFileName));
+
+	      if (!file.exists()) {
+	         throw new FileNotFoundException(downFileName);
+	      }
+
+	      if (!file.isFile()) {
+	         throw new FileNotFoundException(downFileName);
+	      }
+
+	      byte[] b = new byte[8192];
+
+	      if (mimeType == null) {
+	         mimeType = "application/octet-stream;";
+	      }
+
+	      response.setContentType(mimeType.replaceAll("\r", "").replaceAll("\n", ""));
+	      response.setHeader("Content-Disposition", "filename=image;");
+
+	      BufferedInputStream fin = null;
+	      BufferedOutputStream outs = null;
+
+	      try {
+	         fin = new BufferedInputStream(new FileInputStream(file));
+	         outs = new BufferedOutputStream(response.getOutputStream());
+
+	         int read = 0;
+
+	         while ((read = fin.read(b)) != -1) {
+	            outs.write(b, 0, read);
+	         }
+	      } finally {
+	         close(outs, fin);
+	      }
+	   }
+
+	   public void close(Closeable... resources) {
+	      for (Closeable resource : resources) {
+	         if (resource != null) {
+	            try {
+	               resource.close();
+	            } catch (Exception ignore) {
+	               logger.debug("Occurred Exception to close resource is ingored!!");
+	            }
+	         }
+	      }
+	   }
+
+	   // 파일경로의 유효성 체크
+	   public String filePathBlackList(String value) {
+	      String returnValue = value;
+	      if (returnValue == null || returnValue.trim().equals("")) {
+	         return "";
+	      }
+	      logger.debug("Hello!");
+	      returnValue = returnValue.replaceAll("\\.\\./", ""); // ../
+	      returnValue = returnValue.replaceAll("\\.\\.\\\\", ""); // ..\
+
+	      return returnValue;
+	   }
+	   /* 파일 관련 유틸 끝 */
+	
 }

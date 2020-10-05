@@ -9,27 +9,37 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/
+3.0.1/handlebars.js"></script>
 <script>
 	$(document)
 			.ready(
 					function() {
-						$("#writing").click(function() {
-							var title = $("#title").val();
-							var contents = $("#contents").val();
+						$("#writing")
+								.click(
+										function() {
+											editor_object.getById["contents"]
+													.exec(
+															"UPDATE_CONTENTS_FIELD",
+															[]);
+											var title = $("#title").val();
+											var contents = $("#contents").val();
 
-							if (title == "") {
-								alert("제목을 입력하세요");
-								document.frm.title.focus();
-								return;
-							}
-							if (contents == "") {
-								alert("내용을 입력하세요");
-								document.frm.contents.focus();
-								return;
-							}
-							$("#frm").attr("action", "/test/modify.do");
-							document.frm.submit();
-						})
+											if (title == "") {
+												alert("제목을 입력하세요");
+												document.frm.title.focus();
+												return;
+											}
+											if (contents == "") {
+												alert("내용을 입력하세요");
+												document.frm.contents.focus();
+												return;
+											}
+											$("#frm").attr("action",
+													"/test/modify.do");
+											document.frm.submit();
+										})
 						$("#back")
 								.click(
 										function() {
@@ -148,8 +158,28 @@
 
 							return front + end;
 						}
+						/* <!--네이버 스마트에디터 --> */
+						var editor_object = [];
+
+						nhn.husky.EZCreator
+								.createInIFrame({
+									oAppRef : editor_object,
+									elPlaceHolder : "contents",
+									sSkinURI : "/resources/smartEditor/SmartEditor2Skin.html",
+									htParams : {
+										// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+										bUseToolbar : true,
+										// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+										bUseVerticalResizer : false,
+										// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+										bUseModeChanger : false,
+									}
+								});
 					});
 </script>
+<!-- 네이버스마트에디터 -->
+<script type="text/javascript"
+	src="/resources/smartEditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <link rel="stylesheet"
 	href="<c:url value='/css/bulma-0.9.0/bulma.min.css' />">
 <link href="<c:url value="/testCss/modify.css" />" rel="stylesheet"
@@ -158,7 +188,7 @@
 .fileDrop {
 	width: 100%;
 	margin-top: 10px;
-	height: 15%;
+	height: 50px;
 	border: 1px solid black;
 }
 </style>
@@ -177,37 +207,25 @@
 
 				<div class="td">
 					<input type="text" class="input" name="title" id="title"
-						value="${resultUpdate.title}" style="width: 100%">
+						value="${resultUpdate.title}">
 				</div>
 
 				<div class="th">내용</div>
 
 				<div class="td">
-					<textarea class="textarea is-large" rows="10" cols="50"
-						name="contents" id="contents">${resultUpdate.contents}</textarea>
-					<div class="fileDrop"></div>
-					<div class="uploadedList">
-						<c:forEach items="${list}" var="result2">
-							<div class="td" data-id="${result2.seqno}"></div>
-							<div class="td" id="title" data-id="${result2.seqno}">
-								<img src="/test/displayFile.do?fileName=${result2.fullName}" />
-								<a>${result2.fullName}</a>
-								<b data-src="${result2.fullName}">X</b>
-							</div>
-						</c:forEach>
-						<div class="delbtn"></div>
-						<div id="bt">
-							<input type="button" value="완료" id="writing"
-								class="button is-primary is-light"> <input type="button"
-								value="홈" id="back" class="button is-primary is-light">
-						</div>
-
+				<textarea style="width:100%; height: 100%;" id="contents" name="contents">${resultUpdate.contents}</textarea>
+					<div class="delbtn"></div>
+					<div id="bt">
+						<input type="button" value="완료" id="writing"
+							class="button is-primary is-light"> <input type="button"
+							value="홈" id="back" class="button is-primary is-light">
 					</div>
-					<div></div>
-					<div></div>
-					<footer></footer>
 				</div>
+				<div></div>
+				<div></div>
+				<footer></footer>
 			</div>
+		</div>
 		</div>
 	</form>
 </body>

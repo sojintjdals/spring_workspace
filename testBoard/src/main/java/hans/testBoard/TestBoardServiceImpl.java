@@ -153,5 +153,5 @@ public class TestBoardServiceImpl implements TestBoardService {
 		// TODO Auto-generated method stub
 		return dao.updateAttach(vo);
 	}
-
+	//스마트에디터
 }

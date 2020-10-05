@@ -16,15 +16,15 @@
 	/* vh는 화면의 비율을 의미 100vh면 현재화면의 100%길이를 의미함 */
 	height: 100vh;
 	/* fr의 경우 남은 공간을 fr의 숫자만큼 분배해준다.*/
-	grid-template-columns: 1fr repeat(3, minmax(500px, 4fr)) 1fr;
-	grid-template-rows: 1fr 5fr 1fr;
+	grid-template-columns: 1fr repeat(3, minmax(600px, 5fr)) 1fr;
+	grid-template-rows: 1fr 6fr 1fr;
 	/* 
             grid-template를 이용하면 모든설정을 한번에 처리할 수 있다.
             grid-area롤 각각 영역을 설정하고 오른쪽 끝에 높이를 설정해준다.
             마지막 높이를 설정 한 후 /표시를 한 뒤 컬럼사이즈를 조절해준다.
          */
-	grid-template-areas: "header header header header header"
-		". section section section ." "footer footer footer footer footer";
+	grid-template-areas: "header header header header header header"
+		". section section section section ." "footer footer footer footer footer footer";
 	gap: 3px;
 	/* align-items: center; */
 	/* justify-items: center;
@@ -67,8 +67,13 @@
 	font-size: 20px;
 }
 
-.content {
+.contents {
 	font-size: 10px;
+}
+
+.textarea {
+	text-align: left;
+	width: 100%;
 }
 
 header {

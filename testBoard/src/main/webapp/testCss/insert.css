@@ -16,7 +16,7 @@
 	/* vh는 화면의 비율을 의미 100vh면 현재화면의 100%길이를 의미함 */
 	height: 100vh;
 	/* fr의 경우 남은 공간을 fr의 숫자만큼 분배해준다.*/
-	grid-template-columns: 1fr repeat(3, minmax(500px, 4fr)) 1fr;
+	grid-template-columns: 1fr repeat(3, minmax(600px, 4fr)) 1fr;
 	grid-template-rows: 1fr 5fr 1fr;
 	/* 
             grid-template를 이용하면 모든설정을 한번에 처리할 수 있다.
