@@ -3,6 +3,7 @@ package hans.testBoard;
 import java.util.Arrays;
 
 public class TestBoardVO {
+	//댓글에도 쓰이는거
 	private int seqno;
 	private String title;
 	private String contents;
@@ -15,6 +16,47 @@ public class TestBoardVO {
 	// 파일업로드때 추가한것들
 	private String fullName;
 	private int replycnt;
+	
+	//댓글
+	private int rno;
+	//seqno는 위에 이미만들어졌음
+	private String replytext;
+	private String replyer;
+	
+	public int getRno() {
+		return rno;
+	}
+
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+
+	public String getReplytext() {
+		return replytext;
+	}
+
+	public void setReplytext(String replytext) {
+		this.replytext = replytext;
+	}
+
+	public String getReplyer() {
+		return replyer;
+	}
+
+	public void setReplyer(String replyer) {
+		this.replyer = replyer;
+	}
+
+	public String getUpdatdate() {
+		return updatdate;
+	}
+
+	public void setUpdatdate(String updatdate) {
+		this.updatdate = updatdate;
+	}
+
+	//regdate도 이미 있음
+	private String updatdate;
 
 	public String getFullName() {
 		return fullName;
@@ -102,7 +144,8 @@ public class TestBoardVO {
 	public String toString() {
 		return "TestBoardVO [seqno=" + seqno + ", title=" + title + ", contents=" + contents + ", regdate=" + regdate
 				+ ", userName=" + userName + ", userId=" + userId + ", cnt=" + cnt + ", fullName=" + fullName
-				+ ", replycnt=" + replycnt + ", files=" + Arrays.toString(files) + "]";
+				+ ", replycnt=" + replycnt + ", rno=" + rno + ", replytext=" + replytext + ", replyer=" + replyer
+				+ ", updatdate=" + updatdate + ", files=" + Arrays.toString(files) + "]";
 	}
 
 }

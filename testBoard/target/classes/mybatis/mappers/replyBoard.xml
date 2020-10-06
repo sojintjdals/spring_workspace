@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="replyBoardVO">
+	<select id="replyList" resultType="replyBoardVO">
+		select * from reply_metami
+		where seqno = #{seqno}
+		order by rno desc
+	</select>
+
+	<insert id="replyInsert" parameterType="replyBoardVO">
+		insert into reply_metami
+		(seqno, replytext, replyer, regdate)
+		values (#{seqno}, #{replytext},
+		#{replyer}, now())
+	</insert>
+
+	<update id="replyUpdate" parameterType="replyBoardVO">
+		update reply_metami set
+		replytext = #{replytext},
+		updatedate = now() where rno = #{rno}
+	</update>
+
+	<delete id="replyDelete" parameterType="replyBoardVO">
+		delete from reply_metami
+		where rno = #{rno}
+	</delete>
+
+</mapper>

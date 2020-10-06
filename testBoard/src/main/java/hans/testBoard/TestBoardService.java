@@ -4,25 +4,54 @@ import java.util.List;
 
 public interface TestBoardService {
 	List<TestBoardVO> testBoardList() throws Exception;
-	//page
-	List<TestBoardVO> listPage(int page)throws Exception;
-	//Criteria
+
+	// page
+	List<TestBoardVO> listPage(int page) throws Exception;
+
+	// Criteria
 	List<TestBoardVO> listCriteria(Criteria cri) throws Exception;
+
 	int listCountCriteria(Criteria cri) throws Exception;
-	//read
+
+	// read
 	TestBoardVO testBoardView(TestBoardVO vo) throws Exception;
+
 	List<TestBoardVO> getAttach(TestBoardVO vo) throws Exception;
+
 	TestBoardVO testBoardRead(int seqno) throws Exception;
+
 	int testBoardInsert(TestBoardVO vo) throws Exception;
-	//modify
+
+	// modify
 	int testBoardUpdate(TestBoardVO vo) throws Exception;
-	//remove
+
+	// remove
 	int testBoardDelete(TestBoardVO vo) throws Exception;
-	//fileUpload
+
+	// fileUpload
 	int InsertFile(TestBoardVO vo) throws Exception;
-	//fileGet
+
+	// fileGet
 	int deleteAttach(TestBoardVO vo) throws Exception;
+
 	int updateAttach(TestBoardVO vo) throws Exception;
+
 	int cntUpdate(TestBoardVO vo) throws Exception;
+
 	int selectDeleteAttach(TestBoardVO vo) throws Exception;
+
+	// 댓글
+	List<TestBoardVO> replyList(TestBoardVO vo) throws Exception;
+
+	// 댓글만들기
+
+	int replyInsert(TestBoardVO vo) throws Exception;
+
+	// 댓글업데이트
+
+	int replyUpdate(TestBoardVO vo) throws Exception;
+
+	// 댓글삭제
+
+	int replyDelete(int rno) throws Exception;
 }

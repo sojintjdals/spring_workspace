@@ -22,9 +22,8 @@
 	</select>
 	<!-- 사용되는곳 -->
 	<sql id="search">
-	<!-- 	<if test="searchType == null">
-			and title like concat('%',#{keyword},'%')
-		</if> -->
+		<!-- <if test="searchType == null"> and title like concat('%',#{keyword},'%') 
+			</if> -->
 		<if test="searchType == 't'.toString()">
 			and title like concat('%',#{keyword},'%')
 		</if>
@@ -83,7 +82,8 @@
 	<!-- 사용되는곳 -->
 	<select id="testBoardView" parameterType="TestBoardVO"
 		resultType="TestBoardVO">
-		select seqno, title, contents, regdate, userName, userId, cnt
+		select seqno, title, contents, regdate, userName, userId,
+		cnt
 		from test_metami where seqno = #{seqno};
 	</select>
 	<!-- 사용되는곳 -->
@@ -93,9 +93,10 @@
 		(title, contents, regdate, userName, userId)
 		VALUES(#{title}, #{contents},
 		now(), #{userName}, #{userId})
-	    <selectKey resultType="int" keyProperty="seqno" order="AFTER">
-        	SELECT LAST_INSERT_ID()
-    	</selectKey>  
+		<selectKey resultType="int" keyProperty="seqno"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	<!-- 사용되는곳 -->
 	<update id="testBoardUpdate" parameterType="TestBoardVO">
@@ -137,7 +138,33 @@
 	</delete>
 	<update id="cntUpdate" parameterType="TestBoardVO">
 		UPDATE test_metami
-		SET cnt= cnt+1
+		SET cnt=
+		cnt+1
 		WHERE seqno= #{seqno}
 	</update>
+	<!-- 댓글부문 -->
+	<!-- 	<select id="replyList" resultType="TestBoardVO">
+		select * from reply_metami
+		where seqno = #{seqno}
+		order by rno desc
+	</select>
+
+	<insert id="replyInsert" parameterType="TestBoardVO">
+		insert into reply_metami
+		(seqno, replytext, replyer, regdate)
+		values (#{seqno}, #{replytext},
+		#{replyer}, now())
+	</insert>
+
+	<update id="replyUpdate" parameterType="TestBoardVO">
+		update reply_metami set
+		replytext = #{replytext},
+		updatedate = now() where rno = #{rno}
+	</update>
+
+	<delete id="replyDelete" parameterType="TestBoardVO">
+		delete from reply_metami
+		where rno = #{rno}
+	</delete> -->
+	
 </mapper>

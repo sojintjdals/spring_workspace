@@ -26,84 +26,64 @@
 			$("#frm").submit();
 		});
 	});
-	$(document)
-			.ready(
-					function() {
-						$("#delete").click(function() {
+	$(document).ready(function() {
+		$("#delete").click(function() {
 
-							var answer = false;
+			var answer = false;
 
-							answer = confirm("글을 삭제하시겠습니까?");
+			answer = confirm("글을 삭제하시겠습니까?");
 
-							if (answer == true) {
-								alert("삭제가 완료되었습니다.");
-								$("#frm").attr("action", "/test/delete.do");
-								$("#frm").submit();
-							}
-						});
-						/* 	$("#back").click(function() {
-								$(location).attr('href','/test/list.do');
-							}) */
-						$("#back").click(function() {
-							window.location.href = "<c:url value='/test/listPage.do' />";
-						})
-						$("#commentsBtn")
-								.on(
-										"click",
-										function(event) {
-											var that = $(this);
-											$
-													.ajax({
-														url : '/test/comments.do',
-														data : formData,
-														dataType : 'text',
-														processData : false,
-														contentType : false,
-														type : 'POST',
-														success : function(data) {
-															var str = "";
-															console.log(data);
-															if (checkImageType(data)) {
-																str = "<div>"
-																		+ "<img src='/test/displayFile.do?fileName="
-																		+ getImageLink(data)
-																		+ "'/><small data-src="+data+">X</small></div>";
-															} else {
-																str = "<div><a href='/test/displayFile.do?fileName="
-																		+ data
-																		+ "'>"
-																		+ getOriginalName(data)
-																		+ "</a><small data-src="+data+">X</small></div>";
-																alert(data);
-															}
-															var str2 = "<input type='hidden' name='files' value='" + data +"'> ";
-															$(".uploadedList")
-																	.append(str);
-															$(".uploadedList")
-																	.append(
-																			str2);
-														}
-													});
-										});
-						/* <!--네이버 스마트에디터 --> */
-						var editor_object = [];
+			if (answer == true) {
+				alert("삭제가 완료되었습니다.");
+				$("#frm").attr("action", "/test/delete.do");
+				$("#frm").submit();
+			}
+		});
+		/* 	$("#back").click(function() {
+				$(location).attr('href','/test/list.do');
+			}) */
+		$("#back").click(function() {
+			window.location.href = "<c:url value='/test/listPage.do' />";
+		})
+		$("#replyBtn").on("click", function(event) {
+			var that = $(this);
+			$.ajax({
+				url : '/rest/replyInsert.do',
+				data : formData,
+				dataType : 'text',
+				processData : false,
+				contentType : false,
+				type : 'POST',
+				success : function(data) {
+					var str = "";
+					console.log(data);
+					if (checkImageType(data)) {
 
-						nhn.husky.EZCreator
-								.createInIFrame({
-									oAppRef : editor_object,
-									elPlaceHolder : "comments",
-									sSkinURI : "/resources/smartEditor/SmartEditor2Skin.html",
-									htParams : {
-										// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-										bUseToolbar : true,
-										// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-										bUseVerticalResizer : false,
-										// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-										bUseModeChanger : false,
-									}
-								});
+					} else {
 
-					});
+					}
+
+				}
+			});
+		});
+		/* <!--네이버 스마트에디터 --> */
+		var editor_object = [];
+
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef : editor_object,
+			elPlaceHolder : "reply",
+			sSkinURI : "/resources/smartEditor/SmartEditor2Skin.html",
+			htParams : {
+				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseToolbar : true,
+				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseVerticalResizer : false,
+				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseModeChanger : false,
+			}
+		});
+
+	});
 </script>
 <!-- 네이버스마트에디터 -->
 <script type="text/javascript"
@@ -154,16 +134,17 @@
 
 					</div>
 					<div class="bt" id="td">
-						<%-- <c:if test="${not empty userId}">
+						<c:if test="${not empty userId}">
+							<br>
 							<div>
 								<!-- <div class="textarea is-large" id="comments"
 							name="comments"></div> -->
 								<textarea class="textarea is-large" rows="1" cols="20"
-									name="comments" id="comments" placeholder="댓글을 작성해보세요"></textarea>
+									name="reply" id="reply" placeholder="댓글을 작성해보세요"></textarea>
 							</div>
-							<input type="button" id="commentsBtn" name="commentsBtn"
+							<input type="button" id="replyBtn" name="commentsBtn"
 								class="button is-primary is-light" value="댓글작성">
-						</c:if> --%>
+						</c:if>
 						<c:if test="${result.userId eq userId}">
 							<input type="button" class="button is-primary is-light"
 								value="수정" id="modify">

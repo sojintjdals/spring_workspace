@@ -42,6 +42,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,6 +61,7 @@ public class TestBoardController {
 
 	@Resource(name = "uploadPath")
 	private String uploadPath;
+
 	@RequestMapping("list.do")
 	public String list(Model model) {
 		try {
@@ -72,6 +74,7 @@ public class TestBoardController {
 		}
 		return "test/list";
 	}
+
 	/*
 	 * @RequestMapping(value = "/listPage.do", method = RequestMethod.GET) public
 	 * String listPage(@ModelAttribute("cri") Criteria cri, Model model) throws
@@ -103,10 +106,10 @@ public class TestBoardController {
 		try {
 			List<TestBoardVO> resultList = service.getAttach(vo);
 			TestBoardVO result = service.testBoardView(vo);
-			
+
 			System.out.println("View File :" + resultList);
 			System.out.println("View Files :" + result.getFullName());
-			
+
 			model.addAttribute("result", result);
 			model.addAttribute("list", resultList);
 		} catch (Exception e) {
@@ -121,17 +124,17 @@ public class TestBoardController {
 	 * @ResponseBody public List<TestBoardVO> getAttach(@PathVariable("seqno")int
 	 * seqno)throws Exception{ return service.getAttach(seqno); }
 	 */
-	
+
 	@RequestMapping("smartEditer.do")
 	public String smartEditer() {
 		return "test/smartEditer";
 	}
-	
+
 	@RequestMapping(value = "insert.do", method = RequestMethod.GET)
 	public String insertGet() {
 		return "test/insert";
 	}
-	
+
 	@RequestMapping(value = "insert.do", method = RequestMethod.POST)
 	public String insertPost(RedirectAttributes rttr, TestBoardVO vo) {
 		int result = 0;
@@ -391,7 +394,7 @@ public class TestBoardController {
 		}
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("deleteAttach.do")
 	public ResponseEntity<String> deleteAttach(Model model, TestBoardVO vo) {
@@ -404,98 +407,99 @@ public class TestBoardController {
 		}
 		return new ResponseEntity<String>("fileDelete", HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/imageSrc.do", method = RequestMethod.GET)
-	   public void download2(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	      logger.info("=========> Back End Start!!");
-	      Map<String,String[]> map = request.getParameterMap();
-	      Iterator<String> it = map.keySet().iterator();
-	      while(it.hasNext()) {
-	         String key = it.next();
-	         logger.info(Arrays.toString(map.get(key)));
-	      }
-	      String uploadDir = "C:" + File.separator + "FileUpload" + File.separator;
-	      /*Date today = new Date();
-	      SimpleDateFormat date = new SimpleDateFormat(
-	            File.separator + "yyyy" + File.separator + "MM" + File.separator + "dd");
-	      String dataFolder = date.format(today);*/
+	public void download2(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		logger.info("=========> Back End Start!!");
+		Map<String, String[]> map = request.getParameterMap();
+		Iterator<String> it = map.keySet().iterator();
+		while (it.hasNext()) {
+			String key = it.next();
+			logger.info(Arrays.toString(map.get(key)));
+		}
+		String uploadDir = "C:" + File.separator + "FileUpload" + File.separator;
+		/*
+		 * Date today = new Date(); SimpleDateFormat date = new SimpleDateFormat(
+		 * File.separator + "yyyy" + File.separator + "MM" + File.separator + "dd");
+		 * String dataFolder = date.format(today);
+		 */
 //	      String subPath = "smartEditor" + dataFolder + File.separator;
-	      String subPath = "smartEditor" + File.separator;
-	      String physical = request.getParameter("physical");
-	      String mimeType = "image/jpeg";
-	      logger.info("넘어온 데이터 : " + physical);
-	      logger.info("완성 경로 : " + uploadDir + subPath + physical);
+		String subPath = "smartEditor" + File.separator;
+		String physical = request.getParameter("physical");
+		String mimeType = "image/jpeg";
+		logger.info("넘어온 데이터 : " + physical);
+		logger.info("완성 경로 : " + uploadDir + subPath + physical);
 
-	      viewFile(response, uploadDir, subPath, physical, mimeType);
-	   }
+		viewFile(response, uploadDir, subPath, physical, mimeType);
+	}
 
-	   public void viewFile(HttpServletResponse response, String where, String serverSubPath, String physicalName,
-	         String mimeTypeParam) throws Exception {
-	      String mimeType = mimeTypeParam;
-	      // String downFileName = where + SEPERATOR + serverSubPath + SEPERATOR +
-	      // physicalName;
-	      String downFileName = where + serverSubPath + physicalName;
-	      logger.info("hello!");
-	      File file = new File(filePathBlackList(downFileName));
+	public void viewFile(HttpServletResponse response, String where, String serverSubPath, String physicalName,
+			String mimeTypeParam) throws Exception {
+		String mimeType = mimeTypeParam;
+		// String downFileName = where + SEPERATOR + serverSubPath + SEPERATOR +
+		// physicalName;
+		String downFileName = where + serverSubPath + physicalName;
+		logger.info("hello!");
+		File file = new File(filePathBlackList(downFileName));
 
-	      if (!file.exists()) {
-	         throw new FileNotFoundException(downFileName);
-	      }
+		if (!file.exists()) {
+			throw new FileNotFoundException(downFileName);
+		}
 
-	      if (!file.isFile()) {
-	         throw new FileNotFoundException(downFileName);
-	      }
+		if (!file.isFile()) {
+			throw new FileNotFoundException(downFileName);
+		}
 
-	      byte[] b = new byte[8192];
+		byte[] b = new byte[8192];
 
-	      if (mimeType == null) {
-	         mimeType = "application/octet-stream;";
-	      }
+		if (mimeType == null) {
+			mimeType = "application/octet-stream;";
+		}
 
-	      response.setContentType(mimeType.replaceAll("\r", "").replaceAll("\n", ""));
-	      response.setHeader("Content-Disposition", "filename=image;");
+		response.setContentType(mimeType.replaceAll("\r", "").replaceAll("\n", ""));
+		response.setHeader("Content-Disposition", "filename=image;");
 
-	      BufferedInputStream fin = null;
-	      BufferedOutputStream outs = null;
+		BufferedInputStream fin = null;
+		BufferedOutputStream outs = null;
 
-	      try {
-	         fin = new BufferedInputStream(new FileInputStream(file));
-	         outs = new BufferedOutputStream(response.getOutputStream());
+		try {
+			fin = new BufferedInputStream(new FileInputStream(file));
+			outs = new BufferedOutputStream(response.getOutputStream());
 
-	         int read = 0;
+			int read = 0;
 
-	         while ((read = fin.read(b)) != -1) {
-	            outs.write(b, 0, read);
-	         }
-	      } finally {
-	         close(outs, fin);
-	      }
-	   }
+			while ((read = fin.read(b)) != -1) {
+				outs.write(b, 0, read);
+			}
+		} finally {
+			close(outs, fin);
+		}
+	}
 
-	   public void close(Closeable... resources) {
-	      for (Closeable resource : resources) {
-	         if (resource != null) {
-	            try {
-	               resource.close();
-	            } catch (Exception ignore) {
-	               logger.debug("Occurred Exception to close resource is ingored!!");
-	            }
-	         }
-	      }
-	   }
+	public void close(Closeable... resources) {
+		for (Closeable resource : resources) {
+			if (resource != null) {
+				try {
+					resource.close();
+				} catch (Exception ignore) {
+					logger.debug("Occurred Exception to close resource is ingored!!");
+				}
+			}
+		}
+	}
 
-	   // 파일경로의 유효성 체크
-	   public String filePathBlackList(String value) {
-	      String returnValue = value;
-	      if (returnValue == null || returnValue.trim().equals("")) {
-	         return "";
-	      }
-	      logger.debug("Hello!");
-	      returnValue = returnValue.replaceAll("\\.\\./", ""); // ../
-	      returnValue = returnValue.replaceAll("\\.\\.\\\\", ""); // ..\
+	// 파일경로의 유효성 체크
+	public String filePathBlackList(String value) {
+		String returnValue = value;
+		if (returnValue == null || returnValue.trim().equals("")) {
+			return "";
+		}
+		logger.debug("Hello!");
+		returnValue = returnValue.replaceAll("\\.\\./", ""); // ../
+		returnValue = returnValue.replaceAll("\\.\\.\\\\", ""); // ..\
 
-	      return returnValue;
-	   }
-	   /* 파일 관련 유틸 끝 */
-	
+		return returnValue;
+	}
+	/* 파일 관련 유틸 끝 */
+
 }

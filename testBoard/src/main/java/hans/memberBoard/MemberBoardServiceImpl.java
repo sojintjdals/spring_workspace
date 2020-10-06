@@ -1,18 +1,11 @@
 package hans.memberBoard;
 
 import javax.inject.Inject;
-import javax.jms.Session;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import com.ibm.icu.util.BytesTrie.Result;
-
 import egovframework.let.utl.sim.service.EgovFileScrty;
-import hans.testBoard.TestBoardDAO;
-import hans.testBoard.TestBoardVO;
 
 @Service
 public class MemberBoardServiceImpl implements MemberBoardService {
