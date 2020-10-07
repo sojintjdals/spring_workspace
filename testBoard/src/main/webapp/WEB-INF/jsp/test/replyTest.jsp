@@ -12,73 +12,42 @@
 	
 </script>
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				$("#modify").click(function() {
-					$("#frm").attr("action", "/test/modify.do");
-					$("#frm").submit();
-				});
-				$("#loginmember").click(function() {
-					$("#frm").attr("action", "/test/Login.do");
-					$("#frm").submit();
-				});
-				$("#logout").click(function() {
-					$("#frm").attr("action", "/test/logout.do");
-					$("#frm").submit();
-				});
-				var seqno = $("#seqno").val();
-				$.getJSON("/rest/all/" + seqno + ".do", function() {
-					str += "<li data-rno='"+this.rno+"' class='replyLi'>"
-							+ this.rno + ":" + this.replytext + "</li>";
-				});
-				
-				$("replyList").html(str);
-				$("#replyBtn").on("click", function(event) {
-					var userId = $("#userId").val();
-					var replytext = $("#replytext").val();
-					alert(seqno);
-					alert(userId);
-					alert(replytext);
-					$.ajax({
-						url : "/rest/replyInsert.do",
-						headers : {
-							"Content-Type" : "application/json",
-							"X-HTTP-Method-Override" : "POST"
-						},
-						type : "post",
-						data : JSON.stringify({
-							seqno : seqno,
-							userId : userId,
-							replytext : replytext
-						}),
-						dataType : "text",
-						success : function(result) {
-							if (result == 'SUCCESS') {
-								alert("등록완료");
-							}
-						}
-					});
-				});
-			});
 	$(document).ready(function() {
-		$("#delete").click(function() {
-
-			var answer = false;
-
-			answer = confirm("글을 삭제하시겠습니까?");
-
-			if (answer == true) {
-				alert("삭제가 완료되었습니다.");
-				$("#frm").attr("action", "/test/delete.do");
-				$("#frm").submit();
-			}
+		$("#loginmember").click(function() {
+			$("#frm").attr("action", "/test/Login.do");
+			$("#frm").submit();
 		});
-		/* 	$("#back").click(function() {
-				$(location).attr('href','/test/list.do');
-			}) */
-		$("#back").click(function() {
-			window.location.href = "<c:url value='/test/listPage.do' />";
-		})
+		$("#logout").click(function() {
+			$("#frm").attr("action", "/test/logout.do");
+			$("#frm").submit();
+		});
+		$("#replyBtn").on("click", function(event) {
+			var seqno = $("#seqno").val();
+			var userId = $("#userId").val();
+			var replytext = $("#replytext").val();
+			alert(seqno);
+			alert(userId);
+			alert(replytext);
+			$.ajax({
+				url : "/rest/replyInsert.do",
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				type : "post",
+				data : JSON.stringify({
+					seqno : seqno,
+					userId : userId,
+					replytext : replytext
+				}),
+				dataType : "text",
+				success : function(result) {
+					if (result == 'SUCCESS') {
+						alert("등록완료");
+					}
+				}
+			});
+		});
 	});
 </script>
 <!-- 네이버스마트에디터 -->
@@ -95,7 +64,7 @@
 		<div class="main">
 			<c:import url="header.jsp"></c:import>
 			<div></div>
-			<div><ul id="replyList"></ul></div>
+			<div></div>
 			<div id="frt">
 				<div id="frt">
 					<div id="td">

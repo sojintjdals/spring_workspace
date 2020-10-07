@@ -3,16 +3,18 @@
 
 <mapper namespace="replyBoardVO">
 	<select id="replyList" resultType="replyBoardVO">
-		select * from reply_metami
+		select rno, seqno, userId,
+		replytext, regdate from reply_metami
 		where seqno = #{seqno}
-		order by rno desc
+		order by rno
+		desc
 	</select>
 
 	<insert id="replyInsert" parameterType="replyBoardVO">
 		insert into reply_metami
-		(seqno, replytext, replyer, regdate)
+		(seqno, replytext, userId, regdate)
 		values (#{seqno}, #{replytext},
-		#{replyer}, now())
+		#{userId}, now())
 	</insert>
 
 	<update id="replyUpdate" parameterType="replyBoardVO">

@@ -90,9 +90,9 @@
 	<insert id="testBoardInsert" parameterType="TestBoardVO">
 		INSERT INTO
 		test_metami
-		(title, contents, regdate, userName, userId)
+		(title, contents, regdate, userName, userId, cnt)
 		VALUES(#{title}, #{contents},
-		now(), #{userName}, #{userId})
+		now(), #{userName}, #{userId}, 0)
 		<selectKey resultType="int" keyProperty="seqno"
 			order="AFTER">
 			SELECT LAST_INSERT_ID()

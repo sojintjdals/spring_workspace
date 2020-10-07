@@ -501,5 +501,11 @@ public class TestBoardController {
 		return returnValue;
 	}
 	/* 파일 관련 유틸 끝 */
-
+	
+	//댓글테스트부문
+	@RequestMapping("reply.do")
+	public String reply(Model model) {
+		return "test/replyTest";
+	}
+	
 }

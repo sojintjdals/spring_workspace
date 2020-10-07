@@ -5,10 +5,11 @@ public class ReplyBoardVO {
 	private String regdate;
 
 	// 댓글
+	// 댓글번호
 	private int rno;
 	// seqno는 위에 이미만들어졌음
 	private String replytext;
-	private String replyer;
+	private String userId;
 
 	public int getSeqno() {
 		return seqno;
@@ -34,12 +35,6 @@ public class ReplyBoardVO {
 		this.rno = rno;
 	}
 
-	@Override
-	public String toString() {
-		return "ReplyBoardVO [seqno=" + seqno + ", regdate=" + regdate + ", rno=" + rno + ", replytext=" + replytext
-				+ ", replyer=" + replyer + "]";
-	}
-
 	public String getReplytext() {
 		return replytext;
 	}
@@ -48,11 +43,18 @@ public class ReplyBoardVO {
 		this.replytext = replytext;
 	}
 
-	public String getReplyer() {
-		return replyer;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setReplyer(String replyer) {
-		this.replyer = replyer;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
+
+	@Override
+	public String toString() {
+		return "ReplyBoardVO [seqno=" + seqno + ", regdate=" + regdate + ", rno=" + rno + ", replytext=" + replytext
+				+ ", userId=" + userId + "]";
+	}
+
 }
