@@ -6,15 +6,14 @@
 		select rno, seqno, userId,
 		replytext, regdate from reply_metami
 		where seqno = #{seqno}
-		order by rno
-		desc
+		order by rno asc
 	</select>
 
 	<insert id="replyInsert" parameterType="replyBoardVO">
 		insert into reply_metami
-		(seqno, replytext, userId, regdate)
+		(seqno, replytext, userId, regdate, rno)
 		values (#{seqno}, #{replytext},
-		#{userId}, now())
+		#{userId}, now(), rno + 1)
 	</insert>
 
 	<update id="replyUpdate" parameterType="replyBoardVO">

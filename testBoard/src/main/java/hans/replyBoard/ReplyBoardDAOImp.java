@@ -29,9 +29,9 @@ public class ReplyBoardDAOImp extends EgovAbstractMapper implements ReplyBoardDA
 	}
 
 	@Override
-	public int replyDelete(int rno) throws Exception {
+	public int replyDelete(ReplyBoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return delete("replyDelete", rno);
+		return delete("replyDelete", vo);
 	}
 
 }

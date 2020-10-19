@@ -34,9 +34,9 @@ public class ReplyBoardServiceImp implements ReplyBoardService {
 	}
 
 	@Override
-	public int replyDelete(int rno) throws Exception {
+	public int replyDelete(ReplyBoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.replyDelete(rno);
+		return dao.replyDelete(vo);
 	}
 
 }

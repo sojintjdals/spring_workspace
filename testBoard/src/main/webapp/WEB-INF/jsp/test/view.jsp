@@ -13,6 +13,7 @@
 </script>
 <script type="text/javascript">
 	$(document).ready(
+			
 			function() {
 				$("#modify").click(function() {
 					$("#frm").attr("action", "/test/modify.do");
@@ -27,18 +28,31 @@
 					$("#frm").submit();
 				});
 				var seqno = $("#seqno").val();
-				$.getJSON("/rest/all/" + seqno + ".do", function() {
-					str += "<li data-rno='"+this.rno+"' class='replyLi'>"
-							+ this.rno + ":" + this.replytext + "</li>";
+				var str = '';
+				// 댓글리스트
+				$.getJSON("/rest/all/" + seqno + ".do", function(data) {
+					console.log(data);
+					console.log(data.length);
+					console.log(seqno);
+					$(data).each(function() {
+						str += "<li data-rno='"+this.rno+"' class='replyLi'>"
+								+ this.userId + ":" + this.replytext 
+								+ "<input type='button' id='replyMBtn' name='replyMBtn' value='댓글수정'>"
+								+ "<span data-rno ="+this.rno+">X<span></li>";
+					});
+					$("#replyList").html(str);
 				});
 				
-				$("replyList").html(str);
+				
+				//댓글작성
 				$("#replyBtn").on("click", function(event) {
 					var userId = $("#userId").val();
 					var replytext = $("#replytext").val();
-					alert(seqno);
-					alert(userId);
-					alert(replytext);
+					
+					if($("#replytext").val() == ''){
+						alert("댓글을 입력해주세요!");
+						return 0;
+					}
 					$.ajax({
 						url : "/rest/replyInsert.do",
 						headers : {
@@ -54,7 +68,61 @@
 						dataType : "text",
 						success : function(result) {
 							if (result == 'SUCCESS') {
-								alert("등록완료");
+								str += "<li data-rno="+rno+" class='replyLi'>"
+								+ userId + ":" + replytext + "<input type='button' id='replyMBtn' name='replyMBtn' value='댓글수정'>"
+								+ "<span data-rno="+rno+">X<span></li>";
+								$("#replyList").html(str);
+								$("#replytext").val('');
+								replytext = '';
+								rno += 1;
+							}
+						}
+					});
+				});
+				$("#replyMBtn").on("click", function(event) {
+					
+					if($("#replyMtext").val() == ''){
+						alert("댓글을 입력해주세요!");
+						return 0;
+					}
+					$.ajax({
+						url : "/rest/replyModify.do",
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "POST"
+						},
+						type : "post",
+						data : JSON.stringify({
+							seqno : seqno,
+							userId : userId,
+							replytext : replytext,
+							rno : rno
+						}),
+						dataType : "text",
+						success : function(result) {
+							if (result == 'SUCCESS') {
+								alert("수정");
+							}
+						}
+					});
+				});
+				//댓글삭제
+				$("#replyList").on("click", "span", function(event) {
+					var that = $(this);
+					$.ajax({
+						url : "/rest/replyDelete.do",
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "POST"
+						},
+						type : "post",
+						data :JSON.stringify({
+							rno : that.attr("data-rno")
+						}),
+						dataType : "text",
+						success : function(result) {
+							if (result == 'SUCCESS') {
+								that.parent("li").remove();
 							}
 						}
 					});
@@ -95,7 +163,9 @@
 		<div class="main">
 			<c:import url="header.jsp"></c:import>
 			<div></div>
-			<div><ul id="replyList"></ul></div>
+			<div>
+				<ul id="replyList"></ul>
+			</div>
 			<div id="frt">
 				<div id="frt">
 					<div id="td">

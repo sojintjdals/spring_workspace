@@ -29,24 +29,49 @@ public class ReplyBoardController {
 
 	@RequestMapping(value = "/replyInsert.do")
 	public ResponseEntity<String> replyInsert(@RequestBody ReplyBoardVO vo) throws Exception {
-
+		
+		int seqno = vo.getSeqno();
+		int rno = vo.getRno();
+		String replytext = vo.getReplytext();
+		
 		ResponseEntity<String> entity = null;
 
-		System.out.println(vo.getSeqno());
-		System.out.println(vo.getUserId());
-		System.out.println(vo.getReplytext());
+		System.out.println(seqno);
+		System.out.println(rno);
+		System.out.println(replytext);
 		try {
-			System.out.println("댓글성공");
+			System.out.println("댓글입력성공");
 			service.replyInsert(vo);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("댓글실패");
+			System.out.println("댓글입력실패");
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
+	
+	@RequestMapping(value = "/replyDelete.do")
+	public ResponseEntity<String> replyDelete(@RequestBody ReplyBoardVO vo) throws Exception {
 
+		int rno = vo.getRno();
+		
+		ResponseEntity<String> entity = null;
+		
+		System.out.println(rno);
+		
+		try {
+			System.out.println("댓글삭제성공");
+			service.replyDelete(vo);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("삭제실패");
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
 	@RequestMapping(value = "/all/{seqno}.do")
 	public ResponseEntity<List<ReplyBoardVO>> replyList(@PathVariable int seqno) throws Exception {
 

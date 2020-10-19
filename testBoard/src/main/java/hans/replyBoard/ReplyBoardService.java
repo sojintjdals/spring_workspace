@@ -9,5 +9,5 @@ public interface ReplyBoardService {
 
 	int replyUpdate(ReplyBoardVO vo) throws Exception;
 
-	int replyDelete(int rno) throws Exception;
+	int replyDelete(ReplyBoardVO vo) throws Exception;
 }

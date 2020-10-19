@@ -112,15 +112,27 @@ ul {
 	justify-content: center;
 }
 
-li {
+.nav {
 	font-weight: bold;
 	width: 80%;
 }
 
-li:hover {
+.nav:hover {
 	cursor: pointer;
 	color: #77FFFF;
 	background-color: #175EB8;
+}
+
+.replyLi{
+	display: block;
+}
+
+span{
+	padding-left: 5px;
+	color: red;
+}
+span:hover{
+	cursor: pointer;
 }
 
 header {

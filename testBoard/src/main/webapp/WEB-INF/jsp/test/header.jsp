@@ -28,24 +28,24 @@
 </header>
 <nav>
 	<ul>
-		<li id="L1">게시판1</li>
+		<li id="L1" class="nav">게시판1</li>
 	</ul>
 	<ul>
-		<li id="L2">게시판2</li>
+		<li id="L2" class="nav">게시판2</li>
 	</ul>
 	<ul>
-		<li id="L3">게시판3</li>
+		<li id="L3" class="nav">게시판3</li>
 	</ul>
 	<ul>
-		<li id="L4">게시판4</li>
+		<li id="L4" class="nav">게시판4</li>
 	</ul>
 	<ul>
-		<li id="L5">게시판5</li>
+		<li id="L5" class="nav">게시판5</li>
 	</ul>
 	<ul>
-		<li id="L6">게시판6</li>
+		<li id="L6" class="nav">게시판6</li>
 	</ul>
 	<ul>
-		<li id="L7">게시판7</li>
+		<li id="L7" class="nav">게시판7</li>
 	</ul>
 </nav>
