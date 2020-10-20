@@ -13,7 +13,6 @@
 </script>
 <script type="text/javascript">
 	$(document).ready(
-			
 			function() {
 				$("#modify").click(function() {
 					$("#frm").attr("action", "/test/modify.do");
@@ -29,21 +28,24 @@
 				});
 				var seqno = $("#seqno").val();
 				var str = '';
+				var rno = 0;
 				// 댓글리스트
 				$.getJSON("/rest/all/" + seqno + ".do", function(data) {
 					console.log(data);
 					console.log(data.length);
 					console.log(seqno);
 					$(data).each(function() {
-						str += "<li data-rno='"+this.rno+"' class='replyLi'>"
-								+ this.userId + ":" + this.replytext 
-								+ "<input type='button' id='replyMBtn' name='replyMBtn' value='댓글수정'>"
-								+ "<span data-rno ="+this.rno+">X<span></li>";
+						str += 	"<li data-rno='"+this.rno+"' class='replyLi'>"
+						+ this.rno+" : " + this.userId + " : "
+						+ "<span class='replyVal' id='replyVal'>" + this.replytext + "</span>"
+						+ "<input type='text' class='replyUpdate' id='replyUpdate' name='replyUpdate' />"
+						+ "<input type='button' class='replyMBtn' id='replyMBtn' name='replyMBtn' value='댓글수정' />"
+						+ "<span data-rno ="+this.rno+" class='X'>X<span></li>";
 					});
 					$("#replyList").html(str);
+					$(".replyUpdate").hide();
 				});
-				
-				
+
 				//댓글작성
 				$("#replyBtn").on("click", function(event) {
 					var userId = $("#userId").val();
@@ -69,19 +71,33 @@
 						success : function(result) {
 							if (result == 'SUCCESS') {
 								str += "<li data-rno="+rno+" class='replyLi'>"
-								+ userId + ":" + replytext + "<input type='button' id='replyMBtn' name='replyMBtn' value='댓글수정'>"
+								+ userId + ":" + replytext + + "<input type='button' class='replyMBtn' id='replyMBtn' name='replyMBtn' value='댓글수정' />"
 								+ "<span data-rno="+rno+">X<span></li>";
+							}
+							$.getJSON("/rest/all/" + seqno + ".do", function(data) {
+								var str = "";
+								$(data).each(function() {
+									str += 	"<li data-rno='"+this.rno+"' class='replyLi'>"
+									+ this.rno+" : " + this.userId + " : "
+									+ "<span class='replyVal' id='replyVal'>" + this.replytext + "</span>"
+									+ "<input type='text' class='replyUpdate' id='replyUpdate' name='replyUpdate' />"
+									+ "<input data-rno="+this.rno+" type='button' class='replyMBtn' id='replyMBtn' name='replyMBtn' value='댓글수정' />"
+									+ "<span data-rno ="+this.rno+">X<span></li>";
+								});
 								$("#replyList").html(str);
 								$("#replytext").val('');
-								replytext = '';
-								rno += 1;
-							}
+								$(".replyUpdate").hide();
+							});
+							
 						}
 					});
 				});
-				$("#replyMBtn").on("click", function(event) {
-					
-					if($("#replyMtext").val() == ''){
+				//댓글수정
+				$("#replyList").on("click", ".replyMBtn", function(event) {
+					$(this).prev().show();
+					$(this).prev().val($(this).prev().prev().text());
+					$(this).prev().prev().hide();
+					if($("#replyUpdate").val() == ''){
 						alert("댓글을 입력해주세요!");
 						return 0;
 					}
@@ -104,7 +120,7 @@
 								alert("수정");
 							}
 						}
-					});
+					}); 
 				});
 				//댓글삭제
 				$("#replyList").on("click", "span", function(event) {

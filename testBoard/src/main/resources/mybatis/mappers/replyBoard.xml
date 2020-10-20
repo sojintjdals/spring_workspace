@@ -11,9 +11,9 @@
 
 	<insert id="replyInsert" parameterType="replyBoardVO">
 		insert into reply_metami
-		(seqno, replytext, userId, regdate, rno)
+		(seqno, replytext, userId, regdate)
 		values (#{seqno}, #{replytext},
-		#{userId}, now(), rno + 1)
+		#{userId}, now())
 	</insert>
 
 	<update id="replyUpdate" parameterType="replyBoardVO">
