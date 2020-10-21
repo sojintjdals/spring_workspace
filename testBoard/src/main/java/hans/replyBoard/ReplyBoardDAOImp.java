@@ -25,6 +25,7 @@ public class ReplyBoardDAOImp extends EgovAbstractMapper implements ReplyBoardDA
 	@Override
 	public int replyUpdate(ReplyBoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("===========================> DAO" + vo.getReplytext());
 		return update("replyUpdate", vo);
 	}
 

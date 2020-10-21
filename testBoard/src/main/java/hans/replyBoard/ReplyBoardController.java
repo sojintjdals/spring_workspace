@@ -72,6 +72,29 @@ public class ReplyBoardController {
 		return entity;
 	}
 	
+	@RequestMapping(value = "/replyUpdate.do")
+	public ResponseEntity<String> replyUpdate(@RequestBody ReplyBoardVO vo) throws Exception {
+
+		int rno = vo.getRno();
+		String replytext = vo.getReplytext();
+		
+		ResponseEntity<String> entity = null;
+		
+		System.out.println(rno);
+		System.out.println(replytext);
+		
+		try {
+			System.out.println("댓글수정성공");
+			service.replyUpdate(vo);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("삭제실패");
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
 	@RequestMapping(value = "/all/{seqno}.do")
 	public ResponseEntity<List<ReplyBoardVO>> replyList(@PathVariable int seqno) throws Exception {
 

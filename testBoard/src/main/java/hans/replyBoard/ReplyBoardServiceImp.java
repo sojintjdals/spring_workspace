@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class ReplyBoardServiceImp implements ReplyBoardService {
 	@Override
 	public int replyUpdate(ReplyBoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("===========================> SERVICE" + vo.getReplytext());
 		return dao.replyUpdate(vo);
 	}
 
