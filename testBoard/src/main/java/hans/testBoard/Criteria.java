@@ -4,6 +4,7 @@ public class Criteria {
 
 	private int page = 1;
 	private int perPageNum = 10;
+	private int seqno;
 	private String searchType;
 	private String keyword;
 
@@ -14,6 +15,14 @@ public class Criteria {
 		}
 
 		this.page = page;
+	}
+
+	public int getSeqno() {
+		return seqno;
+	}
+
+	public void setSeqno(int seqno) {
+		this.seqno = seqno;
 	}
 
 	public void setPerPageNum(int perPageNum) {

@@ -7,6 +7,16 @@ public class ReplyBoardVO {
 	// 댓글
 	// 댓글번호
 	private int rno;
+	private int sub_rno;
+
+	public int getSub_rno() {
+		return sub_rno;
+	}
+
+	public void setSub_rno(int sub_rno) {
+		this.sub_rno = sub_rno;
+	}
+
 	// seqno는 위에 이미만들어졌음
 	private String replytext;
 	private String userId;

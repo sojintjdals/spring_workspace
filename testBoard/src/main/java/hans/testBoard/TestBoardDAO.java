@@ -14,25 +14,10 @@ public interface TestBoardDAO {
 
 	// read
 	TestBoardVO testBoardView(TestBoardVO vo) throws Exception;
-
+	
 	// fileGet
 	List<TestBoardVO> getAttach(TestBoardVO vo) throws Exception;
-
-	// 댓글
-	List<TestBoardVO> replyList(TestBoardVO vo) throws Exception;
-
-	// 댓글만들기
-
-	int replyInsert(TestBoardVO vo) throws Exception;
-
-	// 댓글업데이트
-
-	int replyUpdate(TestBoardVO vo)throws Exception;
 	
-	// 댓글삭제
-	
-	int replyDelete(int rno)throws Exception;
-
 	TestBoardVO testBoardRead(int seqno) throws Exception;
 
 	// create

@@ -40,18 +40,4 @@ public interface TestBoardService {
 
 	int selectDeleteAttach(TestBoardVO vo) throws Exception;
 
-	// 댓글
-	List<TestBoardVO> replyList(TestBoardVO vo) throws Exception;
-
-	// 댓글만들기
-
-	int replyInsert(TestBoardVO vo) throws Exception;
-
-	// 댓글업데이트
-
-	int replyUpdate(TestBoardVO vo) throws Exception;
-
-	// 댓글삭제
-
-	int replyDelete(int rno) throws Exception;
 }

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import egovframework.rte.psl.dataaccess.EgovAbstractMapper;
 import hans.replyBoard.ReplyBoardDAO;
+import hans.testBoard.Criteria;
+import hans.testBoard.TestBoardVO;
 
 @Repository
 public class ReplyBoardDAOImp extends EgovAbstractMapper implements ReplyBoardDAO {
@@ -35,4 +37,35 @@ public class ReplyBoardDAOImp extends EgovAbstractMapper implements ReplyBoardDA
 		return delete("replyDelete", vo);
 	}
 
+	@Override
+	public List<ReplyBoardVO> replyListCriteria(Criteria cri) {
+		// TODO Auto-generated method stub
+		return selectList("replyListCriteria", cri);
+	}
+
+	@Override
+	public int replyListCountCriteria(Criteria cri) {
+		// TODO Auto-generated method stub
+		return selectOne("replyCountPaging", cri);
+	}
+
+	@Override
+	public List<ReplyBoardVO> replyListPage(int page) {
+		// TODO Auto-generated method stub
+		return selectList("listPage", page);
+	}
+	
+	@Override
+	public int replyAnswerInsert(ReplyBoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		int rno = vo.getRno();
+		System.out.println("========================> daoImp" +rno);
+		return insert("replyAnswerInsert", vo);
+	}
+
+	@Override
+	public List<ReplyBoardVO> replyAnswerList(int rno) throws Exception {
+		// TODO Auto-generated method stub
+		return selectList("replyAnswerList", rno);
+	}
 }

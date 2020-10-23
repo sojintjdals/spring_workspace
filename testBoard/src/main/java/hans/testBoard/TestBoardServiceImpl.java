@@ -154,34 +154,12 @@ public class TestBoardServiceImpl implements TestBoardService {
 		return dao.updateAttach(vo);
 	}
 	// 스마트에디터
-
+	
+	
+	//조회수
 	@Override
 	public int cntUpdate(TestBoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.cntUpdate(vo);
-	}
-	//댓글부문
-	@Override
-	public List<TestBoardVO> replyList(TestBoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.replyList(vo);
-	}
-
-	@Override
-	public int replyInsert(TestBoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.replyInsert(vo);
-	}
-
-	@Override
-	public int replyUpdate(TestBoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		return replyUpdate(vo);
-	}
-
-	@Override
-	public int replyDelete(int rno) throws Exception {
-		// TODO Auto-generated method stub
-		return replyDelete(rno);
 	}
 }

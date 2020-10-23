@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import hans.memberBoard.MemberBoardController;
+import hans.testBoard.Criteria;
+import hans.testBoard.PageMaker;
 
 @RestController
 @RequestMapping("/rest/*")
@@ -100,12 +103,64 @@ public class ReplyBoardController {
 
 		ResponseEntity<List<ReplyBoardVO>> entity = null;
 
-		try {
+		try {		
+			
+		/*	
+		 * 댓글 페이징 중지
+		 * model.addAttribute("replyList", service.replyListCriteria(cri));
+			System.out.println("======================> 성공1");
+			PageMaker pageMaker = new PageMaker();
+			System.out.println("======================> 성공2");
+			pageMaker.setCri(cri);
+			System.out.println("======================> 성공3");
+			pageMaker.setTotalCount(service.replyListCountCriteria(cri));
+			System.out.println("======================> 성공4");
+			model.addAttribute("pageMaker", pageMaker);
+			System.out.println("======================> 성공5");
+			entity = new ResponseEntity<List<ReplyBoardVO>>(service.replyListCriteria(cri), HttpStatus.OK);*/
 			entity = new ResponseEntity<List<ReplyBoardVO>>(service.replyList(seqno), HttpStatus.OK);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			entity = new ResponseEntity<List<ReplyBoardVO>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	@RequestMapping(value = "/answer/{seqno}.do")
+	public ResponseEntity<List<ReplyBoardVO>> replyAnswerList(@PathVariable int seqno) throws Exception {
+
+		ResponseEntity<List<ReplyBoardVO>> entity = null;
+
+		try {		
+			entity = new ResponseEntity<List<ReplyBoardVO>>(service.replyAnswerList(seqno), HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			entity = new ResponseEntity<List<ReplyBoardVO>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	//답글
+	@RequestMapping(value = "/replyAnswerInsert.do")
+	public ResponseEntity<String> replyAnswerInsert(@RequestBody ReplyBoardVO vo) throws Exception {
+		
+		int rno = vo.getRno();
+		String replytext = vo.getReplytext();
+		
+		ResponseEntity<String> entity = null;
+
+		System.out.println(rno);
+		vo.setRno(rno);
+		System.out.println(replytext);
+		try {
+			System.out.println("답글입력성공");
+			service.replyAnswerInsert(vo);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("댓글입력실패");
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}

@@ -26,5 +26,40 @@
 		delete from reply_metami
 		where rno = #{rno}
 	</delete>
-
+	
+	<select id="replyListCriteria" resultType="replyBoardVO">
+	<![CDATA[
+	select 
+		rno, seqno,
+		userId, replytext, regdate
+		FROM reply_metami
+		where rno > 0 and seqno = #{seqno}
+		order by rno asc
+		limit #{pageStart}, #{perPageNum}
+	]]>
+	</select>
+	<!-- 사용되는곳 -->
+	<select id="replyCountPaging" resultType="int">
+	<![CDATA[
+	select 
+		count(rno)		
+	FROM 
+		reply_metami
+	where
+		rno > 0
+	]]>
+	</select>
+	<!-- 답글 -->
+		<select id="replyAnswerList" resultType="replyBoardVO">
+		select sub_rno, rno, replytext, userId,
+		 regdate from replyanswer_metami
+		where seqno = #{seqno}
+		order by sub_rno asc
+	</select>
+	<insert id="replyAnswerInsert" parameterType="replyBoardVO">
+		insert into replyanswer_metami
+		(rno, replytext, userId, regdate)
+		values (#{rno}, #{replytext},
+		#{userId}, now())
+	</insert>
 </mapper>
