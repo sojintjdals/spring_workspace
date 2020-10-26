@@ -28,17 +28,22 @@
 				});
 				var seqno = $("#seqno").val();
 				var str = '';
+				var str2 = '';
+				var length = 0;
 				// 댓글리스트
 				
 				$.getJSON("/rest/all/" + seqno + ".do", function(data) {
 					var userId = $("#userId").val();
 					var rno = this.rno;
+					var rno1 = this.rno;
+					
 					console.log(data);
 					console.log(data.length);
+					length = data.length;
 					console.log(seqno);
+					
 					$(data).each(function() {
-						
-						str += 	"<li data-rno='"+this.rno+"' class='replyLi'>"
+						str += 	"<li data-rno='"+this.rno+"' class='replyLi' id='replyLi'>"
 						+ this.rno+" : " 
 						+ "<span class='replyUser' id='replyUser' data-user=" + this.userId + ">" + this.userId + "</span> : "
 						+ "<span class='replyVal' id='replyVal'>" + this.replytext + "</span>";
@@ -54,45 +59,7 @@
 							+ "<input type='button' class='replyAnswer' id='replyAnswer' name='replyAnswer' value='답글' />"
 							+ "<input data-rno="+this.rno+" type='button' class='replyAnswer2' id='replyAnswer2' name='replyAnswer2' value='답글2' />"
 							+ "<input type='button' class='replyCancel2' id='replyCancel2' name='replyCancel2' value='취소' /></li>"
-							+ "<ul class='replyAnswerList' id='replyAnswerList' name='replyAnswerList'></ul>";
-						//답글리스트
-						$.getJSON("/rest/answer/" + seqno + ".do", function(data) {
-							var userId = $("#userId").val();
-							alert(rno);
-							console.log(data);
-							console.log(data.length);
-							console.log(seqno);
-							if(data.length != 0){
-								$(data).each(function() {
-									str += 	"<li data-sub_rno='"+this.sub_rno+"' class='replyAnswerLi'>"
-									+ this.sub_rno+" : " 
-									+ "<span class='replyAnswerUser' id='replyAnswerUser' data-answerUser=" + this.userId + ">" + this.userId + "</span> : "
-									+ "<span class='replyAnswerVal' id='replyAnswerVal'>" + this.replytext + "</span>";
-									if(this.userId == userId){
-										str += "<input type='text' class='replyAnswerUpdate' id='replyAnswerUpdate' name='replyAnswerUpdate' />"
-										+ "<input type='button' class='replyAnswerMBtn' id='replyAnswerMBtn' name='replyAnswerMBtn' value='댓글수정' />"
-										+ "<input data-rno="+this.rno+" type='button' class='replyAnswerMBtn2' id='replyAnswerMBtn2' name='replyAnswerMBtn2' value='댓글수정' />"
-										+ "<input type='button' class='replyAnswerCancel' id='replyAnswerCancel' name='replyAnswerCancel' value='취소' />"
-										+ "<span data-rno ="+this.rno+" class='X'>X</span>"
-									} 
-									//답글부문
-									str += "</li>";
-								});
-								$("#replyAnswerList").html(str);
-								$(".replyAnswerUpdate").hide();
-								$(".replyAnswerMBtn2").hide();
-								$(".replyAnswerCancel").hide();
-								$(".replyAnswerVal").hide();
-								$(".replyAnswer2").hide();
-								$(".replyCancel2").hide();
-								if(userId == '()'){
-									$(".replyMBtn").hide();
-									$(".X").hide();
-									$(".replyAnswer").hide();
-								}
-							}
-						});
-					});
+							+ "<ul class='replyAnswerList' data-rno="+this.rno+" id='replyAnswerList' name='replyAnswerList'></ul>";
 					$("#replyList").html(str);
 					$(".replyUpdate").hide();
 					$(".replyMBtn2").hide();
@@ -105,7 +72,46 @@
 						$(".X").hide();
 						$(".replyAnswer").hide();
 					}
-					
+					});
+					//답글리스트
+					$.getJSON("/rest/answer/" + seqno + ".do", function(data) {
+						var userId = $("#userId").val();
+						console.log(data);
+						console.log(data.length);
+						console.log(seqno);
+
+						if(data.length != 0){
+							$(data).each(function() {
+								str2 += "<li data-sub_rno='"+this.sub_rno+"' class='replyAnswerLi' id='replyAnswerLi' " 
+										+ "data-rno='"+this.rno+"' >" + "답글 : "
+										+ this.sub_rno+" : " 
+										+ "<span class='replyAnswerUser' id='replyAnswerUser' data-answerUser=" + this.userId + ">" + this.userId + "</span> : "
+										+ "<span class='replyAnswerVal' id='replyAnswerVal'>" + this.replytext + "</span>";
+								if(this.userId == userId){
+									str2 += "<input type='text' class='replyAnswerUpdate' id='replyAnswerUpdate' name='replyAnswerUpdate' />"
+									+ "<input type='button' class='replyAnswerMBtn' id='replyAnswerMBtn' name='replyAnswerMBtn' value='댓글수정' />"
+									+ "<input data-rno="+this.rno+" type='button' class='replyAnswerMBtn2' id='replyAnswerMBtn2' name='replyAnswerMBtn2' value='댓글수정' />"
+									+ "<input type='button' class='replyAnswerCancel' id='replyAnswerCancel' name='replyAnswerCancel' value='취소' />"
+									+ "<span data-rno ="+this.rno+" class='X'>X</span>"
+								} 
+								//답글부문
+								str2 += "</li>";
+							});
+							
+							$(".replyAnswerList").html(str2);
+						
+							$(".replyAnswerUpdate").hide();
+							$(".replyAnswerMBtn2").hide();
+							$(".replyAnswerCancel").hide();
+							$(".replyAnswer2").hide();
+							$(".replyCancel2").hide();
+							if(userId == '()'){
+								$(".replyMBtn").hide();
+								$(".X").hide();
+								$(".replyAnswer").hide();
+							}
+						}
+					});
 				});
 				//답글 텍스트창으로 돌입하기
 				$(".replyList").on("click", ".replyAnswer", function(event) {
@@ -175,8 +181,8 @@
 									$(".replyUpdate").hide();
 									$(".replyMBtn2").hide();
 									$(".replyCancel").hide();
-									$(".replyAnswerVal").hide();
 									$(".replyAnswer2").hide();
+									$(".replyAnswerVal").hide();
 									$(".replyCancel2").hide();
 									if(userId == '()'){
 										$(".replyMBtn").hide();
@@ -279,6 +285,7 @@
 						},
 						type : "post",
 						data : JSON.stringify({
+							seqno : seqno,
 							rno : $(this).attr("data-rno"),
 							userId : userId,
 							replytext : replyAnswerVal
@@ -286,26 +293,6 @@
 						dataType : "text",
 						success : function(result) {
 							if (result == 'SUCCESS') {
-								/* $.getJSON("/rest/all/" + seqno + ".do", function(data) {
-									var str = "";
-									$(data).each(function() {
-										str += 	"<li data-rno='"+this.rno+"' class='replyLi'>"
-										+ this.rno+" : " 
-										+ "<span class='replyUser' id='replyUser' data-user=" + this.userId + ">" + this.userId + "</span> : "
-										+ "<span class='replyVal' id='replyVal'>" + this.replytext + "</span>"
-										if(this.userId == userId){
-											str += "<input type='text' class='replyUpdate' id='replyUpdate' name='replyUpdate' />"
-											+ "<input type='button' class='replyMBtn' id='replyMBtn' name='replyMBtn' value='댓글수정' />"
-											+ "<input data-rno="+this.rno+" type='button' class='replyMBtn2' id='replyMBtn2' name='replyMBtn2' value='댓글수정2' />"
-											+ "<input type='button' class='replyCancel' id='replyCancel' name='replyCancel' value='취소' />"
-											+ "<span data-rno ="+this.rno+" class='X'>X</span>"
-										} 
-										str += "<input type='text' class='replyAnswerVal' id='replyAnswerVal' name='replyAnswerVal' />"
-										+ "<input type='button' class='replyAnswer' id='replyAnswer' name='replyAnswer' value='답글' />"
-										+ "<input data-rno="+this.rno+" type='button' class='replyAnswer2' id='replyAnswer2' name='replyAnswer2' value='답글2' />"
-										+ "<input type='button' class='replyCancel2' id='replyCancel2' name='replyCancel2' value='취소' /></li>";
-									});						
-								}); */
 								alert("답글 성공!");
 								$("#replyList").html(str);
 								$(".replyUpdate").hide();

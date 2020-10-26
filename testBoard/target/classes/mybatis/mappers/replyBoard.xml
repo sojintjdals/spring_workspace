@@ -58,8 +58,8 @@
 	</select>
 	<insert id="replyAnswerInsert" parameterType="replyBoardVO">
 		insert into replyanswer_metami
-		(rno, replytext, userId, regdate)
-		values (#{rno}, #{replytext},
+		(seqno, rno, replytext, userId, regdate)
+		values (#{seqno}, #{rno}, #{replytext},
 		#{userId}, now())
 	</insert>
 </mapper>
