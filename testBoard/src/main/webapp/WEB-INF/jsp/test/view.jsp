@@ -30,6 +30,9 @@
 				var str = '';
 				var str2 = '';
 				var length = 0;
+				var index = 0;
+
+				var arrRno = new Array();		
 				// 댓글리스트
 				
 				$.getJSON("/rest/all/" + seqno + ".do", function(data) {
@@ -73,46 +76,15 @@
 						$(".replyAnswer").hide();
 					}
 					});
-					//답글리스트
-					$.getJSON("/rest/answer/" + seqno + ".do", function(data) {
-						var userId = $("#userId").val();
-						console.log(data);
-						console.log(data.length);
-						console.log(seqno);
-
-						if(data.length != 0){
-							$(data).each(function() {
-								str2 += "<li data-sub_rno='"+this.sub_rno+"' class='replyAnswerLi' id='replyAnswerLi' " 
-										+ "data-rno='"+this.rno+"' >" + "답글 : "
-										+ this.sub_rno+" : " 
-										+ "<span class='replyAnswerUser' id='replyAnswerUser' data-answerUser=" + this.userId + ">" + this.userId + "</span> : "
-										+ "<span class='replyAnswerVal' id='replyAnswerVal'>" + this.replytext + "</span>";
-								if(this.userId == userId){
-									str2 += "<input type='text' class='replyAnswerUpdate' id='replyAnswerUpdate' name='replyAnswerUpdate' />"
-									+ "<input type='button' class='replyAnswerMBtn' id='replyAnswerMBtn' name='replyAnswerMBtn' value='댓글수정' />"
-									+ "<input data-rno="+this.rno+" type='button' class='replyAnswerMBtn2' id='replyAnswerMBtn2' name='replyAnswerMBtn2' value='댓글수정' />"
-									+ "<input type='button' class='replyAnswerCancel' id='replyAnswerCancel' name='replyAnswerCancel' value='취소' />"
-									+ "<span data-rno ="+this.rno+" class='X'>X</span>"
-								} 
-								//답글부문
-								str2 += "</li>";
-							});
-							
-							$(".replyAnswerList").html(str2);
-						
-							$(".replyAnswerUpdate").hide();
-							$(".replyAnswerMBtn2").hide();
-							$(".replyAnswerCancel").hide();
-							$(".replyAnswer2").hide();
-							$(".replyCancel2").hide();
-							if(userId == '()'){
-								$(".replyMBtn").hide();
-								$(".X").hide();
-								$(".replyAnswer").hide();
-							}
-						}
+					$(data).each(function() {						
+						rno = this.rno;
+						arrRno[index] = this.rno;
+						console.log(arrRno[index]);
+						console.log("아아:"+$(".replyAnswerList").attr("data-rno"));
+						index++;
 					});
 				});
+				
 				//답글 텍스트창으로 돌입하기
 				$(".replyList").on("click", ".replyAnswer", function(event) {
 					$(".replyMBtn").show();
@@ -352,6 +324,76 @@
 							}
 						}
 					});
+				});
+				
+				//답글리스트
+				$.getJSON("/rest/answer/" + seqno + ".do", function(data) {
+					var userId = $("#userId").val();
+					console.log(data);
+					console.log(data.length);
+					console.log(seqno);
+					index = 0;
+					$(data).each(function() {
+						var parentRno = this.rno;
+						var subRno = this.sub_rno;
+						var replyText = this.replytext;
+						var user = this.userId;
+						
+						$(".replyAnswerList").each(function(){
+							var dataRno = $(this).data("rno");
+							console.log(dataRno, parentRno,subRno);
+							if(dataRno === parentRno){
+								str2 = "<li data-sub_rno='"+subRno+"' class='replyAnswerLi' id='replyAnswerLi' " 
+								+ "data-rno='"+parentRno+"' >" + "답글 : "
+								+ subRno+" : "  
+								+ "<span class='replyAnswerUser' id='replyAnswerUser' data-answerUser=" + user + ">" + user + "</span> : "
+								+ "<span class='replyAnswerVal' id='replyAnswerVal'>" + replyText + "</span>";
+						
+								if(user == userId){
+									str2 += "<input type='text' class='replyAnswerUpdate' id='replyAnswerUpdate' name='replyAnswerUpdate' />"
+									+ "<input type='button' class='replyAnswerMBtn' id='replyAnswerMBtn' name='replyAnswerMBtn' value='댓글수정' />"
+									+ "<input data-rno="+parentRno+" type='button' class='replyAnswerMBtn2' id='replyAnswerMBtn2' name='replyAnswerMBtn2' value='댓글수정' />"
+									+ "<input type='button' class='replyAnswerCancel' id='replyAnswerCancel' name='replyAnswerCancel' value='취소' />"
+									+ "<span data-rno ="+parentRno+" class='answerDelete'>X</span>"
+								}
+								str2 += "</li>";
+								$(this).html($(this).html() + str2);
+							}																			
+						});
+					});
+						$(".replyAnswerUpdate").hide();
+						$(".replyAnswerMBtn2").hide();
+						$(".replyAnswerCancel").hide();
+						$(".replyAnswer2").hide();
+						$(".replyCancel2").hide();
+						if(userId == '()'){
+							$(".replyMBtn").hide();
+							$(".X").hide();
+							$(".replyAnswer").hide();
+						}
+				});
+				
+				//답글삭제
+				$("#replyAnswerList").on("click", ".answerDelete", function(event) {
+					var that = $(this);
+					alert("aaaa");
+					/* $.ajax({
+						url : "/rest/replyDelete.do",
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "POST"
+						},
+						type : "post",
+						data :JSON.stringify({
+							rno : that.attr("data-rno")
+						}),
+						dataType : "text",
+						success : function(result) {
+							if (result == 'SUCCESS') {
+								that.parent("li").remove();
+							}
+						}
+					}); */
 				});
 			});
 	$(document).ready(function() {

@@ -127,7 +127,7 @@ ul {
 	display: block;
 }
 
-.X{
+.X, .answerDelete{
 	padding-left: 5px;
 	color: red;
 }
