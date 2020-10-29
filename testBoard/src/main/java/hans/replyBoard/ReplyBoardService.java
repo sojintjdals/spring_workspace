@@ -22,4 +22,8 @@ public interface ReplyBoardService {
 	int replyAnswerInsert(ReplyBoardVO vo)throws Exception;
 
 	List<ReplyBoardVO> replyAnswerList(int rno)throws Exception;
+	
+	int replyAnswerDelete(ReplyBoardVO vo) throws Exception;
+	
+	int replyAnswerUpdate(ReplyBoardVO vo) throws Exception;
 }

@@ -62,4 +62,13 @@
 		values (#{seqno}, #{rno}, #{replytext},
 		#{userId}, now())
 	</insert>
+	<delete id="replyAnswerDelete" parameterType="replyBoardVO">
+		delete from replyanswer_metami
+		where sub_rno = #{sub_rno}
+	</delete>
+	<update id="replyAnswerUpdate" parameterType="replyBoardVO">
+		update replyanswer_metami set
+		replytext = #{replytext}
+		where sub_rno = #{sub_rno}
+	</update>
 </mapper>

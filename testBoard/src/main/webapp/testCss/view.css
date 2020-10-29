@@ -15,6 +15,10 @@
 	font-weight: bold;
 }
 
+#title {
+	
+}
+
 #title:hover {
 	text-decoration: underline;
 }
@@ -35,14 +39,16 @@
 	border: 1px solid;
 	vertical-align: middle;
 }
-#th{
+
+#th {
 	font-weight: bold;
 }
+
 .login {
 	min-width: 450px;
 }
 
-#modify, #back, #delete,#loginmember, #insertMember, #replyBtn {
+#modify, #back, #delete, #loginmember, #insertMember, #replyBtn {
 	border: 1px solid;
 	font-weight: bold;
 	vertical-align: middle;
@@ -80,7 +86,7 @@ div {
             마지막 높이를 설정 한 후 /표시를 한 뒤 컬럼사이즈를 조절해준다.
          */
 	grid-template-areas: "header header header header header"
-		"nav nav nav nav nav" ". section section section ."
+		"nav nav nav nav nav" ".section section section ."
 		"footer footer footer footer footer";
 	gap: 3px;
 	/* justify-items: center;
@@ -123,15 +129,61 @@ ul {
 	background-color: #175EB8;
 }
 
-.replyLi{
+.replyLi {
 	display: block;
 }
 
-.X, .answerDelete{
-	padding-left: 5px;
-	color: red;
+.reply:first-child {
+	margin-top: 15px;
+	border-top: 1px solid #EEEEEE;
 }
-span:hover{
+
+.reply, .input {
+	border-bottom: 1px solid #EEEEEE;
+	font-weight: bold;
+	text-align: left;
+	overflow: hidden;
+	word-wrap: break-word;
+}
+.replyAnswerUpdate, .replyAnswerVal2, .replyVal , .replyUpdate{
+	height: 100px;
+}
+.input, .title, #contents {
+	overflow: hidden;
+	word-wrap: break-word;
+}
+
+.replyAnswerLi {
+	background-color: #FAFAFA;
+	text-align: left;
+	font-weight: bold;
+}
+
+.replyAnswerUser {
+	margin-left: 5px;
+}
+
+/* 버튼들 댓글관련 */
+.replyAnswer, .replyMBtn, .replyMBtn2, .replyCancel, .replyCancel2,
+	.replyAnswer2, .replyAnswerMBtn, .replyAnswerMBtn2, .replyAnswerCancel
+	{
+	color: white;
+	background-color: gray;
+	border-style: none;
+	height: 21px;
+	margin-left: 5px;
+	font-weight: bold;
+}
+
+.X, .answerDelete {
+	padding: 0px;
+	color: white;
+	text-align: right;
+	margin-left: 5px;
+	/* 	background-color: #CCCCCC; */
+}
+
+span:hover {
 	cursor: pointer;
 }
 
@@ -171,6 +223,6 @@ footer {
 	grid-area: footer;
 }
 
-#contents{
+#contents {
 	text-align: left;
 }

@@ -68,4 +68,16 @@ public class ReplyBoardDAOImp extends EgovAbstractMapper implements ReplyBoardDA
 		// TODO Auto-generated method stub
 		return selectList("replyAnswerList", rno);
 	}
+
+	@Override
+	public int replyAnswerDelete(ReplyBoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return delete("replyAnswerDelete", vo);
+	}
+
+	@Override
+	public int replyAnswerUpdate(ReplyBoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return update("replyAnswerUpdate", vo);
+	}
 }

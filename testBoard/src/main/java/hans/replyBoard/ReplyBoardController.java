@@ -75,6 +75,27 @@ public class ReplyBoardController {
 		return entity;
 	}
 	
+	@RequestMapping(value = "/replyAnswerDelete.do")
+	public ResponseEntity<String> replyAnswerDelete(@RequestBody ReplyBoardVO vo) throws Exception {
+
+		int rno = vo.getSub_rno();
+		
+		ResponseEntity<String> entity = null;
+		
+		System.out.println(rno);
+		
+		try {
+			System.out.println("답글글삭제성공");
+			service.replyAnswerDelete(vo);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("삭제실패");
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
 	@RequestMapping(value = "/replyUpdate.do")
 	public ResponseEntity<String> replyUpdate(@RequestBody ReplyBoardVO vo) throws Exception {
 
@@ -89,6 +110,29 @@ public class ReplyBoardController {
 		try {
 			System.out.println("댓글수정성공");
 			service.replyUpdate(vo);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("삭제실패");
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "/replyAnswerUpdate.do")
+	public ResponseEntity<String> replyAnswerUpdate(@RequestBody ReplyBoardVO vo) throws Exception {
+
+		int rno = vo.getSub_rno();
+		String replytext = vo.getReplytext();
+		
+		ResponseEntity<String> entity = null;
+		
+		System.out.println(rno);
+		System.out.println(replytext);
+		
+		try {
+			System.out.println("답글글수정성공");
+			service.replyAnswerUpdate(vo);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
