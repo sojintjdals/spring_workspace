@@ -66,6 +66,8 @@ public class ReplyBoardController {
 		try {
 			System.out.println("댓글삭제성공");
 			service.replyDelete(vo);
+			//댓글에 달린 답글을 지우는 역할
+			service.replyDeleteAll(vo);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -148,20 +150,6 @@ public class ReplyBoardController {
 		ResponseEntity<List<ReplyBoardVO>> entity = null;
 
 		try {		
-			
-		/*	
-		 * 댓글 페이징 중지
-		 * model.addAttribute("replyList", service.replyListCriteria(cri));
-			System.out.println("======================> 성공1");
-			PageMaker pageMaker = new PageMaker();
-			System.out.println("======================> 성공2");
-			pageMaker.setCri(cri);
-			System.out.println("======================> 성공3");
-			pageMaker.setTotalCount(service.replyListCountCriteria(cri));
-			System.out.println("======================> 성공4");
-			model.addAttribute("pageMaker", pageMaker);
-			System.out.println("======================> 성공5");
-			entity = new ResponseEntity<List<ReplyBoardVO>>(service.replyListCriteria(cri), HttpStatus.OK);*/
 			entity = new ResponseEntity<List<ReplyBoardVO>>(service.replyList(seqno), HttpStatus.OK);
 			
 		} catch (Exception e) {

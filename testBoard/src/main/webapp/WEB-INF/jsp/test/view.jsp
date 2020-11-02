@@ -91,9 +91,6 @@
 			$(".X").hide();
 			$(".replyAnswer").hide();
 		}		
-		/* //임시로 답글과 수정 숨김
-		$(".replyAnswer").hide();
-		$(".replyMBtn").hide(); */
 	});	
 	}
 	$(document).ready(function() {
@@ -143,18 +140,18 @@
 							+ "<input data-rno="+this.rno+" type='button' class='replyAnswer2' id='replyAnswer2' name='replyAnswer2' value='작성완료' />"
 							+ "<input type='button' class='replyCancel2' id='replyCancel2' name='replyCancel2' value='취소' /></li>"
 							+ "<ul class='replyAnswerList' data-rno="+this.rno+" id='replyAnswerList' name='replyAnswerList'></ul>";
-					$("#replyList").html(str);
-					$(".replyUpdate").hide();
-					$(".replyMBtn2").hide();
-					$(".replyCancel").hide();
-					$(".replyAnswerVal").hide();
-					$(".replyAnswer2").hide();
-					$(".replyCancel2").hide();
-					if(userId == '()'){
-						$(".replyMBtn").hide();
-						$(".X").hide();
-						$(".replyAnswer").hide();
-					}
+							$("#replyList").html(str);
+							$(".replyUpdate").hide();
+							$(".replyMBtn2").hide();
+							$(".replyCancel").hide();
+						$(".replyAnswerVal").hide();
+						$(".replyAnswer2").hide();
+						$(".replyCancel2").hide();
+						if(userId == '()'){
+							$(".replyMBtn").hide();
+							$(".X").hide();
+							$(".replyAnswer").hide();
+						}
 					});
 					rereplyWrite();
 				/* 	//임시로 답글과 수정 숨김
@@ -258,7 +255,6 @@
 				$(".replyList").on("click", ".replyMBtn2", function(event) {
 					var that = $(this);
 					var replytext = $(this).prev().prev().val();
-					alert(replytext);
 					var jsonData = JSON.stringify({
 						rno : that.attr("data-rno"),
 						replytext : replytext
@@ -280,7 +276,7 @@
 						dataType : "text",
 						success : function(result) {
 							if (result == 'SUCCESS') {
-								alert("수정에 성공하였습니다.");
+								alert("수정 완료");
 							}
 						}
 					});
@@ -298,8 +294,6 @@
 					var userId = $("#userId").val();
 					var replyAnswerVal = $(this).prev().prev().val();
 					var rno = $(this).attr("data-rno");
-					alert(replyAnswerVal);
-					alert(rno);
 					if(replyAnswerVal == ''){
 						alert("답글을 입력해주세요!");
 						return 0;
@@ -321,9 +315,6 @@
 						dataType : "text",
 						success : function(result) {
 							if (result == 'SUCCESS') {
-								alert("답글 성공!");
-								 location.reload();
-								 //새로고침 에이잭스라서 넣을필요없음 그냥넣어본거
 							}
 						}
 					});
@@ -354,7 +345,7 @@
 						dataType : "text",
 						success : function(result) {
 							if (result == 'SUCCESS') {
-								alert("수정에 성공하였습니다.");
+								alert("수정 완료.");
 							}
 						}
 					});
@@ -432,7 +423,9 @@
 						dataType : "text",
 						success : function(result) {
 							 if (result == 'SUCCESS') { 
-								 that.parent("li").remove(); 
+								//부모를 먼저지우면 자식부분을 지정할수없어서 자식을 먼저지우고 부모를 지우는식
+									that.parent("li").next().remove();
+									that.parent("li").remove(); 
 							 } 
 						}
 					});
@@ -455,7 +448,8 @@
 					$(this).next().show();
 					$(this).next().next().show();
 					$(this).prev().prev().show();
-					$(this).prev().prev().prev().show();//버튼숨기기
+					$(this).prev().prev().prev().hide();
+					$(this).prev().prev().prev().prev().show();//버튼숨기기
 					$(this).prev().hide();
 					$(this).hide();
 				});
@@ -509,7 +503,7 @@
 	<form id="frm" action='/test/modify.do'>
 		<%-- <input type="hidden" name="seqno" value="${result.seqno}"> --%>
 		<div class="main">
-			<c:import url="header.jsp"></c:import>
+			<c:import url="/test/header.do"></c:import>
 			<div></div>
 			<div>
 			</div>
@@ -568,7 +562,7 @@
 					</div>
 				</div>
 			</div>
-			<c:import url="footer.jsp"></c:import>
+			<c:import url="/test/footer.do"></c:import>
 		</div>
 	</form>
 </body>

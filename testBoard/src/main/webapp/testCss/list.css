@@ -77,7 +77,7 @@ div {
 	/* vh는 화면의 비율을 의미 100vh면 현재화면의 100%길이를 의미함 */
 	height: 100vh;
 	/* fr의 경우 남은 공간을 fr의 숫자만큼 분배해준다.*/
-	grid-template-columns: 1fr repeat(3, minmax(300px, 2fr)) 1fr;
+	grid-template-columns: 1fr repeat(3, minmax(600px, 2fr)) 1fr;
 	grid-template-rows: 1fr 1fr 5fr 1fr;
 	/* 
             grid-template를 이용하면 모든설정을 한번에 처리할 수 있다.
@@ -122,16 +122,13 @@ li {
 	width: 80%;
 }
 
-li:hover {
+nav > ul > li:hover {
 	cursor: pointer;
 	color: #77FFFF;
 	background-color: #175EB8;
 }
 
 header {
-	/* 	background-color: aquamarine;
-	font-size: 33px;
-	color: aliceblue; */
 	grid-area: header;
 	align-self: center;
 	display: grid;
@@ -145,7 +142,7 @@ header {
 section {
 	grid-area: section;
 	display: grid;
-	grid-template-columns: 1fr 3fr 2fr 1fr;
+	grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
 	grid-auto-rows: 50px;
 	font-size: 17px;
 	place-items: center center;
@@ -157,9 +154,43 @@ section:hover {
 }
 
 footer {
-	/* 	background-color: darkslategray;
-	font-size: 33px;
-	color: aliceblue; */
 	background-color: #F3F3F3;
 	grid-area: footer;
+	font-weight: bold;
+	vertical-align: middle;
+	margin-top: auto;
 }
+
+#footer{
+	width: 100%;
+	height: 100%;
+}
+
+/* 검색 */
+#search{
+	background-color: #1A70DC;
+	width: 80%;
+}
+/*
+#keywordInput{
+	display: inline-block;
+    margin-top: 0;
+}
+#searchBtn{
+	background-color: transparent;
+	border: none;
+}
+#searchBtn:checked {
+	background: red;
+} */
+
+#pagination > li{
+	width: 20px;
+	min-width: 10px;
+}
+
+#pagination > li:hover {
+	color: black;
+	text-decoration: underline;
+}
+

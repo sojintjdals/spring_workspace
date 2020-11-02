@@ -80,4 +80,10 @@ public class ReplyBoardDAOImp extends EgovAbstractMapper implements ReplyBoardDA
 		// TODO Auto-generated method stub
 		return update("replyAnswerUpdate", vo);
 	}
+
+	@Override
+	public int replyDeleteAll(ReplyBoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return delete("replyDeleteAll", vo);
+	}
 }

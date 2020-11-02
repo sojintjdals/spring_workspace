@@ -206,9 +206,6 @@
 				<div class="td">
 					<input type="text" id="contents" name="contents">
 				</div>
-				<div class="uploadedList">
-					<div class="delbtn"></div>
-				</div>
 				<div class="td bt">
 					<input type="button" value="완료" id="writing"
 						class="button is-primary is-light"> <input type="button"

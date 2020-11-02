@@ -36,7 +36,8 @@ function createSEditor2(elIRField, htParams, elSeAppContainer){
 	}
 
 	var htDimension = {
-		nMinHeight:205,
+//		네이버스마트에디터 높이 상한선 조정
+		nMinHeight:400,
 		nMinWidth:parseInt(elIRField.style.minWidth, 10)||570,
 		nHeight:elIRField.style.height||elIRField.offsetHeight,
 		nWidth:elIRField.style.width||elIRField.offsetWidth

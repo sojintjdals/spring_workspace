@@ -30,20 +30,23 @@
 		<if test="searchType == 'c'.toString()">
 			and contents like concat('%',#{keyword},'%')
 		</if>
+		<if test="searchType == 'u'.toString()">
+			and concat(userName , '(', userId, ')') like
+			concat('%',#{keyword},'%') 
+		</if>
 		<if test="searchType == 'tc'.toString()">
-			and ( title like concat('%',#{keyword},'%') or contents
-			like concat('%',
-			#{keyword}, '%'))
+			and (title like concat('%',#{keyword},'%') or 
+			contents like concat('%', #{keyword}, '%')) 
 		</if>
 	</sql>
 	<!-- 사용되는곳 -->
 	<select id="listCriteria" resultType="TestBoardVO">
 	<![CDATA[
-	select 
-		seqno, title,
-		contents, regdate, cnt
+		select 
+			seqno, title, contents, 
+			regdate, userName, userId,cnt
 		FROM test_metami
-		where seqno > 0
+			where seqno > 0
 	]]>
 
 		<include refid="search"></include>
@@ -72,7 +75,7 @@
 	<![CDATA[
 	select 
 		seqno, title,
-		contents, regdate, cnt
+		contents, regdate, cnt, userId, userName
 		FROM test_metami
 		where seqno > 0
 		order by seqno desc, regdate desc
@@ -90,7 +93,8 @@
 	<insert id="testBoardInsert" parameterType="TestBoardVO">
 		INSERT INTO
 		test_metami
-		(title, contents, regdate, userName, userId, cnt)
+		(title, contents, regdate, userName, userId,
+		cnt)
 		VALUES(#{title}, #{contents},
 		now(), #{userName}, #{userId}, 0)
 		<selectKey resultType="int" keyProperty="seqno"
@@ -143,28 +147,13 @@
 		WHERE seqno= #{seqno}
 	</update>
 	<!-- 댓글부문 -->
-	<!-- 	<select id="replyList" resultType="TestBoardVO">
-		select * from reply_metami
-		where seqno = #{seqno}
-		order by rno desc
-	</select>
+	<!-- <select id="replyList" resultType="TestBoardVO"> select * from reply_metami 
+		where seqno = #{seqno} order by rno desc </select> <insert id="replyInsert" 
+		parameterType="TestBoardVO"> insert into reply_metami (seqno, replytext, 
+		replyer, regdate) values (#{seqno}, #{replytext}, #{replyer}, now()) </insert> 
+		<update id="replyUpdate" parameterType="TestBoardVO"> update reply_metami 
+		set replytext = #{replytext}, updatedate = now() where rno = #{rno} </update> 
+		<delete id="replyDelete" parameterType="TestBoardVO"> delete from reply_metami 
+		where rno = #{rno} </delete> -->
 
-	<insert id="replyInsert" parameterType="TestBoardVO">
-		insert into reply_metami
-		(seqno, replytext, replyer, regdate)
-		values (#{seqno}, #{replytext},
-		#{replyer}, now())
-	</insert>
-
-	<update id="replyUpdate" parameterType="TestBoardVO">
-		update reply_metami set
-		replytext = #{replytext},
-		updatedate = now() where rno = #{rno}
-	</update>
-
-	<delete id="replyDelete" parameterType="TestBoardVO">
-		delete from reply_metami
-		where rno = #{rno}
-	</delete> -->
-	
 </mapper>

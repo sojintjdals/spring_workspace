@@ -501,4 +501,25 @@ public class TestBoardController {
 		return returnValue;
 	}
 	/* 파일 관련 유틸 끝 */
+	//헤더 푸터
+	@RequestMapping("header.do")
+	public String Header() {
+		try {
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "test/header";
+	}
+	@RequestMapping("footer.do")
+	public String Footer() {
+		try {
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "test/footer";
+	}
 }

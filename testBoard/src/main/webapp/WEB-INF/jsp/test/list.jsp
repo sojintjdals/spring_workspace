@@ -78,19 +78,20 @@
 				<div class="top_tr">제목</div>
 				<div class="top_tr">등록일</div>
 				<div class="top_tr">조회수</div>
+				<div class="top_tr">글쓴이</div>
 				<!-- status.count는 1,2,3 순서로 숫자찍음 -->
 				<c:forEach items="${list}" var="result" varStatus="status">
 					<div class="td" data-id="${result.seqno}">${status.count}</div>
 					<div class="td" id="title" data-id="${result.seqno}">${result.title}</div>
 					<div class="td" data-id="${result.seqno}">${result.regdate}</div>
 					<div class="td" data-id="${result.seqno}">${result.cnt}</div>
+					<div class="td" data-id="${result.userName}(${result.userId})">${result.userName}(${result.userId})</div>
 				</c:forEach>
 				<div class="text-center">
-					<ul class="pagination">
+					<ul class="pagination" id="pagination">
 
 						<c:if test="${pageMaker.prev}">
-							<li><a
-								href="${pageMaker.makeSearch(pageMaker.startPage - 1)}">&laquo;</a></li>
+							<li><a href="${pageMaker.makeSearch(pageMaker.startPage - 1)}">&laquo;</a></li>
 						</c:if>
 
 						<c:forEach begin="${pageMaker.startPage }"
@@ -107,8 +108,8 @@
 
 					</ul>
 				</div>
-				<div class="box-body">
-					<select name="searchType">
+				<div class="box-body search" id="search">
+					<select name="searchType" class="searchType" id="searchType">
 						<option value="t">
 							<c:out value="${cri.searchType eq 't'? '' : '' }" />
 							제목
@@ -117,17 +118,22 @@
 							<c:out value="${cri.searchType eq 'c'? '' : '' }" />
 							내용
 						</option>
+						<option value="u">
+							<c:out value="${cri.searchType eq 'u'?'' : '' }" />
+							글쓴이
+						</option>
 						<option value="tc">
 							<c:out value="${cri.searchType eq 'tc'?'' : '' }" />
 							제목 또는 내용
 						</option>
-					</select> <input type="text" id="keywordInput"> <input type="button"
-						value="Search" name="Search" id="searchBtn">
+					</select> 
+					<input type="text" id="keywordInput" placeholder="검색해보세요!">
+					<input type="button" value="🔍" name="Search" id="searchBtn">
 				</div>
 				<c:if test="${not empty userId}">
 					<div></div>
 					<div></div>
-					<input type="button" class="button is-primary is-light" value="글쓰기"
+					<input type="button" class="button is-primary is-light" value="글쓰기" 
 						id="writing">
 				</c:if>
 			</section>

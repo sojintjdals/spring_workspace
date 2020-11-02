@@ -87,4 +87,10 @@ public class ReplyBoardServiceImp implements ReplyBoardService {
 		// TODO Auto-generated method stub
 		return dao.replyAnswerUpdate(vo);
 	}
+
+	@Override
+	public int replyDeleteAll(ReplyBoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.replyDeleteAll(vo);
+	}
 }

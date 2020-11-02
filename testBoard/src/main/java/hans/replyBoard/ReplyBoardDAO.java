@@ -30,4 +30,6 @@ public interface ReplyBoardDAO {
 	int replyAnswerUpdate(ReplyBoardVO vo) throws Exception;
 
 	List<ReplyBoardVO> replyAnswerList(int rno) throws Exception;
+
+	int replyDeleteAll(ReplyBoardVO vo) throws Exception;
 }
