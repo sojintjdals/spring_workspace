@@ -43,7 +43,15 @@
 		    <bean class="egovframework.com.cmm.interceptor.AuthenticInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
-
+	<!-- 직접만든인터셉터 -->
+	<bean id="Interceptor" class="hans.testBoard.Interceptor"></bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/doA.do"/>
+			<mvc:mapping path="/doB.do"/>
+			<bean class="hans.testBoard.Interceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
     <!-- Annotation 을 사용하지 않는 경우에 대한 MVC 처리 설정 -->
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
     

@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
@@ -48,6 +49,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -521,5 +524,26 @@ public class TestBoardController {
 			e.printStackTrace();
 		}
 		return "test/footer";
+	}
+	//인터셉터
+	@RequestMapping(value = "/doA.do", method = RequestMethod.GET)
+	public void doA(Locale locale, Model model) {
+		System.out.println("doA.............");
+	}
+	@RequestMapping(value = "/doB.do", method = RequestMethod.GET)
+	public void doB(Locale locale, Model model) {
+		System.out.println("doB.............");
+		model.addAttribute("result", "DOB RESULT");
+	}
+	public void postHandle(HttpServletRequest request,
+			HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception{
+		System.out.println("post handle............");
+	}
+	public boolean preHandle(HttpServletRequest request,
+			HttpServletResponse response, Object handler) throws Exception{
+		
+		System.out.println("post handle............");
+		return true;
 	}
 }
