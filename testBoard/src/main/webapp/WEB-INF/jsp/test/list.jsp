@@ -12,8 +12,10 @@
 <link rel="stylesheet"
 	href="<c:url value='/css/bulma-0.9.0/bulma.min.css' />">
 <script>
-	$(document).ready(
-			function() {
+	$(document).ready(function() {
+				$("#banner").click(function() {
+					window.location.href = "<c:url value='/test/listPage.do' />";
+				});
 				$(".td").click(function() {
 					$("#seqno").val($(this).data("id"));
 					$("#frm").attr("action", "/test/view.do");
@@ -21,22 +23,6 @@
 				});
 				$("#writing").click(function() {
 					$("#frm").attr("action", "/test/insert.do");
-					$("#frm").submit();
-				});
-				$("#insertMember").click(function() {
-					$("#frm").attr("action", "/test/mInsert.do");
-					$("#frm").submit();
-				});
-				$("#loginmember").click(function() {
-					$("#frm").attr("action", "/test/Login.do");
-					$("#frm").submit();
-				});
-				$("#logout").click(function() {
-					$("#frm").attr("action", "/test/logout.do");
-					$("#frm").submit();
-				});
-				$("#memberView").click(function() {
-					$("#frm").attr("action", "/test/mView.do");
 					$("#frm").submit();
 				});
 				if ($("#L1").val() == $("#h1").val()) {
@@ -48,19 +34,16 @@
 					alert(message);
 				}
 
-				$("#searchBtn").on(
-						"click",
-						function(event) {
-
-							self.location = "listPage.do"
-									+ '${pageMaker.makeQuery(1)}'
-									+ "&searchType="
-									+ $("select option:selected").val()
-									+ "&keyword=" + $('#keywordInput').val();
-						})
-			});
+				$("#searchBtn").on("click", function(event) {
+					self.location = "listPage.do"
+						+ '${pageMaker.makeQuery(1)}'
+						+ "&searchType="
+						+ $("select option:selected").val()
+						+ "&keyword=" + $('#keywordInput').val();
+				})
+		});
 </script>
-
+<script type="text/javascript" src="/testJs/header.js"></script>
 <link href="<c:url value="/testCss/reset.css" />" rel="stylesheet"
 	type="text/css">
 <link href="<c:url value="/testCss/list.css" />" rel="stylesheet"

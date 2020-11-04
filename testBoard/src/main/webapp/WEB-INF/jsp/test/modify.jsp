@@ -14,6 +14,9 @@
 3.0.1/handlebars.js"></script>
 <script>
 	$(document).ready(function() {
+		$("#banner").click(function() {
+			window.location.href = "<c:url value='/test/listPage.do' />";
+		});
 		$("#writing").click(function() {
 			editor_object.getById["contents"].exec("UPDATE_CONTENTS_FIELD",[]);
 			var title = $("#title").val();
@@ -156,6 +159,7 @@
 					});
 				});
 </script>
+<script type="text/javascript" src="/testJs/header.js"></script>
 <!-- 네이버스마트에디터 -->
 <script type="text/javascript"
 	src="/resources/smartEditor/js/HuskyEZCreator.js" charset="utf-8"></script>

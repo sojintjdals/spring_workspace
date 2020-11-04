@@ -1,10 +1,13 @@
 @charset "UTF-8";
 
-#h1 {
+#banner {
 	text-align: center;
 	color: gray;
 	font-size: 30px;
 	font-weight: bold;
+}
+#banner:hover{
+	cursor: pointer;
 }
 
 .top_tr {
@@ -48,7 +51,7 @@
 	min-width: 450px;
 }
 
-#modify, #back, #delete, #loginmember, #insertMember, #replyBtn {
+#modify, #back, #delete, #loginmember, #register, #replyBtn {
 	border: 1px solid;
 	font-weight: bold;
 	vertical-align: middle;
@@ -80,7 +83,7 @@ div {
 	/* fr의 경우 남은 공간을 fr의 숫자만큼 분배해준다.*/
 	grid-template-columns: 1fr repeat(1, minmax(300px, 1fr))
 		repeat(1, minmax(1200px, 2fr)) repeat(1, minmax(300px, 1fr)) 1fr;
-	grid-template-rows: 1fr 1fr 6fr 1fr;
+	grid-template-rows: repeat(1, minmax(100px, 1fr)) 1fr 6fr 1fr;
 	/* 
             grid-template를 이용하면 모든설정을 한번에 처리할 수 있다.
             grid-area롤 각각 영역을 설정하고 오른쪽 끝에 높이를 설정해준다.
@@ -156,12 +159,16 @@ ul {
 /* .replyVal{
 	padding: 0px;
 } */
+textarea{
+	resize: none;
+}
+
 .input, .title, #contents {
 	overflow: hidden;
 	word-wrap: break-word;
 }
 
-.replyAnswerVal2, .replyVal {
+.replyAnswerVal2, .replyVal, .replyUpdate {
 	overflow: scroll;
 	word-wrap: break-word;
 }
@@ -170,13 +177,12 @@ ul {
 	margin-top: 15px;
 }
 /* 스크롤바 디자인 */
-.replyAnswerVal2::-webkit-scrollbar, .replyVal::-webkit-scrollbar {
+::-webkit-scrollbar {
 	width: 10px;
 	background-color: white;
 }
 
-.replyAnswerVal2::-webkit-scrollbar-thumb, .replyVal::-webkit-scrollbar-thumb
-	{
+::-webkit-scrollbar-thumb {
 	background-color: #2f3542;
 	border-radius: 10px;
 	background-clip: padding-box;

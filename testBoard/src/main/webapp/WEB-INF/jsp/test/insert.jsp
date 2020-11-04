@@ -13,159 +13,138 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/
 3.0.1/handlebars.js"></script>
 <script>
-	$(document)
-			.ready(
-					function() {
+			$(document).ready(function() {
+				$("#banner").click(function() {
+					window.location.href = "<c:url value='/test/listPage.do' />";
+				});
+				$("#writing").click(function() {
+					editor_object.getById["contents"].exec("UPDATE_CONTENTS_FIELD",[]);
+						var title = $("#title").val();
+						var contents = $("#contents").val();
 
-						$("#writing")
-								.click(
-										function() {
-											editor_object.getById["contents"]
-													.exec(
-															"UPDATE_CONTENTS_FIELD",
-															[]);
-											var title = $("#title").val();
-											var contents = $("#contents").val();
-
-											if (title == "") {
-												alert("제목을 입력하세요");
-												document.frm.title.focus();
-												return;
-											}
-											if (contents == "") {
-												alert("내용을 입력하세요");
-												document.frm.contents.focus();
-												return;
-											}
-											alert($("#userName").val());
-											alert($("#userId").val());
-											$("#frm").attr("action",
-													"/test/insert.do");
-											document.frm.submit();
-										})
-						$("#back")
-								.click(
-										function() {
-											window.location.href = "<c:url value='/test/listPage.do' />";
-										})
-						//파일업로드 부분
-						$(".fileDrop").on("dragenter dragover",
-								function(event) {
-									event.preventDefault();
-								})
-						$(".fileDrop")
-								.on(
-										"drop",
-										function(event) {
-											event.preventDefault();
-
-											var files = event.originalEvent.dataTransfer.files;
-											var file = files[0];
-											var formData = new FormData();
-
-											formData.append("file", file);
-											//에이젝스부분
-											$
-													.ajax({
-														url : '/test/uploadAjax.do',
-														data : formData,
-														dataType : 'text',
-														processData : false,
-														contentType : false,
-														type : 'POST',
-														success : function(data) {
-															var str = "";
-															console.log(data);
-															console
-																	.log(checkImageType);
-															if (checkImageType(data)) {
-																str = "<div>"
-																		+ "<img src='/test/displayFile.do?fileName="
-																		+ getImageLink(data)
-																		+ "'/><small data-src="+data+">X</small></div>";
-															} else {
-																str = "<div><a href='/test/displayFile.do?fileName="
-																		+ data
-																		+ "'>"
-																		+ getOriginalName(data)
-																		+ "</a><small data-src="+data+">X</small></div>";
-																alert(data);
-															}
-															var str2 = "<input type='hidden' name='files' value='" + data +"'> ";
-															$(".uploadedList")
-																	.append(str);
-															$(".uploadedList")
-																	.append(
-																			str2);
-														}
-													});
-										});
-						$(".uploadedList").on("click", "small",
-								function(event) {
-									var that = $(this);
-
-									$.ajax({
-										url : "/test/deleteFile.do",
-										type : "post",
-										data : {
-											fileName : $(this).attr("data-src")
-										},
-										dataType : "text",
-										success : function(result) {
-											if (result == 'deleted') {
-												that.parent("div").remove();
-											}
-										}
-									});
-								});
-
-						function checkImageType(fileName) {
-
-							var pattern = /jpg|gif|png|jpeg/i;
-
-							return fileName.match(pattern);
+						if (title == "") {
+							alert("제목을 입력하세요");
+							document.frm.title.focus();
+							return;
 						}
+						if (contents == "") {
+							alert("내용을 입력하세요");
+							document.frm.contents.focus();
+							return;
+						}
+						alert($("#userName").val());
+						alert($("#userId").val());
+						$("#frm").attr("action",
+								"/test/insert.do");
+						document.frm.submit();
+				})
+				$("#back").click(function() {
+					window.location.href = "<c:url value='/test/listPage.do' />";
+				})
+					//파일업로드 부분
+				$(".fileDrop").on("dragenter dragover",	function(event) {
+					event.preventDefault();
+				})
+				$(".fileDrop").on("drop",function(event) {
+					event.preventDefault();
 
-						//ㅋㅋ ppt에 안나오누
-						function getOriginalName(fileName) {
+					var files = event.originalEvent.dataTransfer.files;
+					var file = files[0];
+					var formData = new FormData();
 
-							if (checkImageType(fileName)) {
-								return;
+					formData.append("file", file);
+					//에이젝스부분
+					$.ajax({
+						url : '/test/uploadAjax.do',
+						data : formData,
+						dataType : 'text',
+						processData : false,
+						contentType : false,
+						type : 'POST',
+						success : function(data) {
+							var str = "";
+							console.log(data);
+							console.log(checkImageType);
+							if (checkImageType(data)) {
+								str = "<div><img src='/test/displayFile.do?fileName="
+									+ getImageLink(data) 
+									+ "'/><small data-src="+data+">X</small></div>";
+							} else {
+								str = "<div><a href='/test/displayFile.do?fileName="+ data + "'>"
+									+ getOriginalName(data)
+									+ "</a><small data-src="+data+">X</small></div>";
+								alert(data);
 							}
-
-							var idx = fileName.indexOf("_") + 1;
-							return fileName.substr(idx);
-
+							var str2 = "<input type='hidden' name='files' value='" + data +"'> ";
+							$(".uploadedList").append(str);
+							$(".uploadedList").append(str2);
 						}
-
-						function getImageLink(fileName) {
-							if (!checkImageType(fileName)) {
-								return;
-							}
-							var front = fileName.substr(0, 12);
-							var end = fileName.substr(14);
-
-							return front + end;
-						}
-						/* <!--네이버 스마트에디터 --> */
-						var editor_object = [];
-
-						nhn.husky.EZCreator
-								.createInIFrame({
-									oAppRef : editor_object,
-									elPlaceHolder : "contents",
-									sSkinURI : "/resources/smartEditor/SmartEditor2Skin.html",
-									htParams : {
-										// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-										bUseToolbar : true,
-										// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-										bUseVerticalResizer : false,
-										// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-										bUseModeChanger : false,
+					});
+				});
+				$(".uploadedList").on("click", "small", function(event) {
+						var that = $(this);
+							$.ajax({
+								url : "/test/deleteFile.do",
+								type : "post",
+								data : {
+									fileName : $(this).attr("data-src")
+								},
+								dataType : "text",
+								success : function(result) {
+									if (result == 'deleted') {
+										that.parent("div").remove();
 									}
-								});
-					})
+								}
+							});
+				});
+
+				function checkImageType(fileName) {
+
+					var pattern = /jpg|gif|png|jpeg/i;
+
+					return fileName.match(pattern);
+				}
+
+					//ㅋㅋ ppt에 안나오누
+				function getOriginalName(fileName) {
+
+					if (checkImageType(fileName)) {
+						return;
+					}
+
+					var idx = fileName.indexOf("_") + 1;
+					return fileName.substr(idx);
+
+				}
+
+				function getImageLink(fileName) {
+					if (!checkImageType(fileName)) {
+						return;
+					}
+					var front = fileName.substr(0, 12);
+					var end = fileName.substr(14);
+
+					return front + end;
+				}
+				/* <!--네이버 스마트에디터 --> */
+				var editor_object = [];
+
+				nhn.husky.EZCreator.createInIFrame({
+					oAppRef : editor_object,
+					elPlaceHolder : "contents",
+					sSkinURI : "/resources/smartEditor/SmartEditor2Skin.html",
+					htParams : {
+						// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+						bUseToolbar : true,
+						// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+						bUseVerticalResizer : false,
+						// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+						bUseModeChanger : false,
+					}
+				});
+		})
 </script>
+<script type="text/javascript" src="/testJs/header.js"></script>
 <!-- 네이버스마트에디터 -->
 <script type="text/javascript"
 	src="/resources/smartEditor/js/HuskyEZCreator.js" charset="utf-8"></script>

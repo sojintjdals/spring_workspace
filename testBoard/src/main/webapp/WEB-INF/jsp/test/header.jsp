@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<head>
+<script type="text/javascript">
+
+</script>
+</head>
 <header>
 	<div></div>
 	<div></div>
-	<span id="h1">게시판1</span>
+	<span id="banner">MTMWEB</span>
 	<div>
 		<c:if test="${not empty userId}">
 			<div class="login">
@@ -20,8 +25,8 @@
 			<div class="login">
 				<button class="button is-primary is-light" name="loginmember"
 					id="loginmember">로그인</button>
-				<button class="button is-primary is-light" name="insertMember"
-					id="insertMember">회원가입</button>
+				<button class="button is-primary is-light" name="register"
+					id="register">회원가입</button>
 			</div>
 		</c:if>
 	</div>
