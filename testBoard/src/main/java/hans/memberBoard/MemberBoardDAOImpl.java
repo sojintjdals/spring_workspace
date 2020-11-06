@@ -48,4 +48,10 @@ public class MemberBoardDAOImpl extends EgovAbstractMapper implements MemberBoar
 		// TODO Auto-generated method stub
 		return update("MemberUpdate", vo);
 	}
+
+	@Override
+	public MemberBoardVO Login(MemberBoardVO vo) {
+		// TODO Auto-generated method stub
+		return selectOne("MemberBoardVO.loginCheck", vo);
+	}
 }

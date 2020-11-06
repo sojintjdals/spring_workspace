@@ -65,14 +65,14 @@
 			str += "<li class='reply'><span class='replyUser' id='replyUser' data-user=" + this.userId + ">" + this.userId + "</span> : "
 			+ "<span class='replyVal input' id='replyVal'>" + this.replytext + "</span>";
 			if(this.userId == userId){
-				str += "<input type='text' class='replyUpdate input' id='replyUpdate' name='replyUpdate' />"
+				str += "<textarea class='replyUpdate input' id='replyUpdate' name='replyUpdate' ></textarea>"
 				+ "<input type='button' class='replyMBtn' id='replyMBtn' name='replyMBtn' value='댓글수정' />"
 				+ "<input data-rno="+this.rno+" type='button' class='replyMBtn2' id='replyMBtn2' name='replyMBtn2' value='수정완료' />"
 				+ "<input type='button' class='replyCancel' id='replyCancel' name='replyCancel' value='취소' />"
 				+ "<span data-rno ="+this.rno+" class='X'>❌</span>"
 			} 
 			//답글부문
-			str += "<input type='text' class='replyAnswerVal input' id='replyAnswerVal' name='replyAnswerVal' />"
+			str += "<textarea class='replyAnswerVal input' id='replyAnswerVal' name='replyAnswerVal' ></textarea>"
 				+ "<input type='button' class='replyAnswer' id='replyAnswer' name='replyAnswer' value='답글' />"
 				+ "<input data-rno="+this.rno+" type='button' class='replyAnswer2' id='replyAnswer2' name='replyAnswer2' value='작성완료' />"
 				+ "<input type='button' class='replyCancel2' id='replyCancel2' name='replyCancel2' value='취소' /></li>"
@@ -129,7 +129,7 @@
 						+ "<span data-rno ="+this.rno+" class='X'>❌</span>"
 					} 
 					//답글부문
-					str += "<input type='text' class='replyAnswerVal input' id='replyAnswerVal' name='replyAnswerVal' />"
+					str += "<textarea class='replyAnswerVal input' id='replyAnswerVal' name='replyAnswerVal' ></textarea>"
 						+ "<input type='button' class='replyAnswer' id='replyAnswer' name='replyAnswer' value='답글' />"
 						+ "<input data-rno="+this.rno+" type='button' class='replyAnswer2' id='replyAnswer2' name='replyAnswer2' value='작성완료' />"
 						+ "<input type='button' class='replyCancel2' id='replyCancel2' name='replyCancel2' value='취소' /></li>"

@@ -24,14 +24,14 @@ public class MemberBoardController {
 	@Autowired
 	MemberBoardServiceImpl service;
 
-//로그인
+/*//로그인
 	@RequestMapping(value = "Login.do", method = RequestMethod.GET)
 	public String LoginGet() {
 		return "test/login";
-	}
+	}*/
 
 //로그인	
-	@RequestMapping(value = "Login.do", method = RequestMethod.POST)
+/*	@RequestMapping(value = "Login.do", method = RequestMethod.POST)
 	public ModelAndView LoginPost(@ModelAttribute MemberBoardVO vo, HttpSession session, RedirectAttributes rttr) {
 		boolean result = false;
 		String msg = null;
@@ -50,6 +50,28 @@ public class MemberBoardController {
 			rttr.addFlashAttribute("msg", "로그인에 실패하였습니다");
 			msg = "로그인에 실패하였습니다";
 		}
+		return mav;
+	}*/
+	//인터셉터 로그인
+	@RequestMapping(value = "Login.do", method = RequestMethod.GET)
+	public String LoginGet(@ModelAttribute MemberBoardVO vo) {
+		System.out.println("인터셉터 로그인 돌입");
+		return "test/login";
+	}
+	//인터셉터 로그인
+	@RequestMapping(value = "Login.do", method = RequestMethod.POST)
+	public ModelAndView LoginPost(MemberBoardVO vo, Model model) throws Exception {
+		
+		vo = service.Login(vo);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if(vo != null) {
+			model.addAttribute("MemberBoardVO", vo);
+			mav.setViewName("redirect:listPage.do");
+			System.out.println("인터셉터 로그인 성공");
+		}
+		
 		return mav;
 	}
 

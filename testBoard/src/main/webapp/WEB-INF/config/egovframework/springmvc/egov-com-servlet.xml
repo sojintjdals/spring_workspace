@@ -38,17 +38,18 @@
             <mvc:mapping path="/cop/com/*.do"/>
             <mvc:mapping path="/cop/bbs/*Master*.do"/>
             <mvc:mapping path="/uat/uia/*.do"/>
+            <!-- exculde-mapping은 해당경로를 거치지 않게하는 설정 -->
             <mvc:exclude-mapping path="/uat/uia/actionLogin.do"/>
             <mvc:exclude-mapping path="/uat/uia/egovLoginUsr.do"/>
 		    <bean class="egovframework.com.cmm.interceptor.AuthenticInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
 	<!-- 직접만든인터셉터 -->
-	<bean id="Interceptor" class="hans.testBoard.Interceptor"></bean>
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/doA.do"/>
-			<mvc:mapping path="/doB.do"/>
+			<mvc:mapping path="/test/doA.do"/>
+			<mvc:mapping path="/test/doB.do"/>
+			<mvc:mapping path="/test/Login.do"/>
 			<bean class="hans.testBoard.Interceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

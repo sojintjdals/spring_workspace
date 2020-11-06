@@ -527,23 +527,25 @@ public class TestBoardController {
 	}
 	//인터셉터
 	@RequestMapping(value = "/doA.do", method = RequestMethod.GET)
-	public void doA(Locale locale, Model model) {
+	public String doA(Locale locale, Model model) {
 		System.out.println("doA.............");
+		
+		return "test/footer";
 	}
 	@RequestMapping(value = "/doB.do", method = RequestMethod.GET)
-	public void doB(Locale locale, Model model) {
+	public void doB(Locale locale,   Model model) {
 		System.out.println("doB.............");
 		model.addAttribute("result", "DOB RESULT");
 	}
-	public void postHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception{
-		System.out.println("post handle............");
-	}
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler) throws Exception{
+/*	@RequestMapping(value = "/doA.do", method = RequestMethod.GET)
+	public ModelAndView interceptorTest() throws Exception{
 		
-		System.out.println("post handle............");
-		return true;
-	}
+		System.out.println("doA...............");
+		
+		ModelAndView mv = new ModelAndView("");
+		
+		logger.info("인터셉터 테스트입니다!");
+		
+		return mv;
+	}*/
 }

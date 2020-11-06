@@ -6,7 +6,8 @@ public interface MemberBoardDAO {
 //	MemberBoardVO memberBoardLogin(MemberBoardVO vo) throws Exception;
 	// 회원 로그인 체크
 	public MemberBoardVO loginCheck(MemberBoardVO vo);
-
+	// 인터셉터 로그인
+	public MemberBoardVO Login(MemberBoardVO vo);
 	// 회원 로그인 정보
 	public MemberBoardVO MemberView(MemberBoardVO vo);
 
