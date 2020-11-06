@@ -98,19 +98,10 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 	}
 	//인터셉터 로그인
 	@Override
-	public boolean Login(MemberBoardVO vo) throws Exception {
+	public MemberBoardVO Login(MemberBoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		vo.setPassword(EgovFileScrty.encryptPassword(vo.getPassword(), vo.getId()));
-		boolean result = false;
-		MemberBoardVO userInfo = dao.idCheck(vo);
-		if (userInfo != null) {
-			if (userInfo.getId() != null) {
-				result = true;
-
-				System.out.println(userInfo.getId());
-			}
-		}
-		return result;
+		return dao.Login(vo);
 	}
 
 }
