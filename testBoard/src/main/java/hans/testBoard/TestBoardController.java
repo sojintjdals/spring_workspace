@@ -132,7 +132,7 @@ public class TestBoardController {
 	public String smartEditer() {
 		return "test/smartEditer";
 	}
-
+	//인터셉터 인설트
 	@RequestMapping(value = "insert.do", method = RequestMethod.GET)
 	public String insertGet() {
 		return "test/insert";

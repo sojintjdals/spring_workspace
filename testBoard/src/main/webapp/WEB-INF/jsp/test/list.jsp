@@ -113,12 +113,16 @@
 					<input type="text" id="keywordInput" placeholder="검색해보세요!">
 					<input type="button" value="🔍" name="Search" id="searchBtn">
 				</div>
-				<c:if test="${not empty userId}">
+				<%-- <c:if test="${not empty userId}">
 					<div></div>
 					<div></div>
 					<input type="button" class="button is-primary is-light" value="글쓰기" 
 						id="writing">
-				</c:if>
+				</c:if> --%>
+					<div></div>
+					<div></div>
+					<input type="button" class="button is-primary is-light" value="글쓰기" 
+						id="writing">
 			</section>
 			<c:import url="footer.jsp"></c:import>
 		</div>

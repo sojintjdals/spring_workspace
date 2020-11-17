@@ -28,10 +28,10 @@ public class MemberBoardController {
 	@RequestMapping(value = "Login.do", method = RequestMethod.GET)
 	public String LoginGet() {
 		return "test/login";
-	}*/
+	}
 
 //로그인	
-/*	@RequestMapping(value = "Login.do", method = RequestMethod.POST)
+	@RequestMapping(value = "Login.do", method = RequestMethod.POST)
 	public ModelAndView LoginPost(@ModelAttribute MemberBoardVO vo, HttpSession session, RedirectAttributes rttr) {
 		boolean result = false;
 		String msg = null;
@@ -43,7 +43,7 @@ public class MemberBoardController {
 		}
 		ModelAndView mav = new ModelAndView();
 		if (result) {
-			System.out.println(result);
+			System.out.println("result: " + result);
 			mav.setViewName("redirect:listPage.do");
 		} else {
 			mav.setViewName("redirect:Login.do");
@@ -51,7 +51,19 @@ public class MemberBoardController {
 			msg = "로그인에 실패하였습니다";
 		}
 		return mav;
-	}*/
+	}
+	
+	//로그아웃
+		@RequestMapping("logout.do")
+		public ModelAndView logout(HttpSession session) {
+//			service.logout(session);
+			session.invalidate();
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirect:listPage.do");
+			mav.addObject("msg", "failure");
+			return mav;
+		}*/
+	
 	//인터셉터 로그인
 	@RequestMapping(value = "Login.do", method = RequestMethod.GET)
 	public String LoginGet(@ModelAttribute MemberBoardVO vo) {
@@ -68,24 +80,30 @@ public class MemberBoardController {
 		
 		if(vo != null) {
 			model.addAttribute("MemberBoardVO", vo);
+			model.addAttribute("userId", vo.getId());
+			model.addAttribute("userName", vo.getName());
+			model.addAttribute("userEmail", vo.getEmail());
 			mav.setViewName("redirect:listPage.do");
 			System.out.println("인터셉터 로그인 성공");
+		}else {
+			mav.setViewName("redirect:Login.do");
 		}
 		
 		return mav;
 	}
-
-//로그아웃
+	
+	//인터셉터 로그아웃
 	@RequestMapping("logout.do")
-	public ModelAndView logout(HttpSession session) {
-//		service.logout(session);
-		session.invalidate();
+	public ModelAndView logout(HttpSession session, MemberBoardVO vo, Model model) {
+		
 		ModelAndView mav = new ModelAndView();
+		
+		model.addAttribute("logout", "logout");
+		
 		mav.setViewName("redirect:listPage.do");
-		mav.addObject("msg", "failure");
 		return mav;
 	}
-
+	
 //회원가입
 	@RequestMapping(value = "mInsert.do", method = RequestMethod.GET)
 	public String mInsertGet() {
