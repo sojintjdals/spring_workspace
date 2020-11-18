@@ -49,9 +49,11 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/test/doA.do"/>
 			<mvc:mapping path="/test/doB.do"/>
-			<mvc:mapping path="/test/Login.do"/>
-			<mvc:mapping path="/test/logout.do"/>
+			<!-- <mvc:mapping path="/test/listPage.do"/> -->
+			<!-- <mvc:mapping path="/test/Login.do"/> -->
+			<!-- <mvc:mapping path="/test/logout.do"/> -->
 			<mvc:mapping path="/test/insert.do"/>
+			<mvc:mapping path="/reply/replyInsert.do"/>
 			<bean class="hans.testBoard.Interceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

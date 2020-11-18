@@ -72,19 +72,26 @@ public class MemberBoardController {
 	}
 	//인터셉터 로그인
 	@RequestMapping(value = "Login.do", method = RequestMethod.POST)
-	public ModelAndView LoginPost(MemberBoardVO vo, Model model) throws Exception {
+	public ModelAndView LoginPost(HttpServletRequest request, MemberBoardVO vo, Model model) throws Exception {
 		
 		vo = service.Login(vo);
 		
 		ModelAndView mav = new ModelAndView();
 		
+		HttpSession session = request.getSession();
+		
 		if(vo != null) {
-			model.addAttribute("MemberBoardVO", vo);
+			/*model.addAttribute("MemberBoardVO", vo);
 			model.addAttribute("userId", vo.getId());
 			model.addAttribute("userName", vo.getName());
-			model.addAttribute("userEmail", vo.getEmail());
+			model.addAttribute("userEmail", vo.getEmail());*/
+			
+			session.setAttribute("MemberBoardVO", vo);
+		/*	session.setAttribute("userId", vo.getId());
+			session.setAttribute("userName", vo.getName());
+			session.setAttribute("userEmail", vo.getEmail());*/
+			
 			mav.setViewName("redirect:listPage.do");
-			System.out.println("인터셉터 로그인 성공");
 		}else {
 			mav.setViewName("redirect:Login.do");
 		}
@@ -98,7 +105,7 @@ public class MemberBoardController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		model.addAttribute("logout", "logout");
+		session.invalidate();
 		
 		mav.setViewName("redirect:listPage.do");
 		return mav;

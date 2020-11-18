@@ -516,7 +516,7 @@
 					</div>
 					<div id="td">
 						<input type="hidden" name="userId" id="userId"
-							value="${userName}(${userId})">
+							value="${sessionScope.MemberBoardVO.name}(${sessionScope.MemberBoardVO.id})">
 					</div>
 					<div id="th">제목</div>
 					<div id="td">
@@ -539,15 +539,15 @@
 					</div>
 					<div class="bt" id="td">
 					<ul id="replyList" class="replyList"></ul>
-						<c:if test="${not empty userId}">
+						<%-- <c:if test="${not empty userId}"> --%>
 							<br>
 							<textarea class="textarea is-large" id="replytext"
 								name="replytext" placeholder="댓글을 입력해보세요!(줄바꿈:<br>)"></textarea>
 							<input type="button" id="replyBtn" name="replyBtn"
 								class="button is-primary is-light" value="댓글작성">
 
-						</c:if>
-						<c:if test="${result.userId eq userId}">
+						<%-- </c:if> --%>
+						<c:if test="${result.userId eq sessionScope.MemberBoardVO.id}">
 							<input type="button" class="button is-primary is-light"
 								value="수정" id="modify">
 							<input type="button" value="삭제" id="delete"

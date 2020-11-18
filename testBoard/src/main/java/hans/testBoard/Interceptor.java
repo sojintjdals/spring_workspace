@@ -15,25 +15,55 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class Interceptor extends HandlerInterceptorAdapter{
 
-	private static final String LOGIN = "login";
-	private static final String USERID = "userId";
-	private static final String USERNAME = "userName";
-	private static final String USEREMAIL = "userEmail";
 
 	private static final Logger logger = LoggerFactory.getLogger(Interceptor.class);
 
 	//전처리기는 클라이언트에서 컨트롤러로 요청할 때 가로채는 것이다. 쉽게 말해 컨트롤러가 호출되기 전에 실행되는 메서드이다.
-	@Override	
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler
-			, ModelAndView modelAndView) throws Exception {
-			
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		
+		Object loginCheck = session.getAttribute("loginCheck");
+		
+		System.out.println("로그인 체크: " + loginCheck);
+		
+		if(loginCheck == "loginCheck") {
+			logger.info("인터셉터 로그인 필요");
+			response.sendRedirect("/test/Login.do");
+			response.sendRedirect("/test/header.do");
+		}
+		
+		
+		super.postHandle(request, response, handler, modelAndView);
+	}
+	
+	//후처리기는 컨트롤러에서 클라이언트로 요청할 때 가로채는 것이다. 쉽게 말해 컨트롤러가 호출되고 난 후에 실행되는 메서드이다.
+	
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		// TODO Auto-generated method stub
+
+		return super.preHandle(request, response, handler);
+	}
+	
+	/*@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+		
+		HttpSession session = request.getSession();
+		session.getAttribute("MemberBoardVO");
+		session.getAttribute("userId");
+		session.getAttribute("userName");
+		session.getAttribute("userEmail");
+		
+		System.out.println(session.getAttribute("MemberBoardVO"));
+		System.out.println(session.getAttribute("userId"));
+		System.out.println(session.getAttribute("userName"));
+		System.out.println(session.getAttribute("userEmail"));
 		Object userVO = modelAndView.getModel().get("MemberBoardVO");
-		Object userId = modelAndView.getModel().get("userId");
-		Object userName = modelAndView.getModel().get("userName");
-		Object userEmail = modelAndView.getModel().get("userEmail");
-		Object logout = modelAndView.getModel().get("logout");
+		
 		
 		logger.info("userVO : " + userVO);
 		logger.info("userId : " + userId);
@@ -46,25 +76,13 @@ public class Interceptor extends HandlerInterceptorAdapter{
 			session.removeAttribute(LOGIN);
 		}else if(userVO != null) {
 			logger.info("new login success");
-			session.setAttribute(LOGIN, userVO);
-			session.setAttribute(USERID, userId);
-			session.setAttribute(USERNAME, userName);
-			session.setAttribute(USEREMAIL, userEmail);
-/*			response.sendRedirect("/");*/
+//			session.setAttribute(LOGIN, userVO);
+//			session.setAttribute(USERID, userId);
+//			session.setAttribute(USERNAME, userName);
+//			session.setAttribute(USEREMAIL, userEmail);
 			logger.info("인터셉터 로그인");
+		}else {
+			response.sendRedirect("/test/Login.do");
 		}
-	}
-	
-	//후처리기는 컨트롤러에서 클라이언트로 요청할 때 가로채는 것이다. 쉽게 말해 컨트롤러가 호출되고 난 후에 실행되는 메서드이다.
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		
-		HttpSession session = request.getSession();
-		
-		if(session.getAttribute(LOGIN) == null) {
-
-		}
-		
-		return true;
-	}
+	}*/
 }

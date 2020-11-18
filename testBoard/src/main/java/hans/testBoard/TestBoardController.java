@@ -26,6 +26,7 @@ import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.validator.Msg;
@@ -35,6 +36,7 @@ import org.omg.CORBA.PRIVATE_MEMBER;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +54,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import hans.memberBoard.MemberBoardVO;
 
 @Controller
 @RequestMapping("/test/*")
@@ -92,9 +96,18 @@ public class TestBoardController {
 	 */
 	// 리스트 관련
 	@RequestMapping(value = "/listPage.do", method = RequestMethod.GET)
-	public String seacrhListPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
-
+	public String seacrhListPage(@ModelAttribute("cri") Criteria cri, Model model, HttpServletRequest request)
+			throws Exception {
+		HttpSession session = request.getSession();
+		MemberBoardVO sessionVO = (MemberBoardVO) session.getAttribute("MemberBoardVO");
 		System.out.println(cri.toString());
+		if (sessionVO != null) {
+			System.out.println("세션이 있어요.");
+			System.out.println(sessionVO.getId());
+			System.out.println(sessionVO.getName());
+		} else {
+			System.out.println("세션이 비었어요.");
+		}
 
 		model.addAttribute("list", service.listCriteria(cri));
 		PageMaker pageMaker = new PageMaker();
@@ -132,15 +145,25 @@ public class TestBoardController {
 	public String smartEditer() {
 		return "test/smartEditer";
 	}
-	//인터셉터 인설트
+
+	// 인터셉터 인설트
 	@RequestMapping(value = "insert.do", method = RequestMethod.GET)
-	public String insertGet() {
+	public String insertGet(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+
+		if (session.getAttribute("MemberBoardVO") == null) {
+			session.setAttribute("loginCheck", "loginCheck");
+		}else {
+			session.setAttribute("loginCheck", "");
+		}
+
 		return "test/insert";
 	}
 
 	@RequestMapping(value = "insert.do", method = RequestMethod.POST)
-	public String insertPost(RedirectAttributes rttr, TestBoardVO vo) {
+	public String insertPost(RedirectAttributes rttr, TestBoardVO vo, HttpServletRequest request) {
 		int result = 0;
+
 		try {
 			result = service.InsertFile(vo);
 		} catch (Exception e) {
@@ -503,49 +526,54 @@ public class TestBoardController {
 
 		return returnValue;
 	}
+
 	/* 파일 관련 유틸 끝 */
-	//헤더 푸터
+	// 헤더 푸터
 	@RequestMapping("header.do")
 	public String Header() {
 		try {
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "test/header";
 	}
+
 	@RequestMapping("footer.do")
 	public String Footer() {
 		try {
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "test/footer";
 	}
-	//인터셉터
+
+	// 인터셉터
 	@RequestMapping(value = "/doA.do", method = RequestMethod.GET)
 	public String doA(Locale locale, Model model) {
 		System.out.println("doA.............");
-		
+
 		return "test/footer";
 	}
+
 	@RequestMapping(value = "/doB.do", method = RequestMethod.GET)
-	public void doB(Locale locale,   Model model) {
+	public void doB(Locale locale, Model model) {
 		System.out.println("doB.............");
 		model.addAttribute("result", "DOB RESULT");
 	}
-/*	@RequestMapping(value = "/doA.do", method = RequestMethod.GET)
-	public ModelAndView interceptorTest() throws Exception{
-		
-		System.out.println("doA...............");
-		
-		ModelAndView mv = new ModelAndView("");
-		
-		logger.info("인터셉터 테스트입니다!");
-		
-		return mv;
-	}*/
+	/*
+	 * @RequestMapping(value = "/doA.do", method = RequestMethod.GET) public
+	 * ModelAndView interceptorTest() throws Exception{
+	 * 
+	 * System.out.println("doA...............");
+	 * 
+	 * ModelAndView mv = new ModelAndView("");
+	 * 
+	 * logger.info("인터셉터 테스트입니다!");
+	 * 
+	 * return mv; }
+	 */
 }

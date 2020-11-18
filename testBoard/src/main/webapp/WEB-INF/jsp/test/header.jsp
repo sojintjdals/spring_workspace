@@ -22,14 +22,14 @@
 			</div>
 		</c:if> --%>
 		<!-- 인터셉터 로그인 버튼 부분 -->
-		<c:if test="${not empty login}">
+		<c:if test="${not empty sessionScope.MemberBoardVO}">
 			<div class="login">
-				<span id="welcome">${userName}(${userId})</span> <input
+				<span id="welcome">${sessionScope.MemberBoardVO.name}(${sessionScope.MemberBoardVO.id})</span> <input
 					type="button" name="logout" class="button is-primary is-light"
 					id="logout" value="로그아웃"> <input type="hidden" name="id"
-					id="id" data-id="${userId}" value="${userId}"> <input
+					id="id" data-id="${sessionScope.MemberBoardVO.id}" value="${sessionScope.MemberBoardVO.id}"> <input
 					type="button" name="memberView" class="button is-primary is-light"
-					data-id="${userId}" id="memberView" value="회원정보">
+					data-id="${sessionScope.MemberBoardVO.id}" id="memberView" value="회원정보">
 			</div>
 		</c:if>
 		<%-- <c:if test="${empty userId}">
@@ -40,7 +40,7 @@
 					id="register">회원가입</button>
 			</div>
 		</c:if> --%>
-		<c:if test="${empty login}">
+		<c:if test="${empty sessionScope.MemberBoardVO}">
 			<div class="login">
 				<button class="button is-primary is-light" name="loginmember"
 					id="loginmember">로그인</button>
