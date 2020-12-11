@@ -72,7 +72,7 @@ public class MemberBoardController {
 	}
 	//인터셉터 로그인
 	@RequestMapping(value = "Login.do", method = RequestMethod.POST)
-	public ModelAndView LoginPost(HttpServletRequest request, MemberBoardVO vo, Model model) throws Exception {
+	public ModelAndView LoginPost(HttpServletRequest request, MemberBoardVO vo, Model model, RedirectAttributes rttr) throws Exception {
 		
 		vo = service.Login(vo);
 		
@@ -93,6 +93,7 @@ public class MemberBoardController {
 			
 			mav.setViewName("redirect:listPage.do");
 		}else {
+			rttr.addFlashAttribute("msg", "로그인에 실패하였습니다");
 			mav.setViewName("redirect:Login.do");
 		}
 		

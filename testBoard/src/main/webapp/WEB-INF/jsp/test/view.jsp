@@ -202,8 +202,16 @@
 					success : function(result) {
 						 if (result == 'SUCCESS') { 
 							 /* location.reload();//새로고침 에이잭스라서 넣을필요없음 그냥넣어본거 */	
-							 rereplyInsert();
-							 } 
+							 	rereplyInsert();
+							 }else if(result == 'LOGINCHECK'){
+								 var answer = false;
+								 
+								 answer = confirm("글을 쓰려면 로그인을 해야합니다. 로그인창으로 이동하시겠습니까?");
+								 
+								 if(answer == true){
+									 window.location.href = "<c:url value='/test/Login.do' />";
+								 }
+							 }
 						}
 					});
 					$("#replytext").val('');

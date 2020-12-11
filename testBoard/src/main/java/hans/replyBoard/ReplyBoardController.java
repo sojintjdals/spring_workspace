@@ -34,16 +34,15 @@ public class ReplyBoardController {
 	private ReplyBoardService service;
 
 	// 댓글관련
-
+	
 	@RequestMapping(value = "/replyInsert.do")
 	public ResponseEntity<String> replyInsert(@RequestBody ReplyBoardVO vo, HttpServletRequest request,
 			RedirectAttributes rttr) throws Exception {
 
 		ResponseEntity<String> entity = null;
-			
+			 
 		HttpSession session = request.getSession();
-
-		int seqno = vo.getSeqno();
+		int seqno = vo.getSeqno(); 
 		int rno = vo.getRno();
 		String replytext = vo.getReplytext();
 		
@@ -54,7 +53,7 @@ public class ReplyBoardController {
 			System.out.println(session.getAttribute("loginCheck"));
 			mav.setViewName("redirect:Login.do");
 			rttr.addFlashAttribute("msg", "로그인에 실패하였습니다");
-			return mav;
+			entity = new ResponseEntity<String>("LOGINCHECK", HttpStatus.OK);
 		} else {
 			session.setAttribute("loginCheck", "");
 
@@ -65,14 +64,13 @@ public class ReplyBoardController {
 				System.out.println("댓글입력성공");
 				service.replyInsert(vo);
 				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-			} catch (Exception e) {
+			} catch (Exception e) {																																																									
 				// TODO: handle exception
 				System.out.println("댓글입력실패");
 				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 			}
-			return entity;
 		}
-
+		return entity;
 	}
 
 	@RequestMapping(value = "/replyDelete.do")
